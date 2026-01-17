@@ -1,11 +1,11 @@
 module.exports = {
-  title: 'ti-engine',
+  title: 'CentaurTechnicalIndicators-JS',
   tagline: 'JavaScript Technical Indicator package',
   url: 'https://ChironMind.github.io',
-  baseUrl: '/ti-engine/',
+  baseUrl: '/CentaurTechnicalIndicators-JS/',
 //  favicon: 'img/favicon.ico',
   organizationName: 'ChironMind', 
-  projectName: 'ti-engine', 
+  projectName: 'CentaurTechnicalIndicators-JS', 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
@@ -26,7 +26,7 @@ module.exports = {
   ],
   themeConfig: {
     navbar: {
-      title: 'ti-engine',
+      title: 'CentaurTechnicalIndicators-JS',
 //      logo: {
   //      alt: 'Site Logo',
     //    src: 'img/logo.svg',
@@ -36,7 +36,7 @@ module.exports = {
         {label: 'How-To', to: '/howto', position: 'left'},
         {label: 'API', href: '/api', position: 'left'},
 	{
-          href: 'https://github.com/chironmind/ti-engine',
+          href: 'https://github.com/chironmind/CentaurTechnicalIndicators-JS',
           label: 'GitHub',
           position: 'right'
         }
@@ -56,11 +56,11 @@ module.exports = {
         {
           title: 'Community',
           items: [
-            {label: 'GitHub', href: 'https://github.com/chironmind/ti-engine'},
+            {label: 'GitHub', href: 'https://github.com/chironmind/CentaurTechnicalIndicators-JS'},
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} ti-engine.`,
+      copyright: `Copyright © ${new Date().getFullYear()} CentaurTechnicalIndicators-JS.`,
     },
   },
 };
