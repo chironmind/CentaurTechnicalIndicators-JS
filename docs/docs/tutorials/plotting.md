@@ -31,7 +31,7 @@ Add interactive Plotly charts on top of indicators computed with CentaurTechnica
 
 Install dependencies:
 ```bash
-npm install centaur-technical-indicators-js plotly.js-dist-min
+npm install centaur-technical-indicators plotly.js-dist-min
 ```
 
 If you prefer a CDN for Plotly, you can include it via a script tag instead of installing.
@@ -76,7 +76,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 // If you installed Plotly via npm instead of CDN:
 // import Plotly from "plotly.js-dist-min";

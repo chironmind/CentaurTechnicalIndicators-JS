@@ -16,19 +16,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended especially in browsers):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -65,7 +65,7 @@ The default RSI often uses 14 previous prices. If you have 53 days of data you c
 - When a new price comes in, use the single function on the latest window.
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 

@@ -18,19 +18,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -66,7 +66,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 await init();
 
@@ -111,7 +111,7 @@ import {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 /**
  * Returns { model: DeviationModel, rating: number }
@@ -183,7 +183,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 await init();
 

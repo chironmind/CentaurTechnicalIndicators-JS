@@ -14,11 +14,11 @@ CentaurTechnicalIndicators-JS is a fast, type‑safe technical analysis toolkit 
 Install:
 
 ```bash
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 # or
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 # or
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize and use:
@@ -30,7 +30,7 @@ import init, {
   standardIndicators,
   momentumIndicators,
   candleIndicators,
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 // Browser: must await init(); Node: it's a no-op but safe to call.
 await init();

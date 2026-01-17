@@ -40,13 +40,13 @@ Keeping scope narrow:
 ## 📦 Requirements
 
 ```bash
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 ```
 
 Initialize (required in browsers; no-op in Node):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 await init();
 ```
 
@@ -74,7 +74,7 @@ const close = [
 ## 🔧 Define Model Types and Period
 
 ```js
-import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 const CONSTANT_MODELS = [
   ConstantModelType.SimpleMovingAverage,

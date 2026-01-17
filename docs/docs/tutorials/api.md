@@ -29,14 +29,14 @@ Series so far:
   - Node.js: v18+ (has global fetch). For older Node, install node-fetch.
 - Packages:
   ```bash
-  npm install centaur-technical-indicators-js
+  npm install centaur-technical-indicators
   # If plotting later:
   # npm install plotly.js-dist-min
   ```
 
 Initialize CentaurTechnicalIndicators-JS (required in browsers; no-op in Node):
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 await init();
 ```
 
@@ -72,7 +72,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 await init();
 
@@ -207,7 +207,7 @@ See: Tutorial 2: Visualizing Indicators with Plotly (JavaScript)
 When a new bar arrives, you can compute “single” values on the last N samples without recomputing the entire history:
 
 ```js
-import { momentumIndicators, otherIndicators, candleIndicators, ConstantModelType, DeviationModel } from "centaur-technical-indicators-js";
+import { momentumIndicators, otherIndicators, candleIndicators, ConstantModelType, DeviationModel } from "centaur-technical-indicators";
 
 // Example: update RSI(20), ATR(14), and Bands(20) on the latest bar
 function computeLatestSnapshots(close, high, low) {

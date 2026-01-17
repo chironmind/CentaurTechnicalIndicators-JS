@@ -30,11 +30,11 @@ This tutorial is the last in the series:
 ## 📦 Prerequisites
 
 - Modern browser (recommended for this tutorial)
-- `centaur-technical-indicators-js` (technical indicators)
+- `centaur-technical-indicators` (technical indicators)
 - `plotly.js-dist-min` (for charting)
 
 ```bash
-npm install centaur-technical-indicators-js plotly.js-dist-min
+npm install centaur-technical-indicators plotly.js-dist-min
 ```
 
 If you prefer using Plotly via CDN, you can include `<script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>` in your HTML.
@@ -78,7 +78,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 await init();
 

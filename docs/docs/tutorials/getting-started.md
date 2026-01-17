@@ -31,19 +31,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (required in browsers; a no-op in Node for parity):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 await init();
 ```
 
@@ -92,7 +92,7 @@ const low  = close.map(v => v - 20);
 Helpers live under movingAverage. Use MovingAverageType to pick Simple/Smoothed/Exponential.
 
 ```js
-import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators-js";
+import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators";
 await init();
 
 // Single: average over the full array
@@ -117,7 +117,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 await init();
 
 const periodBands = 20;
@@ -155,7 +155,7 @@ console.log("Last MCB (bulk):", lowerLast, middleLast, upperLast);
 Use momentumIndicators with a ConstantModelType (SmoothedMovingAverage is the common default in many RSI formulations).
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const periodRSI = 14;
@@ -181,7 +181,7 @@ console.log("Latest RSI (single):", rsiLatest);
 ATR measures average true range of movement; provide aligned arrays for previous close, high, and low. You can choose the averaging model (e.g., ExponentialMovingAverage) and a window.
 
 ```js
-import init, { otherIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { otherIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const periodATR = 14;

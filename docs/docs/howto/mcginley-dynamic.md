@@ -17,19 +17,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -63,7 +63,7 @@ If no previous McGinley Dynamic is available, use 0.0 for the first computation.
 import init, {
   candleIndicators,
   DeviationModel
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 await init();
 

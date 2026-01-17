@@ -48,7 +48,7 @@ export { MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
  * - Node: no-op (the Node target is loaded synchronously)
  *
  * @example
- * import init from "centaur-technical-indicators-js";
+ * import init from "centaur-technical-indicators";
  * await init();
  */
 export default function init(input?: any): Promise<void>;

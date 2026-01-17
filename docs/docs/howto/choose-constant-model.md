@@ -18,19 +18,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -62,7 +62,7 @@ The default model for the RSI is a smoothed moving average.
 We’ll test several models and compute the RSI series for each using the bulk function.
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 
@@ -93,7 +93,7 @@ Alignment note for bulk outputs:
 - rsiSeries[0] corresponds to the window anchoring at prices[period - 1]
 
 ```js
-import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 /**
  * Returns { model: ConstantModelType, rating: number }
@@ -147,7 +147,7 @@ function chooseBestRsiModel(prices, period = 14) {
 ### 4. Full example
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 

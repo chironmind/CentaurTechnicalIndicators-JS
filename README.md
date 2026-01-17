@@ -1,6 +1,6 @@
-[![npm version](https://img.shields.io/npm/v/centaur-technical-indicators-js?color=cb3837&logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators-js)
-[![npm downloads](https://img.shields.io/npm/dm/centaur-technical-indicators-js?logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators-js)
-[![Bundle size](https://img.shields.io/bundlephobia/minzip/centaur-technical-indicators-js?label=min+zip&logo=webpack)](https://bundlephobia.com/package/centaur-technical-indicators-js)
+[![npm version](https://img.shields.io/npm/v/centaur-technical-indicators?color=cb3837&logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
+[![npm downloads](https://img.shields.io/npm/dm/centaur-technical-indicators?logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/centaur-technical-indicators?label=min+zip&logo=webpack)](https://bundlephobia.com/package/centaur-technical-indicators)
 [![Node](https://img.shields.io/badge/Node-%3E%3D20-339933?logo=node.js&logoColor=white)](#)
 
 [![WASM](https://img.shields.io/badge/Target-WASM-6556C0?logo=webassembly&logoColor=white)](#)
@@ -30,13 +30,13 @@ Install from your package manager (example: local/private package)
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize and use (Node)
@@ -45,7 +45,7 @@ Initialize and use (Node)
 import init, {
   momentumIndicators,
   ConstantModelType,
-} from "centaur-technical-indicators-js";
+} from "centaur-technical-indicators";
 
 // Node: init() is a no-op, but safe to call
 await init();
@@ -63,7 +63,7 @@ console.log("RSI:", rsi); // 49.2537313432832
 Browser (bundlers)
 
 ```js
-import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators-js";
+import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators";
 
 await init(); // Required to load the WASM module in browsers
 
@@ -80,7 +80,7 @@ Browser (CDN - jsdelivr/unpkg)
 ```html
 <script type="module">
   // Note: Replace @latest with a specific version (e.g., @1.1.2) for production use
-  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators-js@latest/dist/web/centaur_technical_indicators.js';
+  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@latest/dist/web/centaur_technical_indicators.js';
   
   await init(); // Initialize WASM module
   
@@ -94,7 +94,7 @@ Browser (CDN - jsdelivr/unpkg)
   console.log("RSI:", rsi); // 49.2537313432832
   
   // Or use the index.web.js wrapper for the same namespaced API as bundlers
-  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators-js@1.1.2/index.web.js';
+  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.1.2/index.web.js';
 </script>
 ```
 
@@ -144,7 +144,7 @@ See the full set of function signatures via your editor or the included `index.d
 
 Relative Strength Index (RSI)
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const prices = [100.2, 100.46, 100.53, 100.38, 100.19, 100.21, 100.32, 100.28];
@@ -167,7 +167,7 @@ const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
 
 MACD (EMA/EMA)
 ```js
-import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 const macdLine = momentumIndicators.single.macdLine(
   [100.46, 100.53, 100.38, 100.19, 100.21],
@@ -232,8 +232,8 @@ This package includes three targets out of the box:
 
 Import surfaces:
 
-- Node: `import init, * as api from "centaur-technical-indicators-js/index.node.js";` (or default `import` from package root)
-- Bundler/Web: `import init, * as api from "centaur-technical-indicators-js";`
+- Node: `import init, * as api from "centaur-technical-indicators/index.node.js";` (or default `import` from package root)
+- Bundler/Web: `import init, * as api from "centaur-technical-indicators";`
 
 Initialization:
 

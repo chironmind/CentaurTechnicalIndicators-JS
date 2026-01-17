@@ -18,19 +18,19 @@ Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install centaur-technical-indicators-js
+npm install centaur-technical-indicators
 
 # yarn
-yarn add centaur-technical-indicators-js
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add centaur-technical-indicators-js
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "centaur-technical-indicators-js";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -60,7 +60,7 @@ const data = [
 The common/default RSI period is 14. We’ll iterate from 2 to 15 to see if a different period performs better (excluding 1 to avoid degenerate windows).
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 
@@ -84,7 +84,7 @@ Alignment note for bulk outputs:
 - For price index i (starting at period-1), the RSI index is rsiIdx = i - (period - 1)
 
 ```js
-import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 /**
  * Returns { period: number, rating: number }
@@ -132,7 +132,7 @@ function chooseBestRsiPeriod(prices, minP = 2, maxP = 15) {
 ### 4. Full example
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 
