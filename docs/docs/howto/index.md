@@ -1,6 +1,6 @@
 # How-To Guides
 
-Practical, step-by-step guides for using TI-Engine and optimizing your indicator workflows.
+Practical, step-by-step guides for using CentaurTechnicalIndicators-JS and optimizing your indicator workflows.
 
 ## Guides
 

@@ -1,10 +1,10 @@
 # Tutorial 4: Connecting to a Market Data API (JavaScript)
 
-Learn how to fetch fresh OHLCV data from a public API, convert it into plain arrays, and analyze it with ti-engine.  
+Learn how to fetch fresh OHLCV data from a public API, convert it into plain arrays, and analyze it with CentaurTechnicalIndicators-JS.  
 This workflow enables automated, up-to-date, and repeatable research pipelines — without CSVs.
 
 Series so far:
-- [01 - Getting started with ti-engine](getting-started.md)
+- [01 - Getting started with CentaurTechnicalIndicators-JS](getting-started.md)
 - [02 - Plotting your indicators](plotting.md)
 - [03 - More advanced use cases](advanced.md)
 - [04 - Getting data from an API] (this file)
@@ -15,7 +15,7 @@ Series so far:
 ## 🎯 Goal
 
 - Fetch OHLCV (Open, High, Low, Close, Volume) data from a free market data API
-- Parse JSON into arrays suitable for ti-engine
+- Parse JSON into arrays suitable for CentaurTechnicalIndicators-JS
 - Run your indicator pipeline on fresh data (SMA, Bands, RSI, ATR)
 - Understand alignment for rolling outputs
 - Optional: wire results into the Plotly dashboard from Tutorial 2
@@ -29,14 +29,14 @@ Series so far:
   - Node.js: v18+ (has global fetch). For older Node, install node-fetch.
 - Packages:
   ```bash
-  npm install ti-engine
+  npm install centaur-technical-indicators-js
   # If plotting later:
   # npm install plotly.js-dist-min
   ```
 
-Initialize ti-engine (required in browsers; no-op in Node):
+Initialize CentaurTechnicalIndicators-JS (required in browsers; no-op in Node):
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators-js";
 await init();
 ```
 
@@ -72,7 +72,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "ti-engine";
+} from "centaur-technical-indicators-js";
 
 await init();
 
@@ -207,7 +207,7 @@ See: Tutorial 2: Visualizing Indicators with Plotly (JavaScript)
 When a new bar arrives, you can compute “single” values on the last N samples without recomputing the entire history:
 
 ```js
-import { momentumIndicators, otherIndicators, candleIndicators, ConstantModelType, DeviationModel } from "ti-engine";
+import { momentumIndicators, otherIndicators, candleIndicators, ConstantModelType, DeviationModel } from "centaur-technical-indicators-js";
 
 // Example: update RSI(20), ATR(14), and Bands(20) on the latest bar
 function computeLatestSnapshots(close, high, low) {

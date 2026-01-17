@@ -1,4 +1,4 @@
-import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/ti_engine";
+import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
 
 // Re-export enums from the generated wasm types so consumers get both types and JSDoc.
 /**
@@ -9,7 +9,7 @@ import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "
  * - SimpleMovingMedian: median
  * - SimpleMovingMode: mode
  */
-export { ConstantModelType } from "./dist/bundler/ti_engine";
+export { ConstantModelType } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Price deviation models used to form bands around a central line.
@@ -22,14 +22,14 @@ export { ConstantModelType } from "./dist/bundler/ti_engine";
  * - LaplaceStdEquivalent
  * - CauchyIQRScale
  */
-export { DeviationModel } from "./dist/bundler/ti_engine";
+export { DeviationModel } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Trade direction for Parabolic SAR systems.
  * - Long: uptrend stop
  * - Short: downtrend stop
  */
-export { Position } from "./dist/bundler/ti_engine";
+export { Position } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Moving average type used by the movingAverage APIs.
@@ -40,7 +40,7 @@ export { Position } from "./dist/bundler/ti_engine";
  *
  * Note: The Rust Personalised variant is not exposed in this JS API.
  */
-export { MovingAverageType } from "./dist/bundler/ti_engine";
+export { MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Initialize the WASM module.
@@ -48,7 +48,7 @@ export { MovingAverageType } from "./dist/bundler/ti_engine";
  * - Node: no-op (the Node target is loaded synchronously)
  *
  * @example
- * import init from "ti-engine";
+ * import init from "centaur-technical-indicators-js";
  * await init();
  */
 export default function init(input?: any): Promise<void>;
@@ -484,7 +484,7 @@ export interface ChartTrends {
 
   /**
    * Segment the series into distinct trend ranges based on goodness-of-fit thresholds.
-   * Uses rust_ti 2.1.5 TrendBreakConfig parameters.
+   * Uses Centaur Technical Indicators 1.0.0 TrendBreakConfig parameters.
    * @param prices Prices series.
    * @param maxOutliers Maximum number of outliers allowed before trend break.
    * @param softAdjRSquaredMinimum Soft minimum adjusted R-squared threshold.

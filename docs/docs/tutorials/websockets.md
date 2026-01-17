@@ -1,4 +1,4 @@
-# Tutorial: Hybrid REST + WebSocket indicators — bulk & single calculations with ti-engine
+# Tutorial: Hybrid REST + WebSocket indicators — bulk & single calculations with CentaurTechnicalIndicators-JS
 
 In this tutorial, you’ll build a live dashboard that combines:
 - **Bulk** calculations (for historical data, batch analysis)
@@ -8,7 +8,7 @@ You’ll fetch historical OHLCV bars from Binance REST API, run full-series indi
 All charted live in Plotly.js!
 
 This tutorial is the last in the series:
-- [01 - Getting started with ti-engine](getting-started.md)
+- [01 - Getting started with CentaurTechnicalIndicators-JS](getting-started.md)
 - [02 - Visualizing Indicators with Plotly](plotting.md)
 - [03 - More advanced use cases](advanced.md)
 - [04 - Getting data from an API](api.md)
@@ -20,7 +20,7 @@ This tutorial is the last in the series:
 ## 🎯 What you’ll learn
 
 - How to fetch historical 1m bars from Binance via REST
-- How to run “bulk” indicator calculations with ti-engine
+- How to run “bulk” indicator calculations with CentaurTechnicalIndicators-JS
 - How to subscribe to live 1m bars via Binance WebSocket
 - How to run “single” indicator calculations on new bars
 - How to display a live technical dashboard with Plotly.js
@@ -30,11 +30,11 @@ This tutorial is the last in the series:
 ## 📦 Prerequisites
 
 - Modern browser (recommended for this tutorial)
-- `ti-engine` (technical indicators)
+- `centaur-technical-indicators-js` (technical indicators)
 - `plotly.js-dist-min` (for charting)
 
 ```bash
-npm install ti-engine plotly.js-dist-min
+npm install centaur-technical-indicators-js plotly.js-dist-min
 ```
 
 If you prefer using Plotly via CDN, you can include `<script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>` in your HTML.
@@ -78,7 +78,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "ti-engine";
+} from "centaur-technical-indicators-js";
 
 await init();
 

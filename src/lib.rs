@@ -11,20 +11,20 @@ pub enum ConstantModelType {
     SimpleMovingMode,
 }
 
-impl From<ConstantModelType> for rust_ti::ConstantModelType {
+impl From<ConstantModelType> for centaur_technical_indicators::ConstantModelType {
     fn from(v: ConstantModelType) -> Self {
         match v {
             ConstantModelType::SimpleMovingAverage => {
-                rust_ti::ConstantModelType::SimpleMovingAverage
+                centaur_technical_indicators::ConstantModelType::SimpleMovingAverage
             }
             ConstantModelType::SmoothedMovingAverage => {
-                rust_ti::ConstantModelType::SmoothedMovingAverage
+                centaur_technical_indicators::ConstantModelType::SmoothedMovingAverage
             }
             ConstantModelType::ExponentialMovingAverage => {
-                rust_ti::ConstantModelType::ExponentialMovingAverage
+                centaur_technical_indicators::ConstantModelType::ExponentialMovingAverage
             }
-            ConstantModelType::SimpleMovingMedian => rust_ti::ConstantModelType::SimpleMovingMedian,
-            ConstantModelType::SimpleMovingMode => rust_ti::ConstantModelType::SimpleMovingMode,
+            ConstantModelType::SimpleMovingMedian => centaur_technical_indicators::ConstantModelType::SimpleMovingMedian,
+            ConstantModelType::SimpleMovingMode => centaur_technical_indicators::ConstantModelType::SimpleMovingMode,
         }
     }
 }
@@ -42,19 +42,19 @@ pub enum DeviationModel {
     CauchyIQRScale,
 }
 
-impl From<DeviationModel> for rust_ti::DeviationModel {
+impl From<DeviationModel> for centaur_technical_indicators::DeviationModel {
     fn from(v: DeviationModel) -> Self {
         match v {
-            DeviationModel::StandardDeviation => rust_ti::DeviationModel::StandardDeviation,
-            DeviationModel::MeanAbsoluteDeviation => rust_ti::DeviationModel::MeanAbsoluteDeviation,
+            DeviationModel::StandardDeviation => centaur_technical_indicators::DeviationModel::StandardDeviation,
+            DeviationModel::MeanAbsoluteDeviation => centaur_technical_indicators::DeviationModel::MeanAbsoluteDeviation,
             DeviationModel::MedianAbsoluteDeviation => {
-                rust_ti::DeviationModel::MedianAbsoluteDeviation
+                centaur_technical_indicators::DeviationModel::MedianAbsoluteDeviation
             }
-            DeviationModel::ModeAbsoluteDeviation => rust_ti::DeviationModel::ModeAbsoluteDeviation,
-            DeviationModel::UlcerIndex => rust_ti::DeviationModel::UlcerIndex,
-            DeviationModel::LogStandardDeviation => rust_ti::DeviationModel::LogStandardDeviation,
-            DeviationModel::LaplaceStdEquivalent => rust_ti::DeviationModel::LaplaceStdEquivalent,
-            DeviationModel::CauchyIQRScale => rust_ti::DeviationModel::CauchyIQRScale,
+            DeviationModel::ModeAbsoluteDeviation => centaur_technical_indicators::DeviationModel::ModeAbsoluteDeviation,
+            DeviationModel::UlcerIndex => centaur_technical_indicators::DeviationModel::UlcerIndex,
+            DeviationModel::LogStandardDeviation => centaur_technical_indicators::DeviationModel::LogStandardDeviation,
+            DeviationModel::LaplaceStdEquivalent => centaur_technical_indicators::DeviationModel::LaplaceStdEquivalent,
+            DeviationModel::CauchyIQRScale => centaur_technical_indicators::DeviationModel::CauchyIQRScale,
         }
     }
 }
@@ -67,13 +67,13 @@ pub enum MovingAverageType {
     Exponential,
 }
 
-// Conversion to the internal RustTI type
-impl From<MovingAverageType> for rust_ti::MovingAverageType {
+// Conversion to the internal Centaur Technical Indicators type
+impl From<MovingAverageType> for centaur_technical_indicators::MovingAverageType {
     fn from(value: MovingAverageType) -> Self {
         match value {
-            MovingAverageType::Simple => rust_ti::MovingAverageType::Simple,
-            MovingAverageType::Smoothed => rust_ti::MovingAverageType::Smoothed,
-            MovingAverageType::Exponential => rust_ti::MovingAverageType::Exponential,
+            MovingAverageType::Simple => centaur_technical_indicators::MovingAverageType::Simple,
+            MovingAverageType::Smoothed => centaur_technical_indicators::MovingAverageType::Smoothed,
+            MovingAverageType::Exponential => centaur_technical_indicators::MovingAverageType::Exponential,
         }
     }
 }
@@ -85,16 +85,16 @@ pub enum Position {
     Short,
 }
 
-impl From<Position> for rust_ti::Position {
+impl From<Position> for centaur_technical_indicators::Position {
     fn from(v: Position) -> Self {
         match v {
-            Position::Long => rust_ti::Position::Long,
-            Position::Short => rust_ti::Position::Short,
+            Position::Long => centaur_technical_indicators::Position::Long,
+            Position::Short => centaur_technical_indicators::Position::Short,
         }
     }
 }
 
-// Mirror RustTI structure
+// Mirror Centaur Technical Indicators structure
 pub mod candle_indicators;
 pub mod chart_trends;
 pub mod correlation_indicators;

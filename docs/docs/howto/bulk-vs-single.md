@@ -1,6 +1,6 @@
-# When to choose bulk vs single functions in ti-engine
+# When to choose bulk vs single functions in CentaurTechnicalIndicators-JS
 
-This guide shows when to choose the bulk version of a function or the single version of a function using the JavaScript package ti-engine.
+This guide shows when to choose the bulk version of a function or the single version of a function using the JavaScript package CentaurTechnicalIndicators-JS.
 
 ---
 
@@ -12,23 +12,23 @@ This guide shows when to choose the bulk version of a function or the single ver
 
 ## 📦 Requirements
 
-Install ti-engine:
+Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators-js
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators-js
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators-js
 ```
 
 Initialize (recommended especially in browsers):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators-js";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -65,7 +65,7 @@ The default RSI often uses 14 previous prices. If you have 53 days of data you c
 - When a new price comes in, use the single function on the latest window.
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "ti-engine";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
 
 await init();
 

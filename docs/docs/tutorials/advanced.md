@@ -1,4 +1,4 @@
-# Tutorial 3: Advanced Usage of ti-engine (RSI variant evaluation)
+# Tutorial 3: Advanced Usage of CentaurTechnicalIndicators-JS (RSI variant evaluation)
 
 In this tutorial we go deep on just one indicator: the Relative Strength Index (RSI).  
 We will systematically compare different ConstantModelType variants and a fixed period, score their signals, and rank configurations.  
@@ -40,13 +40,13 @@ Keeping scope narrow:
 ## 📦 Requirements
 
 ```bash
-npm install ti-engine
+npm install centaur-technical-indicators-js
 ```
 
 Initialize (required in browsers; no-op in Node):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators-js";
 await init();
 ```
 
@@ -74,7 +74,7 @@ const close = [
 ## 🔧 Define Model Types and Period
 
 ```js
-import { momentumIndicators, ConstantModelType } from "ti-engine";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators-js";
 
 const CONSTANT_MODELS = [
   ConstantModelType.SimpleMovingAverage,

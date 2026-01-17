@@ -6,22 +6,22 @@ use wasm_bindgen::JsValue;
 
 #[wasm_bindgen(js_name = trend_single_aroonUp)]
 pub fn trend_single_aroon_up(highs: Vec<f64>) -> f64 {
-    rust_ti::trend_indicators::single::aroon_up(&highs)
+    centaur_technical_indicators::trend_indicators::single::aroon_up(&highs)
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonDown)]
 pub fn trend_single_aroon_down(lows: Vec<f64>) -> f64 {
-    rust_ti::trend_indicators::single::aroon_down(&lows)
+    centaur_technical_indicators::trend_indicators::single::aroon_down(&lows)
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonOscillator)]
 pub fn trend_single_aroon_oscillator(aroon_up: f64, aroon_down: f64) -> f64 {
-    rust_ti::trend_indicators::single::aroon_oscillator(aroon_up, aroon_down)
+    centaur_technical_indicators::trend_indicators::single::aroon_oscillator(aroon_up, aroon_down)
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonIndicator)]
 pub fn trend_single_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>) -> Array {
-    let (up, down, osc) = rust_ti::trend_indicators::single::aroon_indicator(&highs, &lows);
+    let (up, down, osc) = centaur_technical_indicators::trend_indicators::single::aroon_indicator(&highs, &lows);
     let arr = Array::new();
     arr.push(&JsValue::from_f64(up));
     arr.push(&JsValue::from_f64(down));
@@ -36,7 +36,7 @@ pub fn trend_single_long_parabolic_time_price_system(
     acceleration_factor: f64,
     low: f64,
 ) -> f64 {
-    rust_ti::trend_indicators::single::long_parabolic_time_price_system(
+    centaur_technical_indicators::trend_indicators::single::long_parabolic_time_price_system(
         previous_sar,
         extreme_point,
         acceleration_factor,
@@ -51,7 +51,7 @@ pub fn trend_single_short_parabolic_time_price_system(
     acceleration_factor: f64,
     high: f64,
 ) -> f64 {
-    rust_ti::trend_indicators::single::short_parabolic_time_price_system(
+    centaur_technical_indicators::trend_indicators::single::short_parabolic_time_price_system(
         previous_sar,
         extreme_point,
         acceleration_factor,
@@ -66,7 +66,7 @@ pub fn trend_single_volume_price_trend(
     volume: f64,
     previous_volume_price_trend: f64,
 ) -> f64 {
-    rust_ti::trend_indicators::single::volume_price_trend(
+    centaur_technical_indicators::trend_indicators::single::volume_price_trend(
         current_price,
         previous_price,
         volume,
@@ -81,7 +81,7 @@ pub fn trend_single_true_strength_index(
     first_period: usize,
     second_constant_model: crate::ConstantModelType,
 ) -> f64 {
-    rust_ti::trend_indicators::single::true_strength_index(
+    centaur_technical_indicators::trend_indicators::single::true_strength_index(
         &prices,
         first_constant_model.into(),
         first_period,
@@ -93,7 +93,7 @@ pub fn trend_single_true_strength_index(
 
 #[wasm_bindgen(js_name = trend_bulk_aroonUp)]
 pub fn trend_bulk_aroon_up(highs: Vec<f64>, period: usize) -> Array {
-    let data = rust_ti::trend_indicators::bulk::aroon_up(&highs, period);
+    let data = centaur_technical_indicators::trend_indicators::bulk::aroon_up(&highs, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -103,7 +103,7 @@ pub fn trend_bulk_aroon_up(highs: Vec<f64>, period: usize) -> Array {
 
 #[wasm_bindgen(js_name = trend_bulk_aroonDown)]
 pub fn trend_bulk_aroon_down(lows: Vec<f64>, period: usize) -> Array {
-    let data = rust_ti::trend_indicators::bulk::aroon_down(&lows, period);
+    let data = centaur_technical_indicators::trend_indicators::bulk::aroon_down(&lows, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -113,7 +113,7 @@ pub fn trend_bulk_aroon_down(lows: Vec<f64>, period: usize) -> Array {
 
 #[wasm_bindgen(js_name = trend_bulk_aroonOscillator)]
 pub fn trend_bulk_aroon_oscillator(aroon_up: Vec<f64>, aroon_down: Vec<f64>) -> Array {
-    let data = rust_ti::trend_indicators::bulk::aroon_oscillator(&aroon_up, &aroon_down);
+    let data = centaur_technical_indicators::trend_indicators::bulk::aroon_oscillator(&aroon_up, &aroon_down);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -123,7 +123,7 @@ pub fn trend_bulk_aroon_oscillator(aroon_up: Vec<f64>, aroon_down: Vec<f64>) -> 
 
 #[wasm_bindgen(js_name = trend_bulk_aroonIndicator)]
 pub fn trend_bulk_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>, period: usize) -> Array {
-    let data = rust_ti::trend_indicators::bulk::aroon_indicator(&highs, &lows, period);
+    let data = centaur_technical_indicators::trend_indicators::bulk::aroon_indicator(&highs, &lows, period);
     let out = Array::new();
     for (up, down, osc) in data {
         let t = Array::new();
@@ -145,7 +145,7 @@ pub fn trend_bulk_parabolic_time_price_system(
     start_position: crate::Position,
     previous_sar: f64,
 ) -> Array {
-    let data = rust_ti::trend_indicators::bulk::parabolic_time_price_system(
+    let data = centaur_technical_indicators::trend_indicators::bulk::parabolic_time_price_system(
         &highs,
         &lows,
         acceleration_factor_start,
@@ -169,7 +169,7 @@ pub fn trend_bulk_directional_movement_system(
     period: usize,
     constant_model_type: crate::ConstantModelType,
 ) -> Array {
-    let data = rust_ti::trend_indicators::bulk::directional_movement_system(
+    let data = centaur_technical_indicators::trend_indicators::bulk::directional_movement_system(
         &highs,
         &lows,
         &close,
@@ -194,7 +194,7 @@ pub fn trend_bulk_volume_price_trend(
     volumes: Vec<f64>,
     previous_volume_price_trend: f64,
 ) -> Array {
-    let data = rust_ti::trend_indicators::bulk::volume_price_trend(
+    let data = centaur_technical_indicators::trend_indicators::bulk::volume_price_trend(
         &prices,
         &volumes,
         previous_volume_price_trend,
@@ -214,7 +214,7 @@ pub fn trend_bulk_true_strength_index(
     second_constant_model: crate::ConstantModelType,
     second_period: usize,
 ) -> Array {
-    let data = rust_ti::trend_indicators::bulk::true_strength_index(
+    let data = centaur_technical_indicators::trend_indicators::bulk::true_strength_index(
         &prices,
         first_constant_model.into(),
         first_period,

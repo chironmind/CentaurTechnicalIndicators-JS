@@ -6,7 +6,7 @@ use wasm_bindgen::JsValue;
 
 #[wasm_bindgen(js_name = ma_single_movingAverage)]
 pub fn ma_single_moving_average(prices: Vec<f64>, ma_type: crate::MovingAverageType) -> f64 {
-    rust_ti::moving_average::single::moving_average(&prices, ma_type.into())
+    centaur_technical_indicators::moving_average::single::moving_average(&prices, ma_type.into())
 }
 
 #[wasm_bindgen(js_name = ma_single_mcginleyDynamic)]
@@ -15,7 +15,7 @@ pub fn ma_single_mcginley_dynamic(
     previous_mcginley_dynamic: f64,
     period: usize,
 ) -> f64 {
-    rust_ti::moving_average::single::mcginley_dynamic(
+    centaur_technical_indicators::moving_average::single::mcginley_dynamic(
         latest_price,
         previous_mcginley_dynamic,
         period,
@@ -30,7 +30,7 @@ pub fn ma_bulk_moving_average(
     ma_type: crate::MovingAverageType,
     period: usize,
 ) -> Array {
-    let data = rust_ti::moving_average::bulk::moving_average(&prices, ma_type.into(), period);
+    let data = centaur_technical_indicators::moving_average::bulk::moving_average(&prices, ma_type.into(), period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -45,7 +45,7 @@ pub fn ma_bulk_mcginley_dynamic(
     period: usize,
 ) -> Array {
     let data =
-        rust_ti::moving_average::bulk::mcginley_dynamic(&prices, previous_mcginley_dynamic, period);
+        centaur_technical_indicators::moving_average::bulk::mcginley_dynamic(&prices, previous_mcginley_dynamic, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

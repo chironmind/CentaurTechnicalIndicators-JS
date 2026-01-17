@@ -3,7 +3,7 @@
 Build on Tutorial 1 by adding rich, interactive technical charts in the browser.  
 
 This tutorial is the second in the series:
-- [01 - Getting started with ti-engine](getting-started.md)
+- [01 - Getting started with CentaurTechnicalIndicators-JS](getting-started.md)
 - 02 - Visualizing Indicators with Plotly (this page)
 - [03 - More advanced use cases](advanced.md)
 - [04 - Getting data from an API](api.md)
@@ -13,7 +13,7 @@ This tutorial is the second in the series:
 
 ## 🎯 Goal
 
-Add interactive Plotly charts on top of indicators computed with ti-engine:
+Add interactive Plotly charts on top of indicators computed with CentaurTechnicalIndicators-JS:
 
 - Candlestick chart from inline OHLC data
 - Overlay Simple Moving Average (SMA)
@@ -27,11 +27,11 @@ Add interactive Plotly charts on top of indicators computed with ti-engine:
 ## 📦 Prerequisites
 
 - A modern browser and a bundler (Vite, Webpack, etc.) for ESM modules
-- ti-engine and Plotly.js
+- CentaurTechnicalIndicators-JS and Plotly.js
 
 Install dependencies:
 ```bash
-npm install ti-engine plotly.js-dist-min
+npm install centaur-technical-indicators-js plotly.js-dist-min
 ```
 
 If you prefer a CDN for Plotly, you can include it via a script tag instead of installing.
@@ -76,7 +76,7 @@ import init, {
   ConstantModelType,
   DeviationModel,
   MovingAverageType
-} from "ti-engine";
+} from "centaur-technical-indicators-js";
 
 // If you installed Plotly via npm instead of CDN:
 // import Plotly from "plotly.js-dist-min";
@@ -363,6 +363,6 @@ Rolling indicators start later; we aligned to the right using x slices:
 
 ## ✅ Next step
 
-[Advanced use cases to ti-engine](advanced.md)
+[Advanced use cases to CentaurTechnicalIndicators-JS](advanced.md)
 
 Happy charting! 📈🦀

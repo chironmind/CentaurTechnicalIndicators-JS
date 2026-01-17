@@ -1,6 +1,6 @@
-# TI Engine
+# CentaurTechnicalIndicators-JS
 
-TI Engine is a fast, type‑safe technical analysis toolkit for JavaScript/TypeScript. It’s built in Rust, compiled to WebAssembly, and exposed through a clean TS API. Use it to compute classic indicators (RSI, MACD, Bollinger Bands, ADX, ATR, etc.), bands and envelopes, McGinley Dynamic variants, Ichimoku, trend breakdowns, correlation, and more.
+CentaurTechnicalIndicators-JS is a fast, type‑safe technical analysis toolkit for JavaScript/TypeScript. It’s built in Rust, compiled to WebAssembly, and exposed through a clean TS API. Use it to compute classic indicators (RSI, MACD, Bollinger Bands, ADX, ATR, etc.), bands and envelopes, McGinley Dynamic variants, Ichimoku, trend breakdowns, correlation, and more.
 
 - Runs in Node and the browser
 - Strongly typed API with rich JSDoc
@@ -14,11 +14,11 @@ TI Engine is a fast, type‑safe technical analysis toolkit for JavaScript/TypeS
 Install:
 
 ```bash
-npm install ti-engine
+npm install centaur-technical-indicators-js
 # or
-yarn add ti-engine
+yarn add centaur-technical-indicators-js
 # or
-pnpm add ti-engine
+pnpm add centaur-technical-indicators-js
 ```
 
 Initialize and use:
@@ -30,7 +30,7 @@ import init, {
   standardIndicators,
   momentumIndicators,
   candleIndicators,
-} from "ti-engine";
+} from "centaur-technical-indicators-js";
 
 // Browser: must await init(); Node: it's a no-op but safe to call.
 await init();
@@ -107,7 +107,7 @@ Key types (re-exported for convenience):
 
 Dive in with step‑by‑step guides. 
 
-- [01 - Getting started with ti-engine](tutorials/getting-started.md)
+- [01 - Getting started with CentaurTechnicalIndicators-JS](tutorials/getting-started.md)
 - [02 - Visualizing Indicators with Plotly](tutorials/plotting.md)
 - [03 - More advanced use cases](tutorials/advanced.md)
 - [04 - Getting data from an API](tutorials/api.md)
@@ -132,14 +132,14 @@ Task‑oriented recipes and snippets.
 [API docs](api/index)
 
 For raw type declarations, see:
-- Source: https://github.com/chironmind/ti-engine/blob/main/index.d.ts
+- Source: https://github.com/chironmind/CentaurTechnicalIndicators-JS/blob/main/index.d.ts
 
 ---
 
 ## Contributing
 
 Issues, feature requests, and contributions are welcome.  
-Repository: https://github.com/chironmind/ti-engine
+Repository: https://github.com/chironmind/CentaurTechnicalIndicators-JS
 
 ---
 

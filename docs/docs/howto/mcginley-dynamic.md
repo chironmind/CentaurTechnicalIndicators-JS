@@ -1,6 +1,6 @@
-# How to use McGinley Dynamic in ti-engine
+# How to use McGinley Dynamic in CentaurTechnicalIndicators-JS
 
-This guide shows how to use the McGinley Dynamic bands with the JavaScript package ti-engine.  
+This guide shows how to use the McGinley Dynamic bands with the JavaScript package CentaurTechnicalIndicators-JS.  
 The same logic can be applied to other McGinley Dynamic functions.
 
 ---
@@ -13,23 +13,23 @@ The same logic can be applied to other McGinley Dynamic functions.
 
 ## 📦 Requirements
 
-Install ti-engine:
+Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators-js
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators-js
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators-js
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators-js";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -63,7 +63,7 @@ If no previous McGinley Dynamic is available, use 0.0 for the first computation.
 import init, {
   candleIndicators,
   DeviationModel
-} from "ti-engine";
+} from "centaur-technical-indicators-js";
 
 await init();
 
