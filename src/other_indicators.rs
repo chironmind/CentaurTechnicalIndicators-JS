@@ -12,7 +12,7 @@ pub fn other_single_return_on_investment(
     investment: f64,
 ) -> Array {
     let (final_value, percent_return) =
-        centaur_technical_indicators::other_indicators::single::return_on_investment(start_price, end_price, investment);
+        rust_ti::other_indicators::single::return_on_investment(start_price, end_price, investment);
     let arr = Array::new();
     arr.push(&JsValue::from_f64(final_value));
     arr.push(&JsValue::from_f64(percent_return));
@@ -22,7 +22,7 @@ pub fn other_single_return_on_investment(
 /// true_range -> number
 #[wasm_bindgen(js_name = other_single_trueRange)]
 pub fn other_single_true_range(close: f64, high: f64, low: f64) -> f64 {
-    centaur_technical_indicators::other_indicators::single::true_range(close, high, low)
+    rust_ti::other_indicators::single::true_range(close, high, low)
 }
 
 /// average_true_range -> number
@@ -33,7 +33,7 @@ pub fn other_single_average_true_range(
     low: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::other_indicators::single::average_true_range(
+    rust_ti::other_indicators::single::average_true_range(
         &close,
         &high,
         &low,
@@ -44,7 +44,7 @@ pub fn other_single_average_true_range(
 /// internal_bar_strength -> number
 #[wasm_bindgen(js_name = other_single_internalBarStrength)]
 pub fn other_single_internal_bar_strength(high: f64, low: f64, close: f64) -> f64 {
-    centaur_technical_indicators::other_indicators::single::internal_bar_strength(high, low, close)
+    rust_ti::other_indicators::single::internal_bar_strength(high, low, close)
 }
 
 // -------- BULK --------
@@ -52,7 +52,7 @@ pub fn other_single_internal_bar_strength(high: f64, low: f64, close: f64) -> f6
 /// return_on_investment -> Array<[final_value, percent_return]>
 #[wasm_bindgen(js_name = other_bulk_returnOnInvestment)]
 pub fn other_bulk_return_on_investment(prices: Vec<f64>, investment: f64) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::return_on_investment(&prices, investment);
+    let data = rust_ti::other_indicators::bulk::return_on_investment(&prices, investment);
     let out = Array::new();
     for (final_value, percent_return) in data {
         let inner = Array::new();
@@ -66,7 +66,7 @@ pub fn other_bulk_return_on_investment(prices: Vec<f64>, investment: f64) -> Arr
 /// true_range -> Array<number>
 #[wasm_bindgen(js_name = other_bulk_trueRange)]
 pub fn other_bulk_true_range(close: Vec<f64>, high: Vec<f64>, low: Vec<f64>) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::true_range(&close, &high, &low);
+    let data = rust_ti::other_indicators::bulk::true_range(&close, &high, &low);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -83,7 +83,7 @@ pub fn other_bulk_average_true_range(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::average_true_range(
+    let data = rust_ti::other_indicators::bulk::average_true_range(
         &close,
         &high,
         &low,
@@ -100,7 +100,7 @@ pub fn other_bulk_average_true_range(
 /// internal_bar_strength -> Array<number>
 #[wasm_bindgen(js_name = other_bulk_internalBarStrength)]
 pub fn other_bulk_internal_bar_strength(high: Vec<f64>, low: Vec<f64>, close: Vec<f64>) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::internal_bar_strength(&high, &low, &close);
+    let data = rust_ti::other_indicators::bulk::internal_bar_strength(&high, &low, &close);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -116,7 +116,7 @@ pub fn other_bulk_positivity_indicator(
     signal_period: usize,
     constant_model_type: crate::ConstantModelType,
 ) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::positivity_indicator(
+    let data = rust_ti::other_indicators::bulk::positivity_indicator(
         &open,
         &previous_close,
         signal_period,

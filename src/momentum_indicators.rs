@@ -8,7 +8,7 @@ pub fn momentum_single_relative_strength_index(
     prices: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::relative_strength_index(
+    rust_ti::momentum_indicators::single::relative_strength_index(
         &prices,
         constant_model_type.into(),
     )
@@ -16,7 +16,7 @@ pub fn momentum_single_relative_strength_index(
 
 #[wasm_bindgen(js_name = momentum_single_stochasticOscillator)]
 pub fn momentum_single_stochastic_oscillator(prices: Vec<f64>) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::stochastic_oscillator(&prices)
+    rust_ti::momentum_indicators::single::stochastic_oscillator(&prices)
 }
 
 #[wasm_bindgen(js_name = momentum_single_slowStochastic)]
@@ -24,7 +24,7 @@ pub fn momentum_single_slow_stochastic(
     stochastics: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::slow_stochastic(&stochastics, constant_model_type.into())
+    rust_ti::momentum_indicators::single::slow_stochastic(&stochastics, constant_model_type.into())
 }
 
 #[wasm_bindgen(js_name = momentum_single_slowestStochastic)]
@@ -32,7 +32,7 @@ pub fn momentum_single_slowest_stochastic(
     slow_stochastics: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::slowest_stochastic(
+    rust_ti::momentum_indicators::single::slowest_stochastic(
         &slow_stochastics,
         constant_model_type.into(),
     )
@@ -40,17 +40,17 @@ pub fn momentum_single_slowest_stochastic(
 
 #[wasm_bindgen(js_name = momentum_single_williamsPercentR)]
 pub fn momentum_single_williams_percent_r(high: Vec<f64>, low: Vec<f64>, close: f64) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::williams_percent_r(&high, &low, close)
+    rust_ti::momentum_indicators::single::williams_percent_r(&high, &low, close)
 }
 
 #[wasm_bindgen(js_name = momentum_single_moneyFlowIndex)]
 pub fn momentum_single_money_flow_index(prices: Vec<f64>, volume: Vec<f64>) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::money_flow_index(&prices, &volume)
+    rust_ti::momentum_indicators::single::money_flow_index(&prices, &volume)
 }
 
 #[wasm_bindgen(js_name = momentum_single_rateOfChange)]
 pub fn momentum_single_rate_of_change(current_price: f64, previous_price: f64) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::rate_of_change(current_price, previous_price)
+    rust_ti::momentum_indicators::single::rate_of_change(current_price, previous_price)
 }
 
 #[wasm_bindgen(js_name = momentum_single_onBalanceVolume)]
@@ -60,7 +60,7 @@ pub fn momentum_single_on_balance_volume(
     current_volume: f64,
     previous_on_balance_volume: f64,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::on_balance_volume(
+    rust_ti::momentum_indicators::single::on_balance_volume(
         current_price,
         previous_price,
         current_volume,
@@ -75,7 +75,7 @@ pub fn momentum_single_commodity_channel_index(
     deviation_model: crate::DeviationModel,
     constant_multiplier: f64,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::commodity_channel_index(
+    rust_ti::momentum_indicators::single::commodity_channel_index(
         &prices,
         constant_model_type.into(),
         deviation_model.into(),
@@ -90,7 +90,7 @@ pub fn momentum_single_mcginley_dynamic_commodity_channel_index(
     deviation_model: crate::DeviationModel,
     constant_multiplier: f64,
 ) -> Array {
-    let (v, m) = centaur_technical_indicators::momentum_indicators::single::mcginley_dynamic_commodity_channel_index(
+    let (v, m) = rust_ti::momentum_indicators::single::mcginley_dynamic_commodity_channel_index(
         &prices,
         previous_mcginley_dynamic,
         deviation_model.into(),
@@ -109,7 +109,7 @@ pub fn momentum_single_macd_line(
     short_period_model: crate::ConstantModelType,
     long_period_model: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::macd_line(
+    rust_ti::momentum_indicators::single::macd_line(
         &prices,
         short_period,
         short_period_model.into(),
@@ -122,7 +122,7 @@ pub fn momentum_single_signal_line(
     macds: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::signal_line(&macds, constant_model_type.into())
+    rust_ti::momentum_indicators::single::signal_line(&macds, constant_model_type.into())
 }
 
 #[wasm_bindgen(js_name = momentum_single_mcginleyDynamicMacdLine)]
@@ -132,7 +132,7 @@ pub fn momentum_single_mcginley_dynamic_macd_line(
     previous_short_mcginley: f64,
     previous_long_mcginley: f64,
 ) -> Array {
-    let (macd, short_m, long_m) = centaur_technical_indicators::momentum_indicators::single::mcginley_dynamic_macd_line(
+    let (macd, short_m, long_m) = rust_ti::momentum_indicators::single::mcginley_dynamic_macd_line(
         &prices,
         short_period,
         previous_short_mcginley,
@@ -156,7 +156,7 @@ pub fn momentum_single_chaikin_oscillator(
     short_period_model: crate::ConstantModelType,
     long_period_model: crate::ConstantModelType,
 ) -> Array {
-    let (v, ad) = centaur_technical_indicators::momentum_indicators::single::chaikin_oscillator(
+    let (v, ad) = rust_ti::momentum_indicators::single::chaikin_oscillator(
         &highs,
         &lows,
         &close,
@@ -178,7 +178,7 @@ pub fn momentum_single_percentage_price_oscillator(
     short_period: usize,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::percentage_price_oscillator(
+    rust_ti::momentum_indicators::single::percentage_price_oscillator(
         &prices,
         short_period,
         constant_model_type.into(),
@@ -187,7 +187,7 @@ pub fn momentum_single_percentage_price_oscillator(
 
 #[wasm_bindgen(js_name = momentum_single_chandeMomentumOscillator)]
 pub fn momentum_single_chande_momentum_oscillator(prices: Vec<f64>) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::chande_momentum_oscillator(&prices)
+    rust_ti::momentum_indicators::single::chande_momentum_oscillator(&prices)
 }
 
 // -------- BULK --------
@@ -197,7 +197,7 @@ pub fn momentum_bulk_relative_strength_index(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::relative_strength_index(
+    let data = rust_ti::momentum_indicators::bulk::relative_strength_index(
         &prices,
         constant_model_type.into(),
         period,
@@ -211,7 +211,7 @@ pub fn momentum_bulk_relative_strength_index(
 
 #[wasm_bindgen(js_name = momentum_bulk_stochasticOscillator)]
 pub fn momentum_bulk_stochastic_oscillator(prices: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::stochastic_oscillator(&prices, period);
+    let data = rust_ti::momentum_indicators::bulk::stochastic_oscillator(&prices, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -225,7 +225,7 @@ pub fn momentum_bulk_slow_stochastic(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::slow_stochastic(
+    let data = rust_ti::momentum_indicators::bulk::slow_stochastic(
         &stochastics,
         constant_model_type.into(),
         period,
@@ -243,7 +243,7 @@ pub fn momentum_bulk_slowest_stochastic(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::slowest_stochastic(
+    let data = rust_ti::momentum_indicators::bulk::slowest_stochastic(
         &slow_stochastics,
         constant_model_type.into(),
         period,
@@ -262,7 +262,7 @@ pub fn momentum_bulk_williams_percent_r(
     close: Vec<f64>,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::williams_percent_r(&high, &low, &close, period);
+    let data = rust_ti::momentum_indicators::bulk::williams_percent_r(&high, &low, &close, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -272,7 +272,7 @@ pub fn momentum_bulk_williams_percent_r(
 
 #[wasm_bindgen(js_name = momentum_bulk_moneyFlowIndex)]
 pub fn momentum_bulk_money_flow_index(prices: Vec<f64>, volume: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::money_flow_index(&prices, &volume, period);
+    let data = rust_ti::momentum_indicators::bulk::money_flow_index(&prices, &volume, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -282,7 +282,7 @@ pub fn momentum_bulk_money_flow_index(prices: Vec<f64>, volume: Vec<f64>, period
 
 #[wasm_bindgen(js_name = momentum_bulk_rateOfChange)]
 pub fn momentum_bulk_rate_of_change(prices: Vec<f64>) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::rate_of_change(&prices);
+    let data = rust_ti::momentum_indicators::bulk::rate_of_change(&prices);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -296,7 +296,7 @@ pub fn momentum_bulk_on_balance_volume(
     volume: Vec<f64>,
     previous_on_balance_volume: f64,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::on_balance_volume(
+    let data = rust_ti::momentum_indicators::bulk::on_balance_volume(
         &prices,
         &volume,
         previous_on_balance_volume,
@@ -316,7 +316,7 @@ pub fn momentum_bulk_commodity_channel_index(
     constant_multiplier: f64,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::commodity_channel_index(
+    let data = rust_ti::momentum_indicators::bulk::commodity_channel_index(
         &prices,
         constant_model_type.into(),
         deviation_model.into(),
@@ -338,7 +338,7 @@ pub fn momentum_bulk_mcginley_dynamic_commodity_channel_index(
     constant_multiplier: f64,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::mcginley_dynamic_commodity_channel_index(
+    let data = rust_ti::momentum_indicators::bulk::mcginley_dynamic_commodity_channel_index(
         &prices,
         previous_mcginley_dynamic,
         deviation_model.into(),
@@ -363,7 +363,7 @@ pub fn momentum_bulk_macd_line(
     long_period: usize,
     long_period_model: crate::ConstantModelType,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::macd_line(
+    let data = rust_ti::momentum_indicators::bulk::macd_line(
         &prices,
         short_period,
         short_period_model.into(),
@@ -384,7 +384,7 @@ pub fn momentum_bulk_signal_line(
     period: usize,
 ) -> Array {
     let data =
-        centaur_technical_indicators::momentum_indicators::bulk::signal_line(&macds, constant_model_type.into(), period);
+        rust_ti::momentum_indicators::bulk::signal_line(&macds, constant_model_type.into(), period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -400,7 +400,7 @@ pub fn momentum_bulk_mcginley_dynamic_macd_line(
     long_period: usize,
     previous_long_mcginley: f64,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::mcginley_dynamic_macd_line(
+    let data = rust_ti::momentum_indicators::bulk::mcginley_dynamic_macd_line(
         &prices,
         short_period,
         previous_short_mcginley,
@@ -430,7 +430,7 @@ pub fn momentum_bulk_chaikin_oscillator(
     short_period_model: crate::ConstantModelType,
     long_period_model: crate::ConstantModelType,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::chaikin_oscillator(
+    let data = rust_ti::momentum_indicators::bulk::chaikin_oscillator(
         &highs,
         &lows,
         &close,
@@ -458,7 +458,7 @@ pub fn momentum_bulk_percentage_price_oscillator(
     long_period: usize,
     constant_model_type: crate::ConstantModelType,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::percentage_price_oscillator(
+    let data = rust_ti::momentum_indicators::bulk::percentage_price_oscillator(
         &prices,
         short_period,
         long_period,
@@ -473,7 +473,7 @@ pub fn momentum_bulk_percentage_price_oscillator(
 
 #[wasm_bindgen(js_name = momentum_bulk_chandeMomentumOscillator)]
 pub fn momentum_bulk_chande_momentum_oscillator(prices: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::chande_momentum_oscillator(&prices, period);
+    let data = rust_ti::momentum_indicators::bulk::chande_momentum_oscillator(&prices, period);
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
