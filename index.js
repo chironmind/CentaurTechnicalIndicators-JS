@@ -1,10 +1,10 @@
 // Bundler/default wrapper: groups flat wasm exports into a natural namespace API.
-import init, * as wasm from "./dist/bundler/ti_engine.js";
+import init, * as wasm from "./dist/bundler/centaur_technical_indicators.js";
 
 // Re-export enums
 export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;
 
-// Natural JS/TS namespace mirroring rust_ti::candle_indicators::{single, bulk}
+// Natural JS/TS namespace mirroring centaur_technical_indicators::candle_indicators::{single, bulk}
 export const candleIndicators = {
   single: {
     movingConstantEnvelopes: wasm.candle_single_movingConstantEnvelopes,

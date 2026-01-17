@@ -29,13 +29,13 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Build (Node)
-        run: wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name ti_engine
+        run: wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name centaur_technical_indicators
 
       - name: Build (Bundler)
-        run: wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name ti_engine
+        run: wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur_technical_indicators
 
       - name: Build (Web)
-        run: wasm-pack build --release --target web       --out-dir dist/web      --out-name ti_engine
+        run: wasm-pack build --release --target web       --out-dir dist/web      --out-name centaur_technical_indicators
 
       - name: Run tests (Node)
         run: npm test
