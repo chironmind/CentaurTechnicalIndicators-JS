@@ -10,12 +10,13 @@ pub fn correlation_single_correlate_asset_prices(
     constant_model_type: crate::ConstantModelType,
     deviation_model: crate::DeviationModel,
 ) -> f64 {
-    rust_ti::correlation_indicators::single::correlate_asset_prices(
+    centaur_technical_indicators::correlation_indicators::single::correlate_asset_prices(
         &prices_asset_a,
         &prices_asset_b,
         constant_model_type.into(),
         deviation_model.into(),
     )
+    .expect("Failed to correlate asset prices")
 }
 
 /// Rolling correlation over a period: returns Array<number>
@@ -27,13 +28,14 @@ pub fn correlation_bulk_correlate_asset_prices(
     deviation_model: crate::DeviationModel,
     period: usize,
 ) -> Array {
-    let data = rust_ti::correlation_indicators::bulk::correlate_asset_prices(
+    let data = centaur_technical_indicators::correlation_indicators::bulk::correlate_asset_prices(
         &prices_asset_a,
         &prices_asset_b,
         constant_model_type.into(),
         deviation_model.into(),
         period,
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

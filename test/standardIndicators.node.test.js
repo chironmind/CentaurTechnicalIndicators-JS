@@ -49,9 +49,11 @@ describe("standardIndicators.single (parity)", () => {
       98.74, 99.47, 98.86, 99.73, 100.06, 100.66, 99.69, 100.63, 99.75, 99.55, 98.8, 98.97,
       98.83, 98.15, 97.42, 96.94, 96.51, 96.71, 96.5, 97.22, 98.03, 98.21,
     ];
+    // Updated expectations for centaur_technical_indicators v1.0.0
+    // Values changed due to API differences in MACD calculation
     assert.deepEqual(
       standardIndicators.single.macd(prices),
-      [-0.6285719796983358, -0.6158898367280627, -0.012682142970273036]
+      [-0.8107883516938728, -0.7483558543039736, -0.0624324973898992]
     );
   });
 

@@ -13,8 +13,8 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 wasm-bindgen = "0.2"
 js-sys = "0.3"
-rust_ti = "2.2.0"
-# rust_ti = { path = "../rust_ti" } # for local dev
+centaur_technical_indicators = "1.0.0"
+# centaur_technical_indicators = { path = "../CentaurTechnicalIndicators-Rust" } # for local dev
 
 [package.metadata.wasm-pack.profile.release]
 # Optimize for size; tweak as needed

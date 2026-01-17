@@ -9,11 +9,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5dd9dc738b7a8311c7ade152424974d8115f2cdad61e8dab8dac9f2362298510"
 
 [[package]]
+name = "centaur_technical_indicators"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ca5cdc00eed15c0bfa1a910c84dbbe6546b9ccdc117302ff73787f8ec2d91fa2"
+
+[[package]]
 name = "centaur_technical_indicators_js"
 version = "1.1.4"
 dependencies = [
+ "centaur_technical_indicators",
  "js-sys",
- "rust_ti",
  "wasm-bindgen",
 ]
 
@@ -56,12 +62,6 @@ checksum = "dc74d9a594b72ae6656596548f56f667211f8a97b3d4c3d467150794690dc40a"
 dependencies = [
  "proc-macro2",
 ]
-
-[[package]]
-name = "rust_ti"
-version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9cb12c002017474b3c19307ebafecb5f16d62891c41ad0623b8c79c05702eeaf"
 
 [[package]]
 name = "rustversion"
