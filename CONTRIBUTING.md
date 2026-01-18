@@ -88,9 +88,9 @@ Optional but recommended:
 ### Build targets
 
 This project ships three WASM builds:
-- Node: `dist/node/centaur_technical_indicators.js` (+ `.wasm`)
-- Bundler (ESM): `dist/bundler/centaur_technical_indicators.js` (+ `.wasm`)
-- Web (ESM): `dist/web/centaur_technical_indicators.js` (+ `.wasm`)
+- Node: `dist/node/centaur-technical-indicators.js` (+ `.wasm`)
+- Bundler (ESM): `dist/bundler/centaur-technical-indicators.js` (+ `.wasm`)
+- Web (ESM): `dist/web/centaur-technical-indicators.js` (+ `.wasm`)
 
 If the repo provides `package.json` scripts, prefer those:
 
@@ -106,16 +106,16 @@ If not, you can build with `wasm-pack`:
 
 ```bash
 # Node
-wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name centaur_technical_indicators
+wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name centaur-technical-indicators
 
 # Bundler
-wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur_technical_indicators
+wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur-technical-indicators
 
 # Web
-wasm-pack build --release --target web       --out-dir dist/web      --out-name centaur_technical_indicators
+wasm-pack build --release --target web       --out-dir dist/web      --out-name centaur-technical-indicators
 ```
 
-> Note: The `--out-name centaur_technical_indicators` flag ensures consistent file names expected by the JS entrypoints.
+> Note: The `--out-name centaur-technical-indicators` flag ensures consistent file names expected by the JS entrypoints.
 
 ### Directory layout
 
@@ -139,7 +139,7 @@ wasm-pack build --release --target web       --out-dir dist/web      --out-name 
   - Convert Rust return types into JS-friendly outputs: `f64` or `js_sys::Array` for tuples/series
   - Accept `Vec<f64>` for slices from JS
 - Register the module in `src/lib.rs` with `pub mod your_module;`
-- If you need Rust enums in JS (e.g., `Position`, `MovingAverageType`), define a wasm-exposed enum and implement `From<YourEnum> for centaur_technical_indicators::YourEnum`.
+- If you need Rust enums in JS (e.g., `Position`, `MovingAverageType`), define a wasm-exposed enum and implement `From<YourEnum> for centaur-technical-indicators::YourEnum`.
 
 Example:
 

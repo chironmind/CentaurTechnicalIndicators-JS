@@ -10,7 +10,7 @@ This document provides comprehensive guidance for coding agents working with the
 - **Type**: Library/NPM package
 - **Languages**: Rust (core WASM), JavaScript/TypeScript (wrappers)
 - **Size**: Medium (~20 root files, 11 Rust modules, organized directory structure)
-- **Dependencies**: centaur_technical_indicators crate, wasm-bindgen, js-sys, Node.js built-in test runner
+- **Dependencies**: centaur-technical-indicators crate, wasm-bindgen, js-sys, Node.js built-in test runner
 - **Targets**: Three WASM builds (Node.js, bundler, web)
 
 ## Prerequisites and Environment Setup
@@ -44,14 +44,14 @@ npm run build:bundler  # Bundler target only
 **Direct wasm-pack commands (fallback):**
 ```bash
 # Use these if npm scripts fail or don't exist
-wasm-pack build --release --target web --out-dir dist/web --out-name centaur_technical_indicators
-wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur_technical_indicators  
-wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur_technical_indicators
+wasm-pack build --release --target web --out-dir dist/web --out-name centaur-technical-indicators
+wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur-technical-indicators  
+wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators
 ```
 
 ### Critical Build Information
 
-**IMPORTANT:** The `--out-name centaur_technical_indicators` flag is required for consistent file naming expected by JavaScript entry points.
+**IMPORTANT:** The `--out-name centaur-technical-indicators` flag is required for consistent file naming expected by JavaScript entry points.
 
 **Known Issue - wasm-opt Download Failure:**
 Error: failed to download from https://github.com/WebAssembly/binaryen/releases/download/version_XXX/binaryen-version_XXX-x86_64-linux.tar.gz

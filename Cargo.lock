@@ -9,19 +9,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5dd9dc738b7a8311c7ade152424974d8115f2cdad61e8dab8dac9f2362298510"
 
 [[package]]
+name = "centaur-technical-indicators"
+version = "1.1.4"
+dependencies = [
+ "centaur_technical_indicators",
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "centaur_technical_indicators"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ca5cdc00eed15c0bfa1a910c84dbbe6546b9ccdc117302ff73787f8ec2d91fa2"
-
-[[package]]
-name = "centaur_technical_indicators"
-version = "1.1.4"
-dependencies = [
- "centaur_technical_indicators 1.0.0",
- "js-sys",
- "wasm-bindgen",
-]
 
 [[package]]
 name = "cfg-if"
