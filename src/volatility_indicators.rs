@@ -25,9 +25,9 @@ pub fn volatility_bulk_ulcer_index(prices: Vec<f64>, period: usize) -> Array {
 
 #[wasm_bindgen(js_name = volatility_bulk_volatilitySystem)]
 pub fn volatility_bulk_volatility_system(
+    close: Vec<f64>,
     high: Vec<f64>,
     low: Vec<f64>,
-    close: Vec<f64>,
     period: usize,
     constant_multiplier: f64,
     constant_model_type: crate::ConstantModelType,

@@ -34,9 +34,9 @@ describe("volatilityIndicators.bulk (parity, one model where applicable)", () =>
     const lows = [100.59, 100.72, 100.84, 100.91, 99.85];
     const close = [100.76, 100.88, 100.96, 101.14, 100.01];
     const out = volatilityIndicators.bulk.volatilitySystem(
+      close,
       highs,
       lows,
-      close,
       3,
       2.0,
       ConstantModelType.SimpleMovingAverage
@@ -49,9 +49,9 @@ describe("volatilityIndicators.bulk (parity, one model where applicable)", () =>
     const lows = [100.91, 100.84, 100.72, 100.59, 100.68];
     const close = [101.14, 100.96, 100.88, 100.76, 101.37];
     const out = volatilityIndicators.bulk.volatilitySystem(
+      close,
       highs,
       lows,
-      close,
       3,
       2.0,
       ConstantModelType.SimpleMovingAverage
