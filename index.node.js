@@ -4,7 +4,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 // Load the generated CJS glue from wasm-pack (nodejs target)
-const wasm = require("./dist/node/centaur_technical_indicators.js");
+const wasm = require("./dist/node/centaur-technical-indicators.js");
 
 // Re-export enums from the wasm module
 export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;

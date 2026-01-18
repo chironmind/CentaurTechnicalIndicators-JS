@@ -1,5 +1,5 @@
 // Bundler/default wrapper: groups flat wasm exports into a natural namespace API.
-import init, * as wasm from "./dist/bundler/centaur_technical_indicators.js";
+import init, * as wasm from "./dist/bundler/centaur-technical-indicators.js";
 
 // Re-export enums
 export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;

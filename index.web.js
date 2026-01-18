@@ -1,5 +1,5 @@
 // Browser wrapper: same façade, imports the web target.
-import init, * as wasm from "./dist/web/centaur_technical_indicators.js";
+import init, * as wasm from "./dist/web/centaur-technical-indicators.js";
 
 export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;
 

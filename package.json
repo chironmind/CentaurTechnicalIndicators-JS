@@ -16,9 +16,9 @@
     "README.md"
   ],
   "scripts": {
-    "build:web": "wasm-pack build --release --target web --out-dir dist/web --out-name centaur_technical_indicators && rm -f dist/web/.gitignore",
-    "build:node": "wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur_technical_indicators && rm -f dist/node/.gitignore",
-    "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur_technical_indicators && rm -f dist/bundler/.gitignore",
+    "build:web": "wasm-pack build --release --target web --out-dir dist/web --out-name centaur-technical-indicators && rm -f dist/web/.gitignore",
+    "build:node": "wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur-technical-indicators && rm -f dist/node/.gitignore",
+    "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators && rm -f dist/bundler/.gitignore",
     "build": "npm run build:web && npm run build:node && npm run build:bundler",
     "prepublishOnly": "npm run build",
     "test": "npm run build && node --test"
