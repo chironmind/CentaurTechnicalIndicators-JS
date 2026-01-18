@@ -2,7 +2,7 @@
 name = "centaur_technical_indicators_js"
 version = "1.1.4"
 edition = "2021"
-description = "WASM bindings for RustTI technical indicators for Node and browser"
+description = "WASM bindings for Centaur Technical Indicators for Node and browser"
 license = "MIT"
 repository = "https://github.com/ChironMind/CentaurTechnicalIndicators-JS"
 publish = false
