@@ -12,7 +12,7 @@ pub fn strength_single_accumulation_distribution(
     volume: f64,
     previous_accumulation_distribution: f64,
 ) -> f64 {
-    rust_ti::strength_indicators::single::accumulation_distribution(
+    centaur_technical_indicators::strength_indicators::single::accumulation_distribution(
         high,
         low,
         close,
@@ -27,7 +27,7 @@ pub fn strength_single_volume_index(
     previous_close: f64,
     previous_volume_index: f64,
 ) -> f64 {
-    rust_ti::strength_indicators::single::volume_index(
+    centaur_technical_indicators::strength_indicators::single::volume_index(
         current_close,
         previous_close,
         previous_volume_index,
@@ -42,13 +42,14 @@ pub fn strength_single_relative_vigor_index(
     close: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    rust_ti::strength_indicators::single::relative_vigor_index(
+    centaur_technical_indicators::strength_indicators::single::relative_vigor_index(
         &open,
         &high,
         &low,
         &close,
         constant_model_type.into(),
     )
+    .expect("Failed to calculate relative vigor index")
 }
 
 // -------- BULK --------
@@ -61,13 +62,14 @@ pub fn strength_bulk_accumulation_distribution(
     volume: Vec<f64>,
     previous_accumulation_distribution: f64,
 ) -> Array {
-    let data = rust_ti::strength_indicators::bulk::accumulation_distribution(
+    let data = centaur_technical_indicators::strength_indicators::bulk::accumulation_distribution(
         &high,
         &low,
         &close,
         &volume,
         previous_accumulation_distribution,
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -81,11 +83,12 @@ pub fn strength_bulk_positive_volume_index(
     volume: Vec<f64>,
     previous_positive_volume_index: f64,
 ) -> Array {
-    let data = rust_ti::strength_indicators::bulk::positive_volume_index(
+    let data = centaur_technical_indicators::strength_indicators::bulk::positive_volume_index(
         &close,
         &volume,
         previous_positive_volume_index,
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -99,11 +102,12 @@ pub fn strength_bulk_negative_volume_index(
     volume: Vec<f64>,
     previous_negative_volume_index: f64,
 ) -> Array {
-    let data = rust_ti::strength_indicators::bulk::negative_volume_index(
+    let data = centaur_technical_indicators::strength_indicators::bulk::negative_volume_index(
         &close,
         &volume,
         previous_negative_volume_index,
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -120,14 +124,15 @@ pub fn strength_bulk_relative_vigor_index(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data = rust_ti::strength_indicators::bulk::relative_vigor_index(
+    let data = centaur_technical_indicators::strength_indicators::bulk::relative_vigor_index(
         &open,
         &high,
         &low,
         &close,
         constant_model_type.into(),
         period,
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

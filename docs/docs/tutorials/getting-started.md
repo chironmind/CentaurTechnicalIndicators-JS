@@ -1,10 +1,10 @@
-# Tutorial 1: Getting started with ti-engine
+# Tutorial 1: Getting started with CentaurTechnicalIndicators-JS
 
 Leverage Rust-powered speed from JavaScript — compute indicators directly on plain arrays.
 
 This tutorial is the first in a series:
 
-- 01 - Getting started with ti-engine (this page)
+- 01 - Getting started with CentaurTechnicalIndicators-JS (this page)
 - [02 - Plotting your indicators](plotting.md)
 - [03 - More advanced use cases](advanced.md)
 - [04 - Getting data from an API](api.md)
@@ -14,7 +14,7 @@ This tutorial is the first in a series:
 
 ## 🎯 What you’ll learn
 
-- Install and initialize ti-engine
+- Install and initialize CentaurTechnicalIndicators-JS
 - Understand the single vs bulk API style
 - Compute:
   - Simple Moving Average (SMA)
@@ -27,23 +27,23 @@ This tutorial is the first in a series:
 
 ## 📦 Prerequisites
 
-Install ti-engine:
+Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (required in browsers; a no-op in Node for parity):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators";
 await init();
 ```
 
@@ -92,7 +92,7 @@ const low  = close.map(v => v - 20);
 Helpers live under movingAverage. Use MovingAverageType to pick Simple/Smoothed/Exponential.
 
 ```js
-import init, { movingAverage, MovingAverageType } from "ti-engine";
+import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators";
 await init();
 
 // Single: average over the full array
@@ -117,7 +117,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "ti-engine";
+} from "centaur-technical-indicators";
 await init();
 
 const periodBands = 20;
@@ -155,7 +155,7 @@ console.log("Last MCB (bulk):", lowerLast, middleLast, upperLast);
 Use momentumIndicators with a ConstantModelType (SmoothedMovingAverage is the common default in many RSI formulations).
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "ti-engine";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const periodRSI = 14;
@@ -181,7 +181,7 @@ console.log("Latest RSI (single):", rsiLatest);
 ATR measures average true range of movement; provide aligned arrays for previous close, high, and low. You can choose the averaging model (e.g., ExponentialMovingAverage) and a window.
 
 ```js
-import init, { otherIndicators, ConstantModelType } from "ti-engine";
+import init, { otherIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const periodATR = 14;

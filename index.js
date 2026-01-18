@@ -1,10 +1,10 @@
 // Bundler/default wrapper: groups flat wasm exports into a natural namespace API.
-import init, * as wasm from "./dist/bundler/ti_engine.js";
+import init, * as wasm from "./dist/bundler/centaur-technical-indicators.js";
 
 // Re-export enums
 export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;
 
-// Natural JS/TS namespace mirroring rust_ti::candle_indicators::{single, bulk}
+// Natural JS/TS namespace mirroring centaur_technical_indicators::candle_indicators::{single, bulk}
 export const candleIndicators = {
   single: {
     movingConstantEnvelopes: wasm.candle_single_movingConstantEnvelopes,
@@ -101,25 +101,6 @@ export const otherIndicators = {
     averageTrueRange: wasm.other_bulk_averageTrueRange,
     internalBarStrength: wasm.other_bulk_internalBarStrength,
     positivityIndicator: wasm.other_bulk_positivityIndicator,
-  },
-};
-
-export const standardIndicators = {
-  single: {
-    simpleMovingAverage: wasm.standard_single_simpleMovingAverage,
-    smoothedMovingAverage: wasm.standard_single_smoothedMovingAverage,
-    exponentialMovingAverage: wasm.standard_single_exponentialMovingAverage,
-    bollingerBands: wasm.standard_single_bollingerBands,
-    macd: wasm.standard_single_macd,
-    rsi: wasm.standard_single_rsi,
-  },
-  bulk: {
-    simpleMovingAverage: wasm.standard_bulk_simpleMovingAverage,
-    smoothedMovingAverage: wasm.standard_bulk_smoothedMovingAverage,
-    exponentialMovingAverage: wasm.standard_bulk_exponentialMovingAverage,
-    bollingerBands: wasm.standard_bulk_bollingerBands,
-    macd: wasm.standard_bulk_macd,
-    rsi: wasm.standard_bulk_rsi,
   },
 };
 

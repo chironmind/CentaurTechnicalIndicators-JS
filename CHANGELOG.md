@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [Unreleased]
+
+### Changed
+- **BREAKING**: Package renamed from `ti-engine` to `centaur-technical-indicators` to align with the CentaurCapital ecosystem
+- **BREAKING**: Updated dependency from `rust_ti` to `centaur-technical-indicators` version 1.0.0
+- Updated all documentation, examples, and references to reflect the new branding
+- Updated WASM build artifact names from `ti_engine` to `centaur-technical-indicators`
+- Updated repository URLs and documentation links to point to new CentaurTechnicalIndicators-JS repository
+
+### Migration Guide
+To migrate from ti-engine to centaur-technical-indicators:
+1. Update your package.json dependency: `"ti-engine"` → `"centaur-technical-indicators"`
+2. Update imports: `from "ti-engine"` → `from "centaur-technical-indicators"`
+3. For CDN users: Update URLs from `ti-engine` to `centaur-technical-indicators` and from `ti_engine.js` to `centaur-technical-indicators.js`
+4. All functionality remains identical - only the package name and references have changed
+
+---
+
 ## [1.1.4] - 2025-10-23
 
 ### Changed

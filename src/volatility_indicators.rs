@@ -6,14 +6,16 @@ use wasm_bindgen::JsValue;
 
 #[wasm_bindgen(js_name = volatility_single_ulcerIndex)]
 pub fn volatility_single_ulcer_index(prices: Vec<f64>) -> f64 {
-    rust_ti::volatility_indicators::single::ulcer_index(&prices)
+    centaur_technical_indicators::volatility_indicators::single::ulcer_index(&prices)
+        .expect("Failed to calculate Ulcer Index")
 }
 
 // -------- BULK --------
 
 #[wasm_bindgen(js_name = volatility_bulk_ulcerIndex)]
 pub fn volatility_bulk_ulcer_index(prices: Vec<f64>, period: usize) -> Array {
-    let data = rust_ti::volatility_indicators::bulk::ulcer_index(&prices, period);
+    let data = centaur_technical_indicators::volatility_indicators::bulk::ulcer_index(&prices, period)
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -30,14 +32,15 @@ pub fn volatility_bulk_volatility_system(
     constant_multiplier: f64,
     constant_model_type: crate::ConstantModelType,
 ) -> Array {
-    let data = rust_ti::volatility_indicators::bulk::volatility_system(
+    let data = centaur_technical_indicators::volatility_indicators::bulk::volatility_system(
         &high,
         &low,
         &close,
         period,
         constant_multiplier,
         constant_model_type.into(),
-    );
+    )
+        .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

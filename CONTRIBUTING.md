@@ -1,6 +1,6 @@
-# Contributing to ti-engine
+# Contributing to CentaurTechnicalIndicators-JS
 
-First off, thank you for taking the time to contribute! This project wraps the RustTI technical indicators library in a WebAssembly-powered, JS/TS‑friendly API. Contributions that improve correctness, performance, DX, and documentation are all welcome.
+First off, thank you for taking the time to contribute! This project wraps the Centaur Technical Indicators library in a WebAssembly-powered, JS/TS‑friendly API. Contributions that improve correctness, performance, DX, and documentation are all welcome.
 
 This guide explains how to get set up, propose changes, add new indicators, and keep everything consistent across Rust, WASM, JS, and TypeScript types.
 
@@ -43,7 +43,7 @@ Be kind and respectful. By participating, you agree to uphold a friendly, collab
 
 ## Project goals
 
-- Correctness and parity with RustTI reference outputs
+- Correctness and parity with Centaur Technical Indicators reference outputs
 - High performance using Rust + WebAssembly
 - Ergonomic JS/TS developer experience (stable API and strong types)
 - Clear docs, examples, and tests that keep parity obvious
@@ -59,7 +59,7 @@ Be kind and respectful. By participating, you agree to uphold a friendly, collab
 
 ### Propose features
 
-- Open an issue describing the use case, proposed API, and references (e.g., indicator definitions, RustTI references)
+- Open an issue describing the use case, proposed API, and references (e.g., indicator definitions, Centaur Technical Indicators references)
 - Keep the API consistent with existing namespaces and docstring conventions
 
 ### Good-first tasks
@@ -88,9 +88,9 @@ Optional but recommended:
 ### Build targets
 
 This project ships three WASM builds:
-- Node: `dist/node/ti_engine.js` (+ `.wasm`)
-- Bundler (ESM): `dist/bundler/ti_engine.js` (+ `.wasm`)
-- Web (ESM): `dist/web/ti_engine.js` (+ `.wasm`)
+- Node: `dist/node/centaur-technical-indicators.js` (+ `.wasm`)
+- Bundler (ESM): `dist/bundler/centaur-technical-indicators.js` (+ `.wasm`)
+- Web (ESM): `dist/web/centaur-technical-indicators.js` (+ `.wasm`)
 
 If the repo provides `package.json` scripts, prefer those:
 
@@ -106,26 +106,26 @@ If not, you can build with `wasm-pack`:
 
 ```bash
 # Node
-wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name ti_engine
+wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name centaur-technical-indicators
 
 # Bundler
-wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name ti_engine
+wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur-technical-indicators
 
 # Web
-wasm-pack build --release --target web       --out-dir dist/web      --out-name ti_engine
+wasm-pack build --release --target web       --out-dir dist/web      --out-name centaur-technical-indicators
 ```
 
-> Note: The `--out-name ti_engine` flag ensures consistent file names expected by the JS entrypoints.
+> Note: The `--out-name centaur-technical-indicators` flag ensures consistent file names expected by the JS entrypoints.
 
 ### Directory layout
 
-- `ti-engine/src/*.rs`     Rust WASM wrappers (wasm-bindgen) mapping RustTI APIs to JS
-- `ti-engine/src/lib.rs`   Central module exports and enums bridged to JS
-- `ti-engine/index.node.js` Node adapter exporting namespaces
-- `ti-engine/index.js`     Bundler adapter exporting namespaces
-- `ti-engine/index.web.js` Web adapter exporting namespaces
-- `ti-engine/index.d.ts`   TypeScript types + JSDoc for editor DX
-- `ti-engine/test/*.test.js` Value parity tests using `node:test`
+- `src/*.rs`     Rust WASM wrappers (wasm-bindgen) mapping Centaur Technical Indicators APIs to JS
+- `src/lib.rs`   Central module exports and enums bridged to JS
+- `index.node.js` Node adapter exporting namespaces
+- `index.js`     Bundler adapter exporting namespaces
+- `index.web.js` Web adapter exporting namespaces
+- `index.d.ts`   TypeScript types + JSDoc for editor DX
+- `test/*.test.js` Value parity tests using `node:test`
 - `dist/**`                Generated WASM + glue JS (do not edit by hand)
 
 ---
@@ -134,19 +134,19 @@ wasm-pack build --release --target web       --out-dir dist/web      --out-name 
 
 ### 1) Wrap new Rust functions with wasm_bindgen
 
-- Create a new file in `ti-engine/src/` or add to an existing module (e.g., `trend_indicators.rs`).
-- Expose RustTI functions with `#[wasm_bindgen]` and a stable `js_name`:
+- Create a new file in `src/` or add to an existing module (e.g., `trend_indicators.rs`).
+- Expose Centaur Technical Indicators functions with `#[wasm_bindgen]` and a stable `js_name`:
   - Convert Rust return types into JS-friendly outputs: `f64` or `js_sys::Array` for tuples/series
   - Accept `Vec<f64>` for slices from JS
-- Register the module in `ti-engine/src/lib.rs` with `pub mod your_module;`
-- If you need Rust enums in JS (e.g., `Position`, `MovingAverageType`), define a wasm-exposed enum and implement `From<YourEnum> for rust_ti::YourEnum`.
+- Register the module in `src/lib.rs` with `pub mod your_module;`
+- If you need Rust enums in JS (e.g., `Position`, `MovingAverageType`), define a wasm-exposed enum and implement `From<YourEnum> for centaur-technical-indicators::YourEnum`.
 
 Example:
 
 ```rust
 #[wasm_bindgen(js_name = trend_bulk_aroonUp)]
 pub fn trend_bulk_aroon_up(highs: Vec<f64>, period: usize) -> Array {
-    let data = rust_ti::trend_indicators::bulk::aroon_up(&highs, period);
+    let data = centaur_technical_indicators::trend_indicators::bulk::aroon_up(&highs, period);
     let out = Array::new();
     for v in data { out.push(&JsValue::from_f64(v)); }
     out
@@ -171,19 +171,19 @@ export const trendIndicators = {
 
 ### 3) Update TypeScript definitions
 
-- Extend `ti-engine/index.d.ts` with accurate function signatures and JSDoc borrowed from Rust doc comments (adapted to JS terms).
+- Extend `index.d.ts` with accurate function signatures and JSDoc borrowed from Rust doc comments (adapted to JS terms).
 - Use plain arrays for tuples (e.g., `[lower, middle, upper]`) and typed tuples in TS definitions.
 
 ### 4) Add tests (value parity)
 
-- Put tests in `ti-engine/test/*.test.js`
-- Use `node:test` and compare exact numeric outputs to the Rust reference (use values from RustTI docs/tests).
+- Put tests in `test/*.test.js`
+- Use `node:test` and compare exact numeric outputs to the Rust reference (use values from Centaur Technical Indicators docs/tests).
 - Prefer deterministic test vectors with explicit expected results.
 
 Run tests:
 
 ```bash
-node --test ti-engine/test/*.test.js
+node --test test/*.test.js
 # or
 npm test
 ```
@@ -209,7 +209,7 @@ npm test
 ### Panics vs. thrown errors
 
 - Rust panics become JS exceptions at call time.
-- Mirror RustTI validations: length mismatches, empty arrays, period bounds, etc.
+- Mirror Centaur Technical Indicators validations: length mismatches, empty arrays, period bounds, etc.
 - Document preconditions in JSDoc.
 
 ### JSDoc and docstrings
@@ -257,4 +257,4 @@ PR guidance:
 
 By contributing, you agree that your contributions will be licensed under the MIT License contained in this repository.
 
-Thanks again for helping make ti-engine better!
+Thanks again for helping make CentaurTechnicalIndicators-JS better!

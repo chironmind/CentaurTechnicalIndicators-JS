@@ -1,16 +1,16 @@
-# Copilot Instructions for ti-engine
+# Copilot Instructions for CentaurTechnicalIndicators-JS
 
-This document provides comprehensive guidance for coding agents working with the ti-engine repository.
+This document provides comprehensive guidance for coding agents working with the CentaurTechnicalIndicators-JS repository.
 
 ## Repository Overview
 
-**ti-engine** is a WebAssembly-powered JavaScript/TypeScript wrapper around RustTI, a high-performance technical indicators library for financial analysis. The project provides production-grade indicators with first-class TypeScript support and works in both Node.js 18+ and modern browsers.
+**CentaurTechnicalIndicators-JS** is a WebAssembly-powered JavaScript/TypeScript wrapper around CentaurTechnicalIndicators-Rust, a high-performance technical indicators library for financial analysis. The project provides production-grade indicators with first-class TypeScript support and works in both Node.js 18+ and modern browsers.
 
 ### Key Characteristics
 - **Type**: Library/NPM package
 - **Languages**: Rust (core WASM), JavaScript/TypeScript (wrappers)
 - **Size**: Medium (~20 root files, 11 Rust modules, organized directory structure)
-- **Dependencies**: rust_ti crate, wasm-bindgen, js-sys, Node.js built-in test runner
+- **Dependencies**: centaur-technical-indicators crate, wasm-bindgen, js-sys, Node.js built-in test runner
 - **Targets**: Three WASM builds (Node.js, bundler, web)
 
 ## Prerequisites and Environment Setup
@@ -44,14 +44,14 @@ npm run build:bundler  # Bundler target only
 **Direct wasm-pack commands (fallback):**
 ```bash
 # Use these if npm scripts fail or don't exist
-wasm-pack build --release --target web --out-dir dist/web --out-name ti_engine
-wasm-pack build --release --target nodejs --out-dir dist/node --out-name ti_engine  
-wasm-pack build --release --target bundler --out-dir dist/bundler --out-name ti_engine
+wasm-pack build --release --target web --out-dir dist/web --out-name centaur-technical-indicators
+wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur-technical-indicators  
+wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators
 ```
 
 ### Critical Build Information
 
-**IMPORTANT:** The `--out-name ti_engine` flag is required for consistent file naming expected by JavaScript entry points.
+**IMPORTANT:** The `--out-name centaur-technical-indicators` flag is required for consistent file naming expected by JavaScript entry points.
 
 **Known Issue - wasm-opt Download Failure:**
 Error: failed to download from https://github.com/WebAssembly/binaryen/releases/download/version_XXX/binaryen-version_XXX-x86_64-linux.tar.gz
@@ -82,7 +82,7 @@ npm test
 ```bash
 node --test test/*.test.js
 # or
-node --test ti-engine/test/*.test.js
+node --test CentaurTechnicalIndicators-JS/test/*.test.js
 ```
 
 **Test Structure:**
@@ -110,7 +110,7 @@ cargo clippy     # Rust linting (expect some warnings about too many arguments)
 
 ### Directory Structure
 ```
-ti-engine/
+CentaurTechnicalIndicators-JS/
 ├── src/                     # Rust WASM wrappers (wasm-bindgen)
 │   ├── lib.rs              # Central enums and module exports
 │   ├── candle_indicators.rs # Candle pattern indicators

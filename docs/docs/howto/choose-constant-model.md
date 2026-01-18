@@ -1,6 +1,6 @@
-# How to determine the best ConstantModelType for a ti-engine function
+# How to determine the best ConstantModelType for a CentaurTechnicalIndicators-JS function
 
-This guide shows how to programmatically determine the best ConstantModelType for your indicator using the JavaScript package ti-engine.
+This guide shows how to programmatically determine the best ConstantModelType for your indicator using the JavaScript package CentaurTechnicalIndicators-JS.
 
 The rating model is overly simplified and should be refined to suit your needs before usage.
 
@@ -14,23 +14,23 @@ The rating model is overly simplified and should be refined to suit your needs b
 
 ## 📦 Requirements
 
-Install ti-engine:
+Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -62,7 +62,7 @@ The default model for the RSI is a smoothed moving average.
 We’ll test several models and compute the RSI series for each using the bulk function.
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "ti-engine";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 
@@ -93,7 +93,7 @@ Alignment note for bulk outputs:
 - rsiSeries[0] corresponds to the window anchoring at prices[period - 1]
 
 ```js
-import { momentumIndicators, ConstantModelType } from "ti-engine";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 /**
  * Returns { model: ConstantModelType, rating: number }
@@ -147,7 +147,7 @@ function chooseBestRsiModel(prices, period = 14) {
 ### 4. Full example
 
 ```js
-import init, { momentumIndicators, ConstantModelType } from "ti-engine";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 await init();
 

@@ -1,8 +1,8 @@
 {
-  "name": "ti-engine-docs",
+  "name": "centaur-technical-indicators-docs",
   "version": "1.0.0",
   "private": true,
-  "description": "Documentation for ti-engine using Docusaurus",
+  "description": "Documentation for CentaurTechnicalIndicators-JS using Docusaurus",
   "scripts": {
     "start": "docusaurus start",
     "build": "docusaurus build",

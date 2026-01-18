@@ -1,26 +1,26 @@
-[![npm version](https://img.shields.io/npm/v/ti-engine?color=cb3837&logo=npm)](https://www.npmjs.com/package/ti-engine)
-[![npm downloads](https://img.shields.io/npm/dm/ti-engine?logo=npm)](https://www.npmjs.com/package/ti-engine)
-[![Bundle size](https://img.shields.io/bundlephobia/minzip/ti-engine?label=min+zip&logo=webpack)](https://bundlephobia.com/package/ti-engine)
+[![npm version](https://img.shields.io/npm/v/centaur-technical-indicators?color=cb3837&logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
+[![npm downloads](https://img.shields.io/npm/dm/centaur-technical-indicators?logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/centaur-technical-indicators?label=min+zip&logo=webpack)](https://bundlephobia.com/package/centaur-technical-indicators)
 [![Node](https://img.shields.io/badge/Node-%3E%3D20-339933?logo=node.js&logoColor=white)](#)
 
 [![WASM](https://img.shields.io/badge/Target-WASM-6556C0?logo=webassembly&logoColor=white)](#)
 [![TypeScript](https://img.shields.io/badge/Types-Included-3178C6?logo=typescript&logoColor=white)](#)
-[![Docs](https://img.shields.io/badge/docs-TypeDoc-blue?logo=githubpages)](https://chironmind.github.io/ti-engine/)
-[![CI](https://github.com/chironmind/ti-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/chironmind/ti-engine/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-TypeDoc-blue?logo=githubpages)](https://chironmind.github.io/CentaurTechnicalIndicators-JS/)
+[![CI](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml/badge.svg)](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-# ti-engine
+# CentaurTechnicalIndicators-JS
 
-ti-engine is a WebAssembly-powered, JS/TS-idiomatic wrapper around RustTI — a high‑performance, pure‑Rust technical indicators library.
+CentaurTechnicalIndicators-JS is a WebAssembly-powered, JS/TS-idiomatic wrapper around Centaur Technical Indicators — a high‑performance, pure‑Rust technical indicators library.
 
 - Production‑grade indicators, ported from battle‑tested Rust code
 - First‑class TypeScript types and clean, namespaced API
 - Works in Node and modern browsers (bundler + web builds)
-- Identical results to RustTI (with parity tests for core functions)
+- Identical results to Centaur Technical Indicators (with parity tests for core functions)
 
-Looking for the Rust crate? See: [ChironMind/RustTI](https://github.com/ChironMind/RustTI)
+Looking for the Rust crate? See: [ChironMind/CentaurTechnicalIndicators-Rust](https://github.com/ChironMind/CentaurTechnicalIndicators-Rust)
 
-Looking for the Python version? See: [ChironMind/PyTechnicalIndicators](https://github.com/chironmind/PyTechnicalIndicators)
+Looking for the Python version? See: [ChironMind/CentaurTechnicalIndicators-Python](https://github.com/chironmind/CentaurTechnicalIndicators-Python)
 
 ---
 
@@ -30,13 +30,13 @@ Install from your package manager (example: local/private package)
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators
 ```
 
 Initialize and use (Node)
@@ -45,7 +45,7 @@ Initialize and use (Node)
 import init, {
   momentumIndicators,
   ConstantModelType,
-} from "ti-engine";
+} from "centaur-technical-indicators";
 
 // Node: init() is a no-op, but safe to call
 await init();
@@ -63,7 +63,7 @@ console.log("RSI:", rsi); // 49.2537313432832
 Browser (bundlers)
 
 ```js
-import init, { movingAverage, MovingAverageType } from "ti-engine";
+import init, { movingAverage, MovingAverageType } from "centaur-technical-indicators";
 
 await init(); // Required to load the WASM module in browsers
 
@@ -80,7 +80,7 @@ Browser (CDN - jsdelivr/unpkg)
 ```html
 <script type="module">
   // Note: Replace @latest with a specific version (e.g., @1.1.2) for production use
-  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/ti-engine@latest/dist/web/ti_engine.js';
+  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@latest/dist/web/centaur_technical_indicators.js';
   
   await init(); // Initialize WASM module
   
@@ -94,7 +94,7 @@ Browser (CDN - jsdelivr/unpkg)
   console.log("RSI:", rsi); // 49.2537313432832
   
   // Or use the index.web.js wrapper for the same namespaced API as bundlers
-  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/ti-engine@1.1.2/index.web.js';
+  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.1.2/index.web.js';
 </script>
 ```
 
@@ -102,7 +102,7 @@ Browser (CDN - jsdelivr/unpkg)
 
 ## 🧩 What You Get
 
-- Same math and deterministic outputs as RustTI
+- Same math and deterministic outputs as Centaur Technical Indicators
 - Two styles for almost every indicator:
   - single: full-window, scalar output
   - bulk: rolling windows, vector output
@@ -144,7 +144,7 @@ See the full set of function signatures via your editor or the included `index.d
 
 Relative Strength Index (RSI)
 ```js
-import init, { momentumIndicators, ConstantModelType } from "ti-engine";
+import init, { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 await init();
 
 const prices = [100.2, 100.46, 100.53, 100.38, 100.19, 100.21, 100.32, 100.28];
@@ -167,7 +167,7 @@ const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
 
 MACD (EMA/EMA)
 ```js
-import { momentumIndicators, ConstantModelType } from "ti-engine";
+import { momentumIndicators, ConstantModelType } from "centaur-technical-indicators";
 
 const macdLine = momentumIndicators.single.macdLine(
   [100.46, 100.53, 100.38, 100.19, 100.21],
@@ -226,14 +226,14 @@ const sma = movingAverage.single.movingAverage(
 
 This package includes three targets out of the box:
 
-- Node: `dist/node/ti_engine.js` (CommonJS require via index.node.js)
-- Bundler: `dist/bundler/ti_engine.js` (ESM, for Vite/Webpack/Rollup)
-- Web: `dist/web/ti_engine.js` (ESM + separate `.wasm`)
+- Node: `dist/node/centaur_technical_indicators.js` (CommonJS require via index.node.js)
+- Bundler: `dist/bundler/centaur_technical_indicators.js` (ESM, for Vite/Webpack/Rollup)
+- Web: `dist/web/centaur_technical_indicators.js` (ESM + separate `.wasm`)
 
 Import surfaces:
 
-- Node: `import init, * as api from "ti-engine/index.node.js";` (or default `import` from package root)
-- Bundler/Web: `import init, * as api from "ti-engine";`
+- Node: `import init, * as api from "centaur-technical-indicators/index.node.js";` (or default `import` from package root)
+- Bundler/Web: `import init, * as api from "centaur-technical-indicators";`
 
 Initialization:
 
@@ -244,7 +244,7 @@ Initialization:
 
 ## 🧠 Tips & Conventions
 
-- Input validation mirrors RustTI: many functions panic for empty arrays or mismatched lengths. In JS, this surfaces as a thrown error.
+- Input validation mirrors Centaur Technical Indicators: many functions panic for empty arrays or mismatched lengths. In JS, this surfaces as a thrown error.
 - Use `Float64Array` or `number[]`. Internally, values are copied into WASM memory; consider chunking for very large series.
 - Bulk functions typically return arrays of length `L - N + 1` where `N` is the rolling period (or long period for dual-period indicators).
 - All outputs are plain JS arrays for easy consumption; tuples are represented as small arrays (e.g., `[lower, middle, upper]`).
@@ -258,18 +258,18 @@ Initialization:
 - In browsers, expect excellent performance; account for WASM boundary crossings (amortize by passing larger slices).
 
 For raw Rust benchmarks and methodology, see:
-- [RustTI Benchmarks](https://github.com/ChironMind/RustTI-benchmarks)
+- [CentaurTechnicalIndicators-Rust Benchmarks](https://github.com/ChironMind/CentaurTechnicalIndicators-Rust-benchmarks)
 
 ---
 
 ## 🧪 Parity Tests
 
-This repo includes value parity tests that assert equality with RustTI for a selection of indicators across modules. Run them in Node:
+This repo includes value parity tests that assert equality with Centaur Technical Indicators for a selection of indicators across modules. Run them in Node:
 
 ```bash
 npm test
 # or
-node --test ti-engine/test/*.test.js
+node --test test/*.test.js
 ```
 
 ---

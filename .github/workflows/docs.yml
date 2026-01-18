@@ -30,7 +30,7 @@ jobs:
         run: cargo install wasm-pack
 
       - name: Build 
-        run: wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name ti_engine
+        run: wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur-technical-indicators
 
       - name: Install docs dependencies
         working-directory: docs

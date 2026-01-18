@@ -1,6 +1,6 @@
-# How to determine the best DeviationModel for a ti-engine function
+# How to determine the best DeviationModel for a CentaurTechnicalIndicators-JS function
 
-This guide shows how to programmatically determine the best DeviationModel for your indicator using the JavaScript package ti-engine.
+This guide shows how to programmatically determine the best DeviationModel for your indicator using the JavaScript package CentaurTechnicalIndicators-JS.
 
 The rating model is overly simplified and should be refined to suit your needs before usage.
 
@@ -14,23 +14,23 @@ The rating model is overly simplified and should be refined to suit your needs b
 
 ## 📦 Requirements
 
-Install ti-engine:
+Install CentaurTechnicalIndicators-JS:
 
 ```bash
 # npm
-npm install ti-engine
+npm install centaur-technical-indicators
 
 # yarn
-yarn add ti-engine
+yarn add centaur-technical-indicators
 
 # pnpm
-pnpm add ti-engine
+pnpm add centaur-technical-indicators
 ```
 
 Initialize (recommended, required in browsers):
 
 ```js
-import init from "ti-engine";
+import init from "centaur-technical-indicators";
 
 await init(); // In Node it's a no-op; in browsers it loads WASM
 ```
@@ -66,7 +66,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "ti-engine";
+} from "centaur-technical-indicators";
 
 await init();
 
@@ -111,7 +111,7 @@ import {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "ti-engine";
+} from "centaur-technical-indicators";
 
 /**
  * Returns { model: DeviationModel, rating: number }
@@ -183,7 +183,7 @@ import init, {
   candleIndicators,
   ConstantModelType,
   DeviationModel
-} from "ti-engine";
+} from "centaur-technical-indicators";
 
 await init();
 

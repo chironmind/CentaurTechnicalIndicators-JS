@@ -1,4 +1,4 @@
-import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/ti_engine";
+import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/centaur-technical-indicators";
 
 // Re-export enums from the generated wasm types so consumers get both types and JSDoc.
 /**
@@ -9,7 +9,7 @@ import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "
  * - SimpleMovingMedian: median
  * - SimpleMovingMode: mode
  */
-export { ConstantModelType } from "./dist/bundler/ti_engine";
+export { ConstantModelType } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Price deviation models used to form bands around a central line.
@@ -22,14 +22,14 @@ export { ConstantModelType } from "./dist/bundler/ti_engine";
  * - LaplaceStdEquivalent
  * - CauchyIQRScale
  */
-export { DeviationModel } from "./dist/bundler/ti_engine";
+export { DeviationModel } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Trade direction for Parabolic SAR systems.
  * - Long: uptrend stop
  * - Short: downtrend stop
  */
-export { Position } from "./dist/bundler/ti_engine";
+export { Position } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Moving average type used by the movingAverage APIs.
@@ -40,7 +40,7 @@ export { Position } from "./dist/bundler/ti_engine";
  *
  * Note: The Rust Personalised variant is not exposed in this JS API.
  */
-export { MovingAverageType } from "./dist/bundler/ti_engine";
+export { MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
 
 /**
  * Initialize the WASM module.
@@ -48,7 +48,7 @@ export { MovingAverageType } from "./dist/bundler/ti_engine";
  * - Node: no-op (the Node target is loaded synchronously)
  *
  * @example
- * import init from "ti-engine";
+ * import init from "centaur-technical-indicators";
  * await init();
  */
 export default function init(input?: any): Promise<void>;
@@ -484,7 +484,7 @@ export interface ChartTrends {
 
   /**
    * Segment the series into distinct trend ranges based on goodness-of-fit thresholds.
-   * Uses rust_ti 2.1.5 TrendBreakConfig parameters.
+   * Uses Centaur Technical Indicators 1.0.0 TrendBreakConfig parameters.
    * @param prices Prices series.
    * @param maxOutliers Maximum number of outliers allowed before trend break.
    * @param softAdjRSquaredMinimum Soft minimum adjusted R-squared threshold.
@@ -1287,115 +1287,6 @@ export interface OtherIndicatorsBulk {
  * - MACD (12/26 EMA with 9 EMA signal; full-window must be length 34)
  * - RSI (Smoothed MA, period 14; full-window must be length 14)
  */
-export interface StandardIndicatorsSingle {
-  /**
-   * Calculates the simple moving average (SMA) over the full window.
-   * @param prices Slice of prices.
-   * @returns SMA value.
-   * @throws If prices is empty.
-   */
-  simpleMovingAverage(prices: number[]): number;
-
-  /**
-   * Calculates the smoothed moving average over the full window.
-   * @param prices Slice of prices.
-   * @returns Smoothed MA value.
-   * @throws If prices is empty.
-   */
-  smoothedMovingAverage(prices: number[]): number;
-
-  /**
-   * Calculates the exponential moving average over the full window.
-   * @param prices Slice of prices.
-   * @returns EMA value.
-   * @throws If prices is empty.
-   */
-  exponentialMovingAverage(prices: number[]): number;
-
-  /**
-   * Calculates standard Bollinger Bands.
-   * Defaults: 20-period SMA center, ±2 Standard Deviations.
-   * @param prices Slice of prices. Must be exactly length 20.
-   * @returns [lower, middle, upper]
-   * @throws If prices is empty or length != 20.
-   */
-  bollingerBands(prices: number[]): [number, number, number];
-
-  /**
-   * Calculates standard MACD, signal, and histogram.
-   * Defaults: MACD = EMA(12) - EMA(26); signal = EMA(9) of MACD.
-   * Full-window formula expects 34 prices to produce one MACD+signal point.
-   * @param prices Slice of prices. Must be exactly length 34.
-   * @returns [macd, signal, histogram]
-   * @throws If prices.length != 34.
-   */
-  macd(prices: number[]): [number, number, number];
-
-  /**
-   * Calculates standard RSI (period 14) using Smoothed Moving Average.
-   * @param prices Slice of prices. Must be exactly length 14.
-   * @returns RSI value.
-   * @throws If prices.length != 14.
-   */
-  rsi(prices: number[]): number;
-}
-
-/**
- * Bulk/rolling standard indicators.
- */
-export interface StandardIndicatorsBulk {
-  /**
-   * Rolling SMA.
-   * @param prices Prices.
-   * @param period Window length.
-   * @returns SMA per window.
-   * @throws If period > prices.length.
-   */
-  simpleMovingAverage(prices: number[], period: number): number[];
-
-  /**
-   * Rolling Smoothed MA.
-   * @param prices Prices.
-   * @param period Window length.
-   * @returns Smoothed MA per window.
-   * @throws If period > prices.length.
-   */
-  smoothedMovingAverage(prices: number[], period: number): number[];
-
-  /**
-   * Rolling EMA.
-   * @param prices Prices.
-   * @param period Window length.
-   * @returns EMA per window.
-   * @throws If period > prices.length.
-   */
-  exponentialMovingAverage(prices: number[], period: number): number[];
-
-  /**
-   * Rolling standard Bollinger Bands (SMA center, ±2 StdDev) with a 20-bar window.
-   * @param prices Prices. Must be at least length 20.
-   * @returns Array of [lower, middle, upper] for each 20-bar window.
-   * @throws If prices.length < 20.
-   */
-  bollingerBands(prices: number[]): [number, number, number][];
-
-  /**
-   * Rolling standard MACD (12/26 EMA, 9 EMA signal).
-   * Produces one [macd, signal, histogram] per 34-bar window.
-   * @param prices Prices. Must be at least length 34.
-   * @returns Array of [macd, signal, histogram].
-   * @throws If prices.length < 34.
-   */
-  macd(prices: number[]): [number, number, number][];
-
-  /**
-   * Rolling standard RSI (period 14, Smoothed MA).
-   * @param prices Prices. Must be at least length 14.
-   * @returns RSI per 14-bar window.
-   * @throws If prices.length < 14.
-   */
-  rsi(prices: number[]): number[];
-}
 
 /**
  * Single-value strength indicators.
@@ -1886,11 +1777,6 @@ export const momentumIndicators: {
 export const otherIndicators: {
   single: OtherIndicatorsSingle;
   bulk: OtherIndicatorsBulk;
-};
-
-export const standardIndicators: {
-  single: StandardIndicatorsSingle;
-  bulk: StandardIndicatorsBulk;
 };
 
 export const strengthIndicators: {
