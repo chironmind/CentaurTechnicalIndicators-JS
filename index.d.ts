@@ -1,4 +1,4 @@
-import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
+import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/centaur-technical-indicators";
 
 // Re-export enums from the generated wasm types so consumers get both types and JSDoc.
 /**
