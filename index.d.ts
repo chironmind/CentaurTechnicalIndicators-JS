@@ -1677,9 +1677,9 @@ export interface VolatilityIndicatorsBulk {
    * - Seed SAR from significant close of initial segment (max for Long, min for Short)
    * - For each subsequent bar, update SAR +/- ARC based on position and switch on crosses
    *
+   * @param close Close prices.
    * @param high High prices.
    * @param low Low prices.
-   * @param close Close prices.
    * @param period ATR/trend lookback window.
    * @param constantMultiplier Multiplier applied to ATR to form ARC.
    * @param constantModelType Model used inside ATR (SMA/EMA/etc.).
@@ -1687,9 +1687,9 @@ export interface VolatilityIndicatorsBulk {
    * @throws If arrays are empty, lengths differ, or period > length.
    */
   volatilitySystem(
+    close: number[],
     high: number[],
     low: number[],
-    close: number[],
     period: number,
     constantMultiplier: number,
     constantModelType: ConstantModelType
