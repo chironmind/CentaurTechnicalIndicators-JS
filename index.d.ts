@@ -9,7 +9,7 @@ import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "
  * - SimpleMovingMedian: median
  * - SimpleMovingMode: mode
  */
-export { ConstantModelType } from "./dist/bundler/centaur_technical_indicators";
+export { ConstantModelType } from "./dist/bundler/centaur-technical-indicators";
 
 /**
  * Price deviation models used to form bands around a central line.
@@ -22,14 +22,14 @@ export { ConstantModelType } from "./dist/bundler/centaur_technical_indicators";
  * - LaplaceStdEquivalent
  * - CauchyIQRScale
  */
-export { DeviationModel } from "./dist/bundler/centaur_technical_indicators";
+export { DeviationModel } from "./dist/bundler/centaur-technical-indicators";
 
 /**
  * Trade direction for Parabolic SAR systems.
  * - Long: uptrend stop
  * - Short: downtrend stop
  */
-export { Position } from "./dist/bundler/centaur_technical_indicators";
+export { Position } from "./dist/bundler/centaur-technical-indicators";
 
 /**
  * Moving average type used by the movingAverage APIs.
@@ -40,7 +40,7 @@ export { Position } from "./dist/bundler/centaur_technical_indicators";
  *
  * Note: The Rust Personalised variant is not exposed in this JS API.
  */
-export { MovingAverageType } from "./dist/bundler/centaur_technical_indicators";
+export { MovingAverageType } from "./dist/bundler/centaur-technical-indicators";
 
 /**
  * Initialize the WASM module.
