@@ -139,6 +139,20 @@ describe("trendIndicators.bulk (parity, one model where applicable)", () => {
     ]);
   });
 
+  test("volumePriceTrend (same-length arrays)", () => {
+    // Test with same-length arrays - first volume should be skipped automatically
+    const prices = [100.55, 99.01, 100.43, 101.0, 101.76];
+    const volume = [999.0, 743.0, 1074.0, 861.0, 966.0]; // First element (999.0) should be ignored
+    const out = trendIndicators.bulk.volumePriceTrend(prices, volume, 0.0);
+    // Should give same result as if we passed volume[1:]
+    assert.deepEqual(out, [
+      -11.379612133266974,
+      4.023680463440446,
+      8.910367708287545,
+      16.1792785993767,
+    ]);
+  });
+
   test("trueStrengthIndex (EMA/EMA, 5/3)", () => {
     const prices = [100.14,98.98,99.07,100.1,99.96,99.56,100.72,101.16,100.76,100.3];
     const out = trendIndicators.bulk.trueStrengthIndex(

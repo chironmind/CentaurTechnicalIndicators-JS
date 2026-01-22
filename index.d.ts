@@ -1604,7 +1604,7 @@ export interface TrendIndicatorsBulk {
   /**
    * Rolling Volume Price Trend (VPT).
    * @param prices Price series (length L).
-   * @param volumes Volume series (length L-1).
+   * @param volumes Volume series (length L or L-1). If same length as prices, the first volume is skipped.
    * @param previousVolumePriceTrend Seed VPT value.
    * @returns VPT values per step (length L-1).
    * @throws If lengths mismatch or empty.
