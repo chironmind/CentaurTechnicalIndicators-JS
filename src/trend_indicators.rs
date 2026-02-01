@@ -204,9 +204,16 @@ pub fn trend_bulk_volume_price_trend(
     volumes: Vec<f64>,
     previous_volume_price_trend: f64,
 ) -> Array {
+    // Handle both same-length arrays (skip first volume) and L-1 length arrays (backward compat)
+    let volumes_slice = if volumes.len() == prices.len() {
+        &volumes[1..]
+    } else {
+        &volumes
+    };
+    
     let data = centaur_technical_indicators::trend_indicators::bulk::volume_price_trend(
         &prices,
-        &volumes,
+        volumes_slice,
         previous_volume_price_trend,
     )
         .expect("Failed to calculate indicator");
