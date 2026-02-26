@@ -63,6 +63,7 @@ export interface CandleIndicatorsSingle {
    * @param constantModelType The central model (SMA, EMA, median, etc.).
    * @param difference Percent band width (e.g., 3.0 for ±3%).
    * @returns [lower, middle, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/moving-constant-envelopes/} Explanation and interactive playground
    * @example
    * single.movingConstantEnvelopes(prices, ConstantModelType.ExponentialMovingAverage, 3.0)
    */
@@ -78,6 +79,7 @@ export interface CandleIndicatorsSingle {
    * @param difference Percent band width (e.g., 3.0 for ±3%).
    * @param previousMcGinleyDynamic Previous McGinley value (0.0 if none).
    * @returns [lower, mcginley, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/mcginley-dynamic-envelopes/} Explanation and interactive playground
    */
   mcginleyDynamicEnvelopes(
     prices: number[],
@@ -92,6 +94,7 @@ export interface CandleIndicatorsSingle {
    * @param deviationModel Deviation model (StdDev, MAD, etc.).
    * @param deviationMultiplier Multiplier applied to the deviation (e.g., 2.0).
    * @returns [lower, middle, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/moving-constant-bands/} Explanation and interactive playground
    */
   movingConstantBands(
     prices: number[],
@@ -107,6 +110,7 @@ export interface CandleIndicatorsSingle {
    * @param deviationMultiplier Multiplier applied to the deviation (e.g., 2.0).
    * @param previousMcGinleyDynamic Previous McGinley value (0.0 if none).
    * @returns [lower, mcginley, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/mcginley-dynamic-bands/} Explanation and interactive playground
    */
   mcginleyDynamicBands(
     prices: number[],
@@ -124,6 +128,7 @@ export interface CandleIndicatorsSingle {
    * @param basePeriod Kijun-sen period.
    * @param spanBPeriod Senkou Span B period.
    * @returns [spanA, spanB, base, conversion, displacedClose]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/ichimoku-cloud/} Explanation and interactive playground
    */
   ichimokuCloud(
     highs: number[],
@@ -139,6 +144,7 @@ export interface CandleIndicatorsSingle {
    * @param highs High prices.
    * @param lows Low prices.
    * @returns [lower, middle, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/donchian-channels/} Explanation and interactive playground
    */
   donchianChannels(highs: number[], lows: number[]): [number, number, number];
 
@@ -151,6 +157,7 @@ export interface CandleIndicatorsSingle {
    * @param atrConstantModelType Model for ATR calculation.
    * @param multiplier Multiplier for ATR width.
    * @returns [lower, middle, upper]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/keltner-channels/} Explanation and interactive playground
    */
   keltnerChannel(
     highs: number[],
@@ -169,6 +176,7 @@ export interface CandleIndicatorsSingle {
    * @param constantModelType Model used by ATR.
    * @param multiplier Multiplier for ATR.
    * @returns supertrend value
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/supertrend/} Explanation and interactive playground
    */
   supertrend(
     highs: number[],
@@ -207,6 +215,7 @@ export interface CandleIndicatorsBulk {
    *   prices, ConstantModelType.ExponentialMovingAverage, 3.0, 20
    * );
    * // out[i] corresponds to prices[i..i+19]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/moving-constant-envelopes/} Explanation and interactive playground
    */
   movingConstantEnvelopes(
     prices: number[],
@@ -233,6 +242,7 @@ export interface CandleIndicatorsBulk {
    * @example
    * const out = bulk.mcginleyDynamicEnvelopes(prices, 3.0, 0.0, 14);
    * // out[i] corresponds to prices[i..i+13]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/mcginley-dynamic-envelopes/} Explanation and interactive playground
    */
   mcginleyDynamicEnvelopes(
     prices: number[],
@@ -268,6 +278,7 @@ export interface CandleIndicatorsBulk {
    *   20
    * );
    * // out[i] corresponds to prices[i..i+19]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/moving-constant-bands/} Explanation and interactive playground
    */
   movingConstantBands(
     prices: number[],
@@ -297,6 +308,7 @@ export interface CandleIndicatorsBulk {
    * const out = bulk.mcginleyDynamicBands(
    *   prices, DeviationModel.StandardDeviation, 2.0, 0.0, 20
    * );
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/mcginley-dynamic-bands/} Explanation and interactive playground
    */
   mcginleyDynamicBands(
     prices: number[],
@@ -327,6 +339,7 @@ export interface CandleIndicatorsBulk {
    * @example
    * const out = bulk.ichimokuCloud(highs, lows, close, 9, 26, 52);
    * // N = max(9, 26, 52) = 52; out[i] corresponds to OHLC[i..i+51]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/ichimoku-cloud/} Explanation and interactive playground
    */
   ichimokuCloud(
     highs: number[],
@@ -354,6 +367,7 @@ export interface CandleIndicatorsBulk {
    * @example
    * const out = bulk.donchianChannels(highs, lows, 20);
    * // out[i] corresponds to highs/lows[i..i+19]
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/donchian-channels/} Explanation and interactive playground
    */
   donchianChannels(
     highs: number[],
@@ -388,6 +402,7 @@ export interface CandleIndicatorsBulk {
    *   2.0,
    *   20
    * );
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/keltner-channels/} Explanation and interactive playground
    */
   keltnerChannel(
     highs: number[],
@@ -420,6 +435,7 @@ export interface CandleIndicatorsBulk {
    *   2.0,
    *   10
    * );
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/candle-indicators/supertrend/} Explanation and interactive playground
    */
   supertrend(
     highs: number[],
@@ -524,6 +540,7 @@ export interface CorrelationIndicatorsSingle {
    * @returns Correlation-like coefficient (unitless).
    *
    * Note: PersonalisedMovingAverage is not exposed in this JS API.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/correlation-indicators/correlate-asset-prices/} Explanation and interactive playground
    */
   correlateAssetPrices(
     pricesAssetA: number[],
@@ -554,6 +571,7 @@ export interface CorrelationIndicatorsBulk {
    * const out = correlationIndicators.bulk.correlateAssetPrices(
    *   pricesA, pricesB, ConstantModelType.SimpleMovingAverage, DeviationModel.StandardDeviation, 20
    * );
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/correlation-indicators/correlate-asset-prices/} Explanation and interactive playground
    */
   correlateAssetPrices(
     pricesAssetA: number[],
@@ -591,6 +609,7 @@ export interface MomentumIndicatorsSingle {
    *   prices,
    *   ConstantModelType.SmoothedMovingAverage
    * );
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/rsi/} Explanation and interactive playground
    */
   relativeStrengthIndex(
     prices: number[],
@@ -606,6 +625,7 @@ export interface MomentumIndicatorsSingle {
    * @param prices Slice of prices (length >= 1).
    * @returns Percent value in [0, 100].
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/stochastic-oscillator/} Explanation and interactive playground
    */
   stochasticOscillator(prices: number[]): number;
 
@@ -618,6 +638,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Smoothed stochastic value.
    * @throws If stochastics is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/slow-stochastic-oscillator/} Explanation and interactive playground
    */
   slowStochastic(
     stochastics: number[],
@@ -633,6 +654,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Slowest stochastic value.
    * @throws If slowStochastics is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/slow-stochastic-oscillator/} Explanation and interactive playground
    */
   slowestStochastic(
     slowStochastics: number[],
@@ -647,6 +669,7 @@ export interface MomentumIndicatorsSingle {
    * @param close Close price for the observed period (last bar’s close).
    * @returns %R value in [-100, 0].
    * @throws If high/low are empty or their lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/williams-percent-r/} Explanation and interactive playground
    */
   williamsPercentR(high: number[], low: number[], close: number): number;
 
@@ -661,6 +684,7 @@ export interface MomentumIndicatorsSingle {
    * @param volume Slice of volumes (same length as prices).
    * @returns MFI value in [0, 100].
    * @throws If arrays are empty or lengths mismatch.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/money-flow-index/} Explanation and interactive playground
    */
   moneyFlowIndex(prices: number[], volume: number[]): number;
 
@@ -670,6 +694,7 @@ export interface MomentumIndicatorsSingle {
    * @param currentPrice Current price.
    * @param previousPrice Previous price.
    * @returns Percentage change: ((current - previous)/previous) * 100.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/rate-of-change/} Explanation and interactive playground
    */
   rateOfChange(currentPrice: number, previousPrice: number): number;
 
@@ -684,6 +709,7 @@ export interface MomentumIndicatorsSingle {
    * @param currentVolume Current volume.
    * @param previousOnBalanceVolume Previous OBV seed (use 0 if none).
    * @returns Updated OBV value.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/on-balance-volume/} Explanation and interactive playground
    */
   onBalanceVolume(
     currentPrice: number,
@@ -705,6 +731,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantMultiplier Scale factor (normally 0.015).
    * @returns CCI value (unitless).
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/commodity-channel-index/} Explanation and interactive playground
    */
   commodityChannelIndex(
     prices: number[],
@@ -725,6 +752,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantMultiplier Scale factor (normally 0.015).
    * @returns [cci, mcginleyDynamic].
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/mcginley-dynamic-commodity-channel-index/} Explanation and interactive playground
    */
   mcginleyDynamicCommodityChannelIndex(
     prices: number[],
@@ -745,6 +773,7 @@ export interface MomentumIndicatorsSingle {
    * @param longPeriodModel Model for long average (over full series).
    * @returns MACD value (short - long).
    * @throws If prices is empty or shortPeriod >= prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/macd/} Explanation and interactive playground
    */
   macdLine(
     prices: number[],
@@ -762,6 +791,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Signal value.
    * @throws If macds is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/macd/} Explanation and interactive playground
    */
   signalLine(macds: number[], constantModelType: ConstantModelType): number;
 
@@ -778,6 +808,7 @@ export interface MomentumIndicatorsSingle {
    * @param previousLongMcginley Previous long McGinley (0.0 if none).
    * @returns [macd, shortMcginley, longMcginley].
    * @throws If prices is empty or shortPeriod >= prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/mcginley-dynamic-macd/} Explanation and interactive playground
    */
   mcginleyDynamicMacdLine(
     prices: number[],
@@ -805,6 +836,7 @@ export interface MomentumIndicatorsSingle {
    * @param longPeriodModel Model for the long AD average.
    * @returns [oscillatorValue, lastAD].
    * @throws If input lengths differ or highs.length <= shortPeriod.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/chaikin-oscillator/} Explanation and interactive playground
    */
   chaikinOscillator(
     highs: number[],
@@ -828,6 +860,7 @@ export interface MomentumIndicatorsSingle {
    * @param constantModelType Central model for both averages.
    * @returns PPO percentage.
    * @throws If prices is empty or shortPeriod > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/percentage-price-oscillator/} Explanation and interactive playground
    */
   percentagePriceOscillator(
     prices: number[],
@@ -846,6 +879,7 @@ export interface MomentumIndicatorsSingle {
    * @param prices Slice of prices (length >= 1).
    * @returns CMO value in [-100, 100].
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/chande-momentum-oscillator/} Explanation and interactive playground
    */
   chandeMomentumOscillator(prices: number[]): number;
 }
@@ -866,6 +900,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns RSI per window.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/rsi/} Explanation and interactive playground
    */
   relativeStrengthIndex(
     prices: number[],
@@ -880,6 +915,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns %K per window in [0, 100].
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/stochastic-oscillator/} Explanation and interactive playground
    */
   stochasticOscillator(prices: number[], period: number): number[];
 
@@ -891,6 +927,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns Slow stochastic per window.
    * @throws If period > stochastics.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/slow-stochastic-oscillator/} Explanation and interactive playground
    */
   slowStochastic(
     stochastics: number[],
@@ -906,6 +943,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns Slowest stochastic per window.
    * @throws If period > slowStochastics.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/slow-stochastic-oscillator/} Explanation and interactive playground
    */
   slowestStochastic(
     slowStochastics: number[],
@@ -922,6 +960,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns %R values per window.
    * @throws If lengths differ or period > lengths.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/williams-percent-r/} Explanation and interactive playground
    */
   williamsPercentR(
     high: number[],
@@ -938,6 +977,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns MFI values per window.
    * @throws If period > prices.length or lengths mismatch.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/money-flow-index/} Explanation and interactive playground
    */
   moneyFlowIndex(prices: number[], volume: number[], period: number): number[];
 
@@ -947,6 +987,7 @@ export interface MomentumIndicatorsBulk {
    * @param prices Prices (length >= 1).
    * @returns Array of successive RoC values (length = prices.length - 1).
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/rate-of-change/} Explanation and interactive playground
    */
   rateOfChange(prices: number[]): number[];
 
@@ -958,6 +999,7 @@ export interface MomentumIndicatorsBulk {
    * @param previousOnBalanceVolume Previous OBV seed (0 if none).
    * @returns OBV values per step (length = prices.length - 1).
    * @throws If prices is empty or lengths mismatch.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/on-balance-volume/} Explanation and interactive playground
    */
   onBalanceVolume(
     prices: number[],
@@ -975,6 +1017,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns CCI per window.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/commodity-channel-index/} Explanation and interactive playground
    */
   commodityChannelIndex(
     prices: number[],
@@ -997,6 +1040,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns Array of [cci, mcginley] per window.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/mcginley-dynamic-commodity-channel-index/} Explanation and interactive playground
    */
   mcginleyDynamicCommodityChannelIndex(
     prices: number[],
@@ -1016,6 +1060,7 @@ export interface MomentumIndicatorsBulk {
    * @param longPeriodModel Model for long average.
    * @returns MACD values per window.
    * @throws If shortPeriod > longPeriod or longPeriod > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/macd/} Explanation and interactive playground
    */
   macdLine(
     prices: number[],
@@ -1033,6 +1078,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns Signal values per window.
    * @throws If period > macds.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/macd/} Explanation and interactive playground
    */
   signalLine(
     macds: number[],
@@ -1053,6 +1099,7 @@ export interface MomentumIndicatorsBulk {
    * @param previousLongMcginley Previous long McGinley (0.0 if none).
    * @returns Array of [macd, shortMcginley, longMcginley].
    * @throws If prices is empty, longPeriod > prices.length, or shortPeriod >= longPeriod.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/mcginley-dynamic-macd/} Explanation and interactive playground
    */
   mcginleyDynamicMacdLine(
     prices: number[],
@@ -1079,6 +1126,7 @@ export interface MomentumIndicatorsBulk {
    * @param longPeriodModel Model for long AD average.
    * @returns Array of [oscValue, lastAD] per window.
    * @throws If lengths differ, length < longPeriod, or shortPeriod >= longPeriod.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/chaikin-oscillator/} Explanation and interactive playground
    */
   chaikinOscillator(
     highs: number[],
@@ -1101,6 +1149,7 @@ export interface MomentumIndicatorsBulk {
    * @param constantModelType Central model for both averages.
    * @returns PPO values per window (%).
    * @throws If shortPeriod >= longPeriod, prices is empty, or longPeriod > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/percentage-price-oscillator/} Explanation and interactive playground
    */
   percentagePriceOscillator(
     prices: number[],
@@ -1116,6 +1165,7 @@ export interface MomentumIndicatorsBulk {
    * @param period Window length.
    * @returns CMO values per window (range [-100, 100]).
    * @throws If prices is empty or period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/chande-momentum-oscillator/} Explanation and interactive playground
    */
   chandeMomentumOscillator(prices: number[], period: number): number[];
 }
@@ -1137,6 +1187,7 @@ export interface OtherIndicatorsSingle {
    * @param endPrice Final asset price.
    * @param investment Amount invested at start.
    * @returns [finalValue, percentReturn].
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/return-on-investment/} Explanation and interactive playground
    */
   returnOnInvestment(
     startPrice: number,
@@ -1156,6 +1207,7 @@ export interface OtherIndicatorsSingle {
    * @param high Current period high.
    * @param low Current period low.
    * @returns True Range value.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/true-range/} Explanation and interactive playground
    */
   trueRange(previousClose: number, high: number, low: number): number;
 
@@ -1172,6 +1224,7 @@ export interface OtherIndicatorsSingle {
    * @param constantModelType Central model for averaging TR.
    * @returns ATR value.
    * @throws If arrays are empty or lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/average-true-range/} Explanation and interactive playground
    */
   averageTrueRange(
     close: number[],
@@ -1189,6 +1242,7 @@ export interface OtherIndicatorsSingle {
    * @param low Low of the bar.
    * @param close Close of the bar.
    * @returns IBS in [0, 1].
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/internal-bar-strength/} Explanation and interactive playground
    */
   internalBarStrength(high: number, low: number, close: number): number;
 }
@@ -1211,6 +1265,7 @@ export interface OtherIndicatorsBulk {
    * @param investment Initial investment amount.
    * @returns Array of [finalValue, percentReturn] per step (length L - 1).
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/return-on-investment/} Explanation and interactive playground
    */
   returnOnInvestment(prices: number[], investment: number): [number, number][];
 
@@ -1222,6 +1277,7 @@ export interface OtherIndicatorsBulk {
    * @param low Lows.
    * @returns TR per bar.
    * @throws If arrays are empty or lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/true-range/} Explanation and interactive playground
    */
   trueRange(close: number[], high: number[], low: number[]): number[];
 
@@ -1235,6 +1291,7 @@ export interface OtherIndicatorsBulk {
    * @param period Window size for ATR.
    * @returns ATR per window (length L - period + 1).
    * @throws If arrays are empty, lengths differ, or period > length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/average-true-range/} Explanation and interactive playground
    */
   averageTrueRange(
     close: number[],
@@ -1252,6 +1309,7 @@ export interface OtherIndicatorsBulk {
    * @param close Closes.
    * @returns IBS per bar.
    * @throws If arrays are empty or lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/internal-bar-strength/} Explanation and interactive playground
    */
   internalBarStrength(high: number[], low: number[], close: number[]): number[];
 
@@ -1269,6 +1327,7 @@ export interface OtherIndicatorsBulk {
    * @param constantModelType Model for the signal line (SMA, EMA, etc.).
    * @returns Array of [pi, signal] aligned to window ends (length L - signalPeriod + 1).
    * @throws If arrays are empty, lengths differ, or signalPeriod > length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/other-indicators/positivity-indicator/} Explanation and interactive playground
    */
   positivityIndicator(
     open: number[],
@@ -1305,6 +1364,7 @@ export interface StrengthIndicatorsSingle {
    * @param volume Volume.
    * @param previousAccumulationDistribution Previous AD seed (0.0 if none).
    * @returns Updated AD value.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/accumulation-distribution/} Explanation and interactive playground
    */
   accumulationDistribution(
     high: number,
@@ -1319,6 +1379,7 @@ export interface StrengthIndicatorsSingle {
    * change = (currentClose - previousClose)/previousClose
    * If previousIndex == 0: return change + change^2
    * Else: return previousIndex + (change * previousIndex)
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/positive-volume-index/} Explanation and interactive playground
    */
   volumeIndex(
     currentClose: number,
@@ -1338,6 +1399,7 @@ export interface StrengthIndicatorsSingle {
    * @param constantModelType Central model for smoothing numerator/denominator.
    * @returns RVI value.
    * @throws If lengths differ, empty, or length < 4.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/relative-vigor-index/} Explanation and interactive playground
    */
   relativeVigorIndex(
     open: number[],
@@ -1356,6 +1418,7 @@ export interface StrengthIndicatorsBulk {
    * Vectorized AD line 
    * @returns AD per bar.
    * @throws If lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/accumulation-distribution/} Explanation and interactive playground
    */
   accumulationDistribution(
     high: number[],
@@ -1370,6 +1433,7 @@ export interface StrengthIndicatorsBulk {
    * Advances only when volume increases vs previous bar; otherwise repeats last value.
    * @returns PVI per step (length L-1).
    * @throws If lengths differ or empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/positive-volume-index/} Explanation and interactive playground
    */
   positiveVolumeIndex(
     close: number[],
@@ -1382,6 +1446,7 @@ export interface StrengthIndicatorsBulk {
    * Advances only when volume decreases vs previous bar; otherwise repeats last value.
    * @returns NVI per step (length L-1).
    * @throws If lengths differ or empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/negative-volume-index/} Explanation and interactive playground
    */
   negativeVolumeIndex(
     close: number[],
@@ -1399,6 +1464,7 @@ export interface StrengthIndicatorsBulk {
    * @param period Window length (>= 4).
    * @returns RVI per window.
    * @throws If lengths differ, empty, period > length, or period < 4.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/strength-indicators/relative-vigor-index/} Explanation and interactive playground
    */
   relativeVigorIndex(
     open: number[],
@@ -1420,6 +1486,7 @@ export interface TrendIndicatorsSingle {
    * @param highs High prices (length >= 2).
    * @returns Aroon Up in [0, 100].
    * @throws If highs is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonUp(highs: number[]): number;
 
@@ -1429,6 +1496,7 @@ export interface TrendIndicatorsSingle {
    * @param lows Low prices (length >= 2).
    * @returns Aroon Down in [0, 100].
    * @throws If lows is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonDown(lows: number[]): number;
 
@@ -1436,6 +1504,7 @@ export interface TrendIndicatorsSingle {
    * Aroon Oscillator = AroonUp - AroonDown.
    * @param aroonUp Aroon Up value.
    * @param aroonDown Aroon Down value.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonOscillator(aroonUp: number, aroonDown: number): number;
 
@@ -1445,6 +1514,7 @@ export interface TrendIndicatorsSingle {
    * @param lows Low prices.
    * @returns [aroonUp, aroonDown, aroonOscillator].
    * @throws If lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonIndicator(highs: number[], lows: number[]): [number, number, number];
 
@@ -1456,6 +1526,7 @@ export interface TrendIndicatorsSingle {
    * @param accelerationFactor Step factor.
    * @param low Current/previous period low clamp.
    * @returns Next SAR.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/parabolic-time-price-system/} Explanation and interactive playground
    */
   longParabolicTimePriceSystem(
     previousSar: number,
@@ -1472,6 +1543,7 @@ export interface TrendIndicatorsSingle {
    * @param accelerationFactor Step factor.
    * @param high Current/previous period high clamp.
    * @returns Next SAR.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/parabolic-time-price-system/} Explanation and interactive playground
    */
   shortParabolicTimePriceSystem(
     previousSar: number,
@@ -1506,6 +1578,7 @@ export interface TrendIndicatorsSingle {
    * @param secondConstantModel Second smoothing model (single).
    * @returns TSI value (unitless).
    * @throws If prices is empty or too short for firstPeriod+1.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/true-strength-index/} Explanation and interactive playground
    */
   trueStrengthIndex(
     prices: number[],
@@ -1525,6 +1598,7 @@ export interface TrendIndicatorsBulk {
    * @param period Lookback length.
    * @returns Aroon Up per window.
    * @throws If period > highs.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonUp(highs: number[], period: number): number[];
 
@@ -1534,6 +1608,7 @@ export interface TrendIndicatorsBulk {
    * @param period Lookback length.
    * @returns Aroon Down per window.
    * @throws If period > lows.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonDown(lows: number[], period: number): number[];
 
@@ -1543,6 +1618,7 @@ export interface TrendIndicatorsBulk {
    * @param aroonDown AroonDown series.
    * @returns Oscillator series.
    * @throws If lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonOscillator(aroonUp: number[], aroonDown: number[]): number[];
 
@@ -1553,6 +1629,7 @@ export interface TrendIndicatorsBulk {
    * @param period Lookback length.
    * @returns Array of [aroonUp, aroonDown, oscillator].
    * @throws If lengths differ or period > length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonIndicator(
     highs: number[],
@@ -1572,6 +1649,7 @@ export interface TrendIndicatorsBulk {
    * @param previousSar Previous SAR seed (0.0 if none).
    * @returns SAR values per bar.
    * @throws If inputs empty or lengths differ.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/parabolic-time-price-system/} Explanation and interactive playground
    */
   parabolicTimePriceSystem(
     highs: number[],
@@ -1592,6 +1670,7 @@ export interface TrendIndicatorsBulk {
    * @param constantModelType Model for ADX smoothing.
    * @returns Array of [+di, -di, adx, adxr].
    * @throws If lengths differ, empty, or not enough data (len < 3*period).
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/directional-movement-system/} Explanation and interactive playground
    */
   directionalMovementSystem(
     highs: number[],
@@ -1624,6 +1703,7 @@ export interface TrendIndicatorsBulk {
    * @param secondPeriod Second smoothing period.
    * @returns TSI per window.
    * @throws If prices is empty or too short (len < first+second).
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/true-strength-index/} Explanation and interactive playground
    */
   trueStrengthIndex(
     prices: number[],
@@ -1649,6 +1729,7 @@ export interface VolatilityIndicatorsSingle {
    * @param prices Slice of prices (length >= 1).
    * @returns Ulcer Index (percentage points).
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/volatility-indicators/ulcer-index/} Explanation and interactive playground
    */
   ulcerIndex(prices: number[]): number;
 }
@@ -1663,6 +1744,7 @@ export interface VolatilityIndicatorsBulk {
    * @param period Window length.
    * @returns Ulcer Index per window.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/volatility-indicators/ulcer-index/} Explanation and interactive playground
    */
   ulcerIndex(prices: number[], period: number): number[];
 
@@ -1706,6 +1788,7 @@ export interface MovingAverageSingle {
    * @param maType Moving average type (Simple, Smoothed, Exponential).
    * @returns Average value.
    * @throws If prices is empty.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/moving-averages/moving-average/} Explanation and interactive playground
    */
   movingAverage(prices: number[], maType: MovingAverageType): number;
 
@@ -1716,6 +1799,7 @@ export interface MovingAverageSingle {
    * @param period Period length (> 0).
    * @returns McGinley value.
    * @throws If period == 0.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/moving-averages/mcginley-dynamic/} Explanation and interactive playground
    */
   mcginleyDynamic(
     latestPrice: number,
@@ -1735,6 +1819,7 @@ export interface MovingAverageBulk {
    * @param period Window length.
    * @returns Average value per window.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/moving-averages/moving-average/} Explanation and interactive playground
    */
   movingAverage(
     prices: number[],
@@ -1749,6 +1834,7 @@ export interface MovingAverageBulk {
    * @param period Period length.
    * @returns McGinley values per step.
    * @throws If period > prices.length.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/moving-averages/mcginley-dynamic/} Explanation and interactive playground
    */
   mcginleyDynamic(
     prices: number[],

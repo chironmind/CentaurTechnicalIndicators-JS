@@ -23,6 +23,7 @@ pub fn volatility_bulk_ulcer_index(prices: Vec<f64>, period: usize) -> Array {
     out
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = volatility_bulk_volatilitySystem)]
 pub fn volatility_bulk_volatility_system(
     close: Vec<f64>,

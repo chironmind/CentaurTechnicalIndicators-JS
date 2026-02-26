@@ -62,6 +62,7 @@ pub fn trend_single_short_parabolic_time_price_system(
     )
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = trend_single_volumePriceTrend)]
 pub fn trend_single_volume_price_trend(
     current_price: f64,
@@ -198,6 +199,7 @@ pub fn trend_bulk_directional_movement_system(
     out
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = trend_bulk_volumePriceTrend)]
 pub fn trend_bulk_volume_price_trend(
     prices: Vec<f64>,

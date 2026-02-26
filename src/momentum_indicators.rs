@@ -21,6 +21,7 @@ pub fn momentum_single_stochastic_oscillator(prices: Vec<f64>) -> f64 {
         .expect("Failed to calculate stochastic oscillator")
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_single_slowStochastic)]
 pub fn momentum_single_slow_stochastic(
     stochastics: Vec<f64>,
@@ -30,6 +31,7 @@ pub fn momentum_single_slow_stochastic(
         .expect("Failed to calculate slow stochastic")
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_single_slowestStochastic)]
 pub fn momentum_single_slowest_stochastic(
     slow_stochastics: Vec<f64>,
@@ -128,6 +130,7 @@ pub fn momentum_single_macd_line(
     .expect("Failed to calculate MACD line")
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_single_signalLine)]
 pub fn momentum_single_signal_line(
     macds: Vec<f64>,
@@ -237,6 +240,7 @@ pub fn momentum_bulk_stochastic_oscillator(prices: Vec<f64>, period: usize) -> A
     out
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_bulk_slowStochastic)]
 pub fn momentum_bulk_slow_stochastic(
     stochastics: Vec<f64>,
@@ -256,6 +260,7 @@ pub fn momentum_bulk_slow_stochastic(
     out
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_bulk_slowestStochastic)]
 pub fn momentum_bulk_slowest_stochastic(
     slow_stochastics: Vec<f64>,
@@ -404,6 +409,7 @@ pub fn momentum_bulk_macd_line(
     out
 }
 
+#[allow(deprecated)]
 #[wasm_bindgen(js_name = momentum_bulk_signalLine)]
 pub fn momentum_bulk_signal_line(
     macds: Vec<f64>,

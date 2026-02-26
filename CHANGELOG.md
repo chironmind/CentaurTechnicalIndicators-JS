@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [Unreleased]
+
+### Changed
+- Updated `centaur_technical_indicators` dependency from 1.0.0 to 1.2.0
+
+### Deprecated
+- The following WASM bindings wrap functions that are deprecated in the upstream `centaur_technical_indicators` 1.2.0 crate and will be removed in a future major release:
+  - `momentumIndicators.single.slowStochastic` / `momentumIndicators.bulk.slowStochastic`
+  - `momentumIndicators.single.slowestStochastic` / `momentumIndicators.bulk.slowestStochastic`
+  - `momentumIndicators.single.signalLine` / `momentumIndicators.bulk.signalLine`
+  - `trendIndicators.single.volumePriceTrend` / `trendIndicators.bulk.volumePriceTrend`
+  - `volatilityIndicators.bulk.volatilitySystem`
+
+---
+
 ## [1.0.0] - 2025-01-20
 
 ### Changed
