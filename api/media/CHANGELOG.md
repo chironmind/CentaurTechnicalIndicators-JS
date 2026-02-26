@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [Unreleased]
+## [1.2.0] - 2026-02-26
+
+### Added
+- Added reference URLs for explanations
 
 ### Changed
 - Updated `centaur_technical_indicators` dependency from 1.0.0 to 1.2.0
