@@ -1,6 +1,6 @@
 {
   "name": "centaur-technical-indicators",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "WASM bindings for Centaur Technical Indicators for Node and browser",
   "author": "ChironMind",
   "license": "MIT",
