@@ -1,0 +1,61 @@
+version: 1
+repository: CentaurTechnicalIndicators-JS
+
+required_checks:
+  local_commands:
+    - cargo fmt --check
+    - cargo clippy
+    - npm run build
+    - node --test
+  affected_source_paths:
+    - src/candle_indicators.rs
+    - src/chart_trends.rs
+    - src/correlation_indicators.rs
+    - src/lib.rs
+    - src/momentum_indicators.rs
+    - src/moving_average.rs
+    - src/other_indicators.rs
+    - src/strength_indicators.rs
+    - src/trend_indicators.rs
+    - src/volatility_indicators.rs
+    - index.js
+    - index.node.js
+    - index.web.js
+    - index.d.ts
+
+change_requirements:
+  user_facing_change_requires:
+    - CHANGELOG.md
+  public_api_change_requires:
+    - index.d.ts updated with accurate TypeScript signatures and JSDoc
+    - tests in test/ for the new or changed binding
+    - export in all three entry points (index.js, index.node.js, index.web.js)
+    - PR Compatibility section summarizing API and TypeScript-definition impact
+
+coding_rules:
+  entry_points:
+    required_files:
+      - index.js
+      - index.node.js
+      - index.web.js
+    instruction: Export all new bindings in all three entry points.
+  typescript:
+    required_file: index.d.ts
+    instruction: Keep TypeScript signatures and JSDoc accurate and complete.
+  compatibility:
+    preserve_public_api_unless_explicit_breaking_approval: true
+
+pr_report:
+  required_sections:
+    - Summary
+    - Scope
+    - Compatibility
+    - Validation
+    - Changelog
+
+notes:
+  source_of_truth:
+    - AGENTS.md
+    - CONTRIBUTING.md
+    - AI_FRIENDLY_ROADMAP.md
+  purpose: Minimal machine-readable policy for AI agents and automation.
