@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.2.1] - 2026-03-01
+
+### Added
+- Added `AGENTS.md` with agent operating rules and PR/reporting expectations.
+- Added `AI_FRIENDLY_ROADMAP.md` with contributor-workflow and JS/WASM-layer feature roadmap.
+- Added `ai-policy.yaml` as a machine-readable contribution policy file.
+- Added `docs/AI_ONBOARDING.md` as a canonical start-here onboarding flow for coding agents.
+- Added `docs/REPO_MAP.md` with a quick repository map, extension points, and "if changing X, also check Y" guidance.
+- Added default pull request template at `.github/pull_request_template.md` with required sections (`Summary`, `Scope`, `Compatibility`, `Validation`, `Changelog`).
+
+### Changed
+- Updated `centaur_technical_indicators` dependency from `1.2.0` to `1.2.1`.
+
+---
+
 ## [1.2.0] - 2026-02-26
 
 ### Added
