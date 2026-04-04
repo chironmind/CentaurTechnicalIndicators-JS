@@ -68,7 +68,7 @@ pub fn chart_trends_overall_trend(prices: Vec<f64>) -> Array {
 }
 
 // break_down_trends: Vec<(usize, usize, f64, f64)> -> Array<[start, end, slope, intercept]>
-// Updated to use TrendBreakConfig in rust_ti 2.1.5
+// Updated to use TrendBreakConfig in centaur_technical_indicators 1.0.0
 #[allow(clippy::too_many_arguments)]
 #[wasm_bindgen(js_name = chart_trends_breakDownTrends)]
 pub fn chart_trends_break_down_trends(
