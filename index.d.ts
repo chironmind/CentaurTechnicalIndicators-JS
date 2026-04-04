@@ -634,6 +634,7 @@ export interface MomentumIndicatorsSingle {
    *
    * Uses the provided central model to aggregate the given stochastics.
    *
+   * @deprecated Use a moving average directly on stochastic values instead.
    * @param stochastics Slice of Stochastic Oscillator values (length >= 1).
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Smoothed stochastic value.
@@ -650,6 +651,7 @@ export interface MomentumIndicatorsSingle {
    *
    * Uses the provided central model to aggregate the given slow stochastics.
    *
+   * @deprecated Use a moving average directly on slow stochastic values instead.
    * @param slowStochastics Slice of Slow Stochastic values (length >= 1).
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Slowest stochastic value.
@@ -787,6 +789,7 @@ export interface MomentumIndicatorsSingle {
    *
    * Applies the chosen central model to the provided MACD values.
    *
+   * @deprecated Use a moving average directly on MACD values instead.
    * @param macds Slice of MACD values (length >= 1).
    * @param constantModelType Central model (SMA, EMA, median, etc.).
    * @returns Signal value.
@@ -922,6 +925,7 @@ export interface MomentumIndicatorsBulk {
   /**
    * Rolling Slow Stochastic (smoothing of Stochastic Oscillator).
    *
+   * @deprecated Use a moving average directly on stochastic values instead.
    * @param stochastics Slice of stochastic values.
    * @param constantModelType Central model.
    * @param period Window length.
@@ -938,6 +942,7 @@ export interface MomentumIndicatorsBulk {
   /**
    * Rolling Slowest Stochastic (smoothing of Slow Stochastic).
    *
+   * @deprecated Use a moving average directly on slow stochastic values instead.
    * @param slowStochastics Slice of slow stochastic values.
    * @param constantModelType Central model.
    * @param period Window length.
@@ -1073,6 +1078,7 @@ export interface MomentumIndicatorsBulk {
   /**
    * Rolling MACD signal line.
    *
+   * @deprecated Use a moving average directly on MACD values instead.
    * @param macds MACD values.
    * @param constantModelType Central model.
    * @param period Window length.
@@ -1759,6 +1765,7 @@ export interface VolatilityIndicatorsBulk {
    * - Seed SAR from significant close of initial segment (max for Long, min for Short)
    * - For each subsequent bar, update SAR +/- ARC based on position and switch on crosses
    *
+   * @deprecated Use the individual ATR and band components directly instead.
    * @param close Close prices.
    * @param high High prices.
    * @param low Low prices.

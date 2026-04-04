@@ -79,7 +79,7 @@ Browser (CDN - jsdelivr/unpkg)
 
 ```html
 <script type="module">
-  // Note: Replace @latest with a specific version (e.g., @1.1.2) for production use
+  // Note: Replace @latest with a specific version (e.g., @1.2.2) for production use
   import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@latest/dist/web/centaur_technical_indicators.js';
   
   await init(); // Initialize WASM module
@@ -94,7 +94,7 @@ Browser (CDN - jsdelivr/unpkg)
   console.log("RSI:", rsi); // 49.2537313432832
   
   // Or use the index.web.js wrapper for the same namespaced API as bundlers
-  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.1.2/index.web.js';
+  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.2.2/index.web.js';
 </script>
 ```
 
@@ -120,8 +120,8 @@ All indicator namespaces expose:
 - bulk: functions that compute rolling outputs (arrays)
 
 Common enums:
-- ConstantModelType: SimpleMovingAverage, SmoothedMovingAverage, ExponentialMovingAverage, SimpleMovingMedian, SimpleMovingMode, PersonalisedMovingAverage
-- DeviationModel: StandardDeviation, MeanAbsoluteDeviation, MedianAbsoluteDeviation, ModeAbsoluteDeviation, UlcerIndex
+- ConstantModelType: SimpleMovingAverage, SmoothedMovingAverage, ExponentialMovingAverage, SimpleMovingMedian, SimpleMovingMode
+- DeviationModel: StandardDeviation, MeanAbsoluteDeviation, MedianAbsoluteDeviation, ModeAbsoluteDeviation, UlcerIndex, LogStandardDeviation, LaplaceStdEquivalent, CauchyIQRScale
 - Position: Long, Short (for SAR-like systems)
 - MovingAverageType: Simple, Smoothed, Exponential (for generic moving average helpers)
 

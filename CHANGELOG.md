@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [Unreleased]
+
+---
+
+## [1.2.2] - 2026-04-04
+
+### Changed
+- Updated `centaur_technical_indicators` dependency from `1.2.1` to `1.2.2`.
+- Removed deprecation from `volumePriceTrend` (no longer deprecated upstream).
+- Fixed stale `rust_ti` reference in `chart_trends.rs`.
+- Fixed README enum listing: removed unavailable `PersonalisedMovingAverage`, added missing `LogStandardDeviation`, `LaplaceStdEquivalent`, `CauchyIQRScale` to `DeviationModel`.
+- Added `@deprecated` JSDoc tags to deprecated functions in `index.d.ts` (`slowStochastic`, `slowestStochastic`, `signalLine`, `volatilitySystem`).
+
+---
+
 ## [1.2.1] - 2026-03-01
 
 ### Added
@@ -34,7 +49,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `momentumIndicators.single.slowStochastic` / `momentumIndicators.bulk.slowStochastic`
   - `momentumIndicators.single.slowestStochastic` / `momentumIndicators.bulk.slowestStochastic`
   - `momentumIndicators.single.signalLine` / `momentumIndicators.bulk.signalLine`
-  - `trendIndicators.single.volumePriceTrend` / `trendIndicators.bulk.volumePriceTrend`
   - `volatilityIndicators.bulk.volatilitySystem`
 
 ---
