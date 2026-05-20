@@ -8,6 +8,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+- `test/chartTrends.node.test.js` and `test/corelationIndicators.node.test.js`:
+  uncommented the existing `assert.throws` blocks and added additional error-path
+  cases (empty arrays, mismatched lengths, period > length). These had been
+  commented out under the prior panic-string-based error model; Phase 2's
+  structured-error refactor makes the thrown errors deterministic and assertable.
+- **Playwright web-target smoke tests** (Task 4.2 + Codex 4.4 ESM CDN):
+  - `e2e/server.mjs`: tiny zero-dep static file server (port 3007).
+  - `e2e/fixtures/wrapper.html`: loads the package via `index.web.js`.
+  - `e2e/fixtures/cdn.html`: mirrors the ESM CDN pattern documented in README
+    (flat `wasm.*` imports from the web-target build).
+  - `e2e/smoke.spec.mjs`: asserts both fixtures compute the expected RSI value
+    against the running WASM in headless Chromium.
+  - `playwright.config.mjs`: spins up the static server via Playwright's
+    `webServer` config; single Chromium project.
+  - `package.json`: adds `@playwright/test` devDep and `test:web` script.
+  - `e2e/` is deliberately outside `test/` so `node --test`'s default recursive
+    discovery does not try to execute the Playwright specs as `node:test` cases.
+
+### Deferred to follow-up
+- **Task 4.3 (model-variant coverage):** broadening every indicator's tests to
+  walk multiple `ConstantModelType` / `DeviationModel` variants is mechanical
+  bulk work (~50-80 new test cases) requiring parity values per case. Out of
+  scope for this PR — will land as a separate focused PR.
+
 ---
 
 ## [1.2.2] - 2026-04-04

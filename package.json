@@ -21,7 +21,11 @@
     "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators && rm -f dist/bundler/.gitignore",
     "build": "npm run build:web && npm run build:node && npm run build:bundler",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && node --test"
+    "test": "npm run build && node --test",
+    "test:web": "playwright test --config=playwright.config.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.46.0"
   },
   "keywords": [
     "rust",

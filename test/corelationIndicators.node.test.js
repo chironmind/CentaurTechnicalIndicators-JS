@@ -124,12 +124,38 @@ describe("correlationIndicators.bulk (parity with Rust tests)", () => {
     ]);
   });
 
-  // Optional error parity (commented out; will throw)
-  // test("mismatched lengths panic", () => {
-  //   assert.throws(() =>
-  //     correlationIndicators.bulk.correlateAssetPrices(
-  //       [1,2,3], [1,2], ConstantModelType.SimpleMovingAverage, DeviationModel.StandardDeviation, 2
-  //     )
-  //   );
-  // });
+  test("mismatched-lengths bulk call throws", () => {
+    assert.throws(() =>
+      correlationIndicators.bulk.correlateAssetPrices(
+        [1, 2, 3],
+        [1, 2],
+        ConstantModelType.SimpleMovingAverage,
+        DeviationModel.StandardDeviation,
+        2,
+      ),
+    );
+  });
+
+  test("single: empty arrays throw", () => {
+    assert.throws(() =>
+      correlationIndicators.single.correlateAssetPrices(
+        [],
+        [],
+        ConstantModelType.SimpleMovingAverage,
+        DeviationModel.StandardDeviation,
+      ),
+    );
+  });
+
+  test("bulk: period > length throws", () => {
+    assert.throws(() =>
+      correlationIndicators.bulk.correlateAssetPrices(
+        [1, 2, 3, 4],
+        [4, 3, 2, 1],
+        ConstantModelType.SimpleMovingAverage,
+        DeviationModel.StandardDeviation,
+        100,
+      ),
+    );
+  });
 });

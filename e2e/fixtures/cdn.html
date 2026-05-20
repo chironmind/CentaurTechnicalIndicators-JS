@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>web smoke: ESM CDN-style flat import</title>
+  </head>
+  <body>
+    <h1>web smoke fixture: ESM CDN</h1>
+    <p>Mirrors the ESM CDN pattern documented in README — flat
+    <code>wasm.*</code> imports from the web-target build, without going
+    through <code>index.web.js</code>. The Playwright spec asserts
+    <code>window.__result</code>.</p>
+    <script type="module">
+      try {
+        const wasm = await import(
+          "/dist/web/centaur-technical-indicators.js"
+        );
+        await wasm.default();
+        const rsi = wasm.momentum_single_relativeStrengthIndex(
+          [100.2, 100.46, 100.53, 100.38, 100.19],
+          wasm.ConstantModelType.SimpleMovingAverage,
+        );
+        window.__result = { ok: true, rsi };
+      } catch (err) {
+        window.__result = { ok: false, error: String(err) };
+      }
+    </script>
+  </body>
+</html>

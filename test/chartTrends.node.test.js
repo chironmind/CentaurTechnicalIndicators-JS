@@ -94,13 +94,23 @@ describe("chartTrends (parity with Rust tests)", () => {
     ]);
   });
 
-  // Optional: panic parity checks (commented out by default as they throw)
-  // test("peaks_panic (period > len)", () => {
-  //   const highs = [101.26, 102.57, 102.57, 100.69, 100.83, 101.73, 102.01];
-  //   assert.throws(() => chartTrends.peaks(highs, 40, 1));
-  // });
-  // test("valleys_panic (period > len)", () => {
-  //   const lows = [98.75, 98.75, 100.14, 98.98, 99.07, 100.1, 99.96];
-  //   assert.throws(() => chartTrends.valleys(lows, 40, 1));
-  // });
+  test("peaks: period > length throws", () => {
+    const highs = [101.26, 102.57, 102.57, 100.69, 100.83, 101.73, 102.01];
+    assert.throws(() => chartTrends.peaks(highs, 40, 1));
+  });
+
+  test("valleys: period > length throws", () => {
+    const lows = [98.75, 98.75, 100.14, 98.98, 99.07, 100.1, 99.96];
+    assert.throws(() => chartTrends.valleys(lows, 40, 1));
+  });
+
+  test("peaks: empty array throws", () => {
+    assert.throws(() => chartTrends.peaks([], 3, 1));
+  });
+
+  test("breakDownTrends: empty array throws", () => {
+    assert.throws(() =>
+      chartTrends.breakDownTrends([], 1, 0.5, 0.25, 2.0, 3.0, 0.5, 3.5, 0.25, 3.75),
+    );
+  });
 });

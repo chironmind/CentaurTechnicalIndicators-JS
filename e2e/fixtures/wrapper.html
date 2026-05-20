@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>web smoke: index.web.js wrapper</title>
+  </head>
+  <body>
+    <h1>web smoke fixture: wrapper</h1>
+    <p>This page loads the package via the <code>index.web.js</code> wrapper
+    and computes an RSI. The Playwright spec asserts <code>window.__result</code>.</p>
+    <script type="module">
+      try {
+        const mod = await import("/index.web.js");
+        await mod.default();
+        const rsi = mod.momentumIndicators.single.relativeStrengthIndex(
+          [100.2, 100.46, 100.53, 100.38, 100.19],
+          mod.ConstantModelType.SimpleMovingAverage,
+        );
+        window.__result = { ok: true, rsi };
+      } catch (err) {
+        window.__result = { ok: false, error: String(err) };
+      }
+    </script>
+  </body>
+</html>
