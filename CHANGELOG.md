@@ -8,6 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+- CI: replaced the archived `actions-rs/toolchain@v1` action with native `rustup` invocations in `ci.yml`, `publish.yml`, and `docs.yml`. Per `~/Projects/CLAUDE.md`, this avoids the deprecated third-party Rust toolchain action.
+- CI: `wasm-pack` is now installed from its pinned GitHub release tarball (`v0.13.1`) instead of `cargo install wasm-pack`. This is ~30-60s faster per matrix slot.
+- `package.json`: `test` now runs `npm run build && npm run test:only`. `test:only` excludes the slow package-import smoke test (`test:smoke`) so local `npm test` stays fast.
+
+### Added
+- CI: new `rust-lint` job runs `cargo fmt --check` and `cargo clippy --target wasm32-unknown-unknown --all-targets -- -D warnings`, matching the gates documented in `AGENTS.md` and `ai-policy.yaml`.
+- CI: new TypeScript typecheck step runs `tsc --noEmit --strict index.d.ts` once per build (gated to the lowest Node matrix slot).
+- CI: new `package-smoke` job packs the package, installs the tarball into a temp consumer project, and verifies that the documented package-root + subpath imports (`./index.js`, `./index.node.js`, `./index.web.js`) all resolve and can compute an indicator.
+- `test/packageImport.smoke.test.js`: implements the package-import smoke test. Filename is `.smoke.test.js` (not `.node.test.js`) so it is excluded from default `npm test`; runs explicitly via `npm run test:smoke`.
+- `package.json`: new scripts `test:only`, `test:smoke`, `typecheck`; new devDependency `typescript ^5.4.5`.
+- `.github/dependabot.yml`: monthly Dependabot config for GitHub Actions, root `npm`, `docs/` `npm`, and Cargo.
+
+### Fixed
+- CI: `publish.yml` now runs `npm run test:only` and `npm run test:smoke` before `npm publish`. A failing test now prevents a release.
+- CI: build job no longer rebuilds WASM twice. Previously the three explicit `wasm-pack build` steps were followed by `npm test`, which itself ran `npm run build && node --test`. The new flow uses `npm run test:only` so the build runs once.
+
 ---
 
 ## [1.2.2] - 2026-04-04

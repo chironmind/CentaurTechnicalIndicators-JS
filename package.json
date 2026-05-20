@@ -21,7 +21,13 @@
     "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators && rm -f dist/bundler/.gitignore",
     "build": "npm run build:web && npm run build:node && npm run build:bundler",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && node --test"
+    "test:only": "node --test test/*.node.test.js",
+    "test:smoke": "node --test test/packageImport.smoke.test.js",
+    "test": "npm run build && npm run test:only",
+    "typecheck": "tsc --noEmit --strict index.d.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
   },
   "keywords": [
     "rust",
