@@ -94,7 +94,52 @@ impl From<Position> for centaur_technical_indicators::Position {
     }
 }
 
+/// Central point used by `basic_indicators::absolute_deviation` and related.
+/// Mirrors `centaur_technical_indicators::CentralPoint`.
+#[wasm_bindgen]
+#[derive(Clone, Copy, Debug)]
+pub enum CentralPoint {
+    Mean,
+    Median,
+    Mode,
+}
+
+impl From<CentralPoint> for centaur_technical_indicators::CentralPoint {
+    fn from(v: CentralPoint) -> Self {
+        match v {
+            CentralPoint::Mean => centaur_technical_indicators::CentralPoint::Mean,
+            CentralPoint::Median => centaur_technical_indicators::CentralPoint::Median,
+            CentralPoint::Mode => centaur_technical_indicators::CentralPoint::Mode,
+        }
+    }
+}
+
+/// How to aggregate a set of absolute deviations.
+/// Mirrors `centaur_technical_indicators::DeviationAggregate`.
+#[wasm_bindgen]
+#[derive(Clone, Copy, Debug)]
+pub enum DeviationAggregate {
+    Mean,
+    Median,
+    Mode,
+}
+
+impl From<DeviationAggregate> for centaur_technical_indicators::DeviationAggregate {
+    fn from(v: DeviationAggregate) -> Self {
+        match v {
+            DeviationAggregate::Mean => centaur_technical_indicators::DeviationAggregate::Mean,
+            DeviationAggregate::Median => centaur_technical_indicators::DeviationAggregate::Median,
+            DeviationAggregate::Mode => centaur_technical_indicators::DeviationAggregate::Mode,
+        }
+    }
+}
+
+// Internal helper module — array converters and structured-error adapter.
+// Not exposed via wasm_bindgen; consumed by the binding modules only.
+pub(crate) mod jsutil;
+
 // Mirror Centaur Technical Indicators structure
+pub mod basic_indicators;
 pub mod candle_indicators;
 pub mod chart_trends;
 pub mod correlation_indicators;

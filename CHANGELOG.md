@@ -8,6 +8,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+- **New `basicIndicators` namespace exposing all 29 functions from the upstream
+  `basic_indicators` module** (15 single + 14 bulk). Includes `mean`, `median`,
+  `mode`, `log`/`logDifference`, `variance`, `standardDeviation`,
+  `absoluteDeviation`, `logStandardDeviation`, `studentTAdjustedStd`,
+  `laplaceStdEquivalent`, `cauchyIqrScale`, `max`, `min`, `priceDistribution`,
+  `empiricalQuantileRangeFromDistribution`. Closes the longest-standing API
+  coverage gap in this binding.
+- **New `CentralPoint` and `DeviationAggregate` enum mirrors** in
+  `src/lib.rs`, exposed to JS via the same `wasm_bindgen` pattern as the
+  existing enums. Used by `basicIndicators.{single,bulk}.absoluteDeviation`.
+  The upstream `AbsDevConfig { center, aggregate }` struct cannot be
+  constructed from JS via `wasm-bindgen`, so it is flattened to two positional
+  enum parameters (consistent with the existing flattening of
+  `chart_trends_breakDownTrends`'s nine positional arguments).
+- **New `NumericArray = number[] | Float64Array` TypeScript alias** (Codex
+  C-3.4). Used throughout the new `BasicIndicators*` interfaces. `wasm-bindgen`
+  has always accepted both at runtime; this alias makes that explicit in
+  TypeScript so consumers can pass `Float64Array` without a cast. The existing
+  `*Indicators*` interfaces still use `number[]`; broadening them to
+  `NumericArray` is a small mechanical follow-up.
+- **Parity test file `test/basicIndicators.node.test.js`** covers all 29
+  functions plus four error-path assertions. Parity values for IQR are lifted
+  from the upstream Rust `#[test]` blocks; values for mean/variance/std are
+  computed by hand for `[1,2,3,4,5]`.
+
+### Changed
+- `index.d.ts`: `ConstantModelType` and `DeviationModel` JSDoc gain
+  `@remarks` blocks listing the upstream parameterized variants that are
+  intentionally NOT exposed (`PersonalisedMovingAverage`,
+  `CustomAbsoluteDeviation`, `StudentT`, `EmpiricalQuantileRange`). These
+  cannot cross the `wasm-bindgen` boundary; the `@remarks` document the gap
+  so JS consumers stop hunting for variants that don't exist.
+
 ---
 
 ## [1.2.2] - 2026-04-04

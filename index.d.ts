@@ -1,4 +1,19 @@
-import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "./dist/bundler/centaur-technical-indicators";
+import {
+  ConstantModelType,
+  DeviationModel,
+  Position,
+  MovingAverageType,
+  CentralPoint,
+  DeviationAggregate,
+} from "./dist/bundler/centaur-technical-indicators";
+
+/**
+ * Numeric input type accepted by every binding that takes a price/volume
+ * series. `wasm-bindgen` accepts both `number[]` and `Float64Array` for
+ * any `Vec<f64>` parameter — this alias makes that explicit in TypeScript
+ * so consumers can pass `Float64Array` without a cast.
+ */
+export type NumericArray = number[] | Float64Array;
 
 // Re-export enums from the generated wasm types so consumers get both types and JSDoc.
 /**
@@ -8,6 +23,11 @@ import { ConstantModelType, DeviationModel, Position, MovingAverageType } from "
  * - ExponentialMovingAverage: EMA
  * - SimpleMovingMedian: median
  * - SimpleMovingMode: mode
+ *
+ * @remarks
+ * The upstream Rust crate also defines `PersonalisedMovingAverage { alpha_num, alpha_den }`.
+ * That parameterized variant cannot be constructed from JS via `wasm-bindgen`, so it is
+ * intentionally absent from this enum. Use the Rust crate directly if you need it.
  */
 export { ConstantModelType } from "./dist/bundler/centaur-technical-indicators";
 
@@ -21,8 +41,31 @@ export { ConstantModelType } from "./dist/bundler/centaur-technical-indicators";
  * - LogStandardDeviation
  * - LaplaceStdEquivalent
  * - CauchyIQRScale
+ *
+ * @remarks
+ * The upstream Rust crate also defines `CustomAbsoluteDeviation { config }`,
+ * `StudentT { df }`, and `EmpiricalQuantileRange { low, high, precision }`.
+ * These parameterized variants cannot be constructed from JS via `wasm-bindgen`,
+ * so they are intentionally absent from this enum. Use the Rust crate directly
+ * if you need them.
  */
 export { DeviationModel } from "./dist/bundler/centaur-technical-indicators";
+
+/**
+ * Central point used by `basicIndicators.absoluteDeviation` and related.
+ * - Mean
+ * - Median
+ * - Mode
+ */
+export { CentralPoint } from "./dist/bundler/centaur-technical-indicators";
+
+/**
+ * How to aggregate a set of absolute deviations.
+ * - Mean
+ * - Median
+ * - Mode
+ */
+export { DeviationAggregate } from "./dist/bundler/centaur-technical-indicators";
 
 /**
  * Trade direction for Parabolic SAR systems.
@@ -1885,6 +1928,127 @@ export const trendIndicators: {
 export const volatilityIndicators: {
   single: VolatilityIndicatorsSingle;
   bulk: VolatilityIndicatorsBulk;
+};
+
+/**
+ * Basic statistical and arithmetic helpers operating on whole input arrays
+ * and returning a single scalar (or a small structure).
+ */
+export interface BasicIndicatorsSingle {
+  /** Arithmetic mean of `prices`. */
+  mean(prices: NumericArray): number;
+  /** Median of `prices`. */
+  median(prices: NumericArray): number;
+  /** Mode of `prices` (most common bucket). */
+  mode(prices: NumericArray): number;
+  /** Natural-log price difference: `ln(price_t) - ln(price_t_1)`. */
+  logDifference(priceT: number, priceT1: number): number;
+  /** Population variance of `prices`. */
+  variance(prices: NumericArray): number;
+  /** Population standard deviation of `prices`. */
+  standardDeviation(prices: NumericArray): number;
+  /**
+   * Configurable absolute deviation. The upstream Rust `AbsDevConfig { center,
+   * aggregate }` is flattened to two positional enum parameters here, since
+   * `wasm-bindgen` cannot construct the struct from JS.
+   */
+  absoluteDeviation(
+    prices: NumericArray,
+    center: CentralPoint,
+    aggregate: DeviationAggregate,
+  ): number;
+  /** Standard deviation of `ln(prices)`. */
+  logStandardDeviation(prices: NumericArray): number;
+  /** Student-t-adjusted standard deviation with `df` degrees of freedom. */
+  studentTAdjustedStd(prices: NumericArray, df: number): number;
+  /** Laplace-distribution std-equivalent (median-of-medianAbsDev style). */
+  laplaceStdEquivalent(prices: NumericArray): number;
+  /** Cauchy-distribution IQR-based scale estimator. */
+  cauchyIqrScale(prices: NumericArray): number;
+  /** Maximum element of `prices`. */
+  max(prices: NumericArray): number;
+  /** Minimum element of `prices`. */
+  min(prices: NumericArray): number;
+  /**
+   * Price distribution at the given `precision`. Returns `[bucketCenter, count]`
+   * pairs; the second value is the integer count cast to a `number`.
+   */
+  priceDistribution(prices: NumericArray, precision: number): [number, number][];
+  /**
+   * Empirical inter-quantile range over the full series.
+   * @param prices Series to analyse.
+   * @param precision Bucket precision passed to `priceDistribution`.
+   * @param low Lower quantile in (0, 1).
+   * @param high Upper quantile in (0, 1) with `low < high`.
+   */
+  empiricalQuantileRangeFromDistribution(
+    prices: NumericArray,
+    precision: number,
+    low: number,
+    high: number,
+  ): number;
+}
+
+/**
+ * Rolling versions of the basic helpers. Each takes a `period` and returns a
+ * series of length `prices.length - period + 1`.
+ */
+export interface BasicIndicatorsBulk {
+  /** Rolling arithmetic mean. */
+  mean(prices: NumericArray, period: number): number[];
+  /** Rolling median. */
+  median(prices: NumericArray, period: number): number[];
+  /** Rolling mode. */
+  mode(prices: NumericArray, period: number): number[];
+  /** Element-wise natural log of `prices`. */
+  log(prices: NumericArray): number[];
+  /** Element-wise log-difference (length `L - 1`). */
+  logDifference(prices: NumericArray): number[];
+  /** Rolling population variance. */
+  variance(prices: NumericArray, period: number): number[];
+  /** Rolling population standard deviation. */
+  standardDeviation(prices: NumericArray, period: number): number[];
+  /** Rolling configurable absolute deviation (see single variant for `AbsDevConfig` note). */
+  absoluteDeviation(
+    prices: NumericArray,
+    period: number,
+    center: CentralPoint,
+    aggregate: DeviationAggregate,
+  ): number[];
+  /**
+   * Rolling price distribution. Returns one nested distribution per window,
+   * each shaped like the single-version output (`[bucketCenter, count]` pairs).
+   */
+  priceDistribution(
+    prices: NumericArray,
+    period: number,
+    precision: number,
+  ): [number, number][][];
+  /** Rolling log-standard-deviation. */
+  logStandardDeviation(prices: NumericArray, period: number): number[];
+  /** Rolling Student-t-adjusted standard deviation. */
+  studentTAdjustedStd(
+    prices: NumericArray,
+    period: number,
+    df: number,
+  ): number[];
+  /** Rolling Laplace-distribution std-equivalent. */
+  laplaceStdEquivalent(prices: NumericArray, period: number): number[];
+  /** Rolling Cauchy IQR-based scale estimator. */
+  cauchyIqrScale(prices: NumericArray, period: number): number[];
+  /** Rolling empirical inter-quantile range. */
+  empiricalQuantileRangeFromDistribution(
+    prices: NumericArray,
+    period: number,
+    precision: number,
+    low: number,
+    high: number,
+  ): number[];
+}
+
+export const basicIndicators: {
+  single: BasicIndicatorsSingle;
+  bulk: BasicIndicatorsBulk;
 };
 
 export const movingAverage: {

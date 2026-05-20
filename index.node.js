@@ -7,7 +7,52 @@ const require = createRequire(import.meta.url);
 const wasm = require("./dist/node/centaur-technical-indicators.js");
 
 // Re-export enums from the wasm module
-export const { ConstantModelType, DeviationModel, Position, MovingAverageType } = wasm;
+export const {
+  ConstantModelType,
+  DeviationModel,
+  Position,
+  MovingAverageType,
+  CentralPoint,
+  DeviationAggregate,
+} = wasm;
+
+export const basicIndicators = {
+  single: {
+    mean: wasm.basic_single_mean,
+    median: wasm.basic_single_median,
+    mode: wasm.basic_single_mode,
+    logDifference: wasm.basic_single_logDifference,
+    variance: wasm.basic_single_variance,
+    standardDeviation: wasm.basic_single_standardDeviation,
+    absoluteDeviation: wasm.basic_single_absoluteDeviation,
+    logStandardDeviation: wasm.basic_single_logStandardDeviation,
+    studentTAdjustedStd: wasm.basic_single_studentTAdjustedStd,
+    laplaceStdEquivalent: wasm.basic_single_laplaceStdEquivalent,
+    cauchyIqrScale: wasm.basic_single_cauchyIqrScale,
+    max: wasm.basic_single_max,
+    min: wasm.basic_single_min,
+    priceDistribution: wasm.basic_single_priceDistribution,
+    empiricalQuantileRangeFromDistribution:
+      wasm.basic_single_empiricalQuantileRangeFromDistribution,
+  },
+  bulk: {
+    mean: wasm.basic_bulk_mean,
+    median: wasm.basic_bulk_median,
+    mode: wasm.basic_bulk_mode,
+    log: wasm.basic_bulk_log,
+    logDifference: wasm.basic_bulk_logDifference,
+    variance: wasm.basic_bulk_variance,
+    standardDeviation: wasm.basic_bulk_standardDeviation,
+    absoluteDeviation: wasm.basic_bulk_absoluteDeviation,
+    priceDistribution: wasm.basic_bulk_priceDistribution,
+    logStandardDeviation: wasm.basic_bulk_logStandardDeviation,
+    studentTAdjustedStd: wasm.basic_bulk_studentTAdjustedStd,
+    laplaceStdEquivalent: wasm.basic_bulk_laplaceStdEquivalent,
+    cauchyIqrScale: wasm.basic_bulk_cauchyIqrScale,
+    empiricalQuantileRangeFromDistribution:
+      wasm.basic_bulk_empiricalQuantileRangeFromDistribution,
+  },
+};
 
 // Natural JS/TS namespace mirroring centaur_technical_indicators::candle_indicators::{single, bulk}
 export const candleIndicators = {
