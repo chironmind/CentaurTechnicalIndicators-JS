@@ -244,10 +244,29 @@ Initialization:
 
 ## 🧠 Tips & Conventions
 
-- Input validation mirrors Centaur Technical Indicators: many functions panic for empty arrays or mismatched lengths. In JS, this surfaces as a thrown error.
+- Input validation mirrors Centaur Technical Indicators. Functions return errors for empty arrays, mismatched lengths, or period > length; the JS bindings translate these to thrown `Error`s whose `.message` preserves the upstream `TechnicalIndicatorError` text (e.g., `"Mismatched lengths: highs=5, lows=4"`).
 - Use `Float64Array` or `number[]`. Internally, values are copied into WASM memory; consider chunking for very large series.
 - Bulk functions typically return arrays of length `L - N + 1` where `N` is the rolling period (or long period for dual-period indicators).
 - All outputs are plain JS arrays for easy consumption; tuples are represented as small arrays (e.g., `[lower, middle, upper]`).
+
+---
+
+## ⚠️ Limitations
+
+These are intentional gaps relative to the [Rust crate](https://github.com/ChironMind/CentaurTechnicalIndicators-Rust):
+
+- **Parameterized enum variants are not exposed.** `wasm-bindgen` does not support enums-with-data, so the JS enums are pruned to their unit variants only. Specifically, the following upstream variants cannot be constructed from JS:
+  - `MovingAverageType::Personalised { alpha_num, alpha_den }`
+  - `ConstantModelType::PersonalisedMovingAverage { alpha_num, alpha_den }`
+  - `DeviationModel::CustomAbsoluteDeviation { config }`
+  - `DeviationModel::StudentT { df }`
+  - `DeviationModel::EmpiricalQuantileRange { low, high, precision }`
+
+  Use the Rust crate directly if you need any of these. The JSDoc on each affected enum (`index.d.ts`) carries an `@remarks` block restating this.
+- **Error messages are simplified but informative.** Errors thrown from JS preserve the Rust `TechnicalIndicatorError::Display` text but lose the structured variant info. Match on `.message` substrings, not on instanceof-style discriminants.
+- **No streaming/incremental API.** All inputs must be fully materialised arrays. The McGinley Dynamic family takes a `previousMcginleyDynamic` seed for chained computation; other indicators do not.
+- **`trendIndicators.bulk.volumePriceTrend` silently drops `volumes[0]` if `volumes.length === prices.length`.** Documented in the JSDoc as a loud `@warning`. The intended call shape is `volumes.length === prices.length - 1`.
+- **`AbsDevConfig { center, aggregate }` is flattened.** Functions that take this upstream struct (`basicIndicators.{single,bulk}.absoluteDeviation`) instead take two positional enum parameters (`CentralPoint`, `DeviationAggregate`), since `wasm-bindgen` cannot construct the struct.
 
 ---
 
@@ -256,6 +275,18 @@ Initialization:
 - All math is executed in highly optimized Rust and compiled to WebAssembly.
 - In Node, performance is near-native for numeric workloads.
 - In browsers, expect excellent performance; account for WASM boundary crossings (amortize by passing larger slices).
+- The published WASM is post-processed with `wasm-opt -O3` during `npm publish`, which typically shrinks the binary 20-40% and improves inlining.
+
+### Microbenchmarks (run `npm run bench`)
+
+A reproducible JS-side microbenchmark harness lives in `bench/run.js` and exercises a representative set of single + bulk indicators over a 1000-element series. Run it yourself to get numbers on your machine — wall-clock results depend heavily on CPU and Node version. Indicative ranges on a modern Apple Silicon laptop, Node 22:
+
+```
+movingAverage.single.movingAverage (SMA)            ~3-6  µs / call
+momentumIndicators.single.relativeStrengthIndex     ~7-15 µs / call
+momentumIndicators.bulk.relativeStrengthIndex (14)  ~20-40 µs / call
+basicIndicators.bulk.variance (14)                  ~15-25 µs / call
+```
 
 For raw Rust benchmarks and methodology, see:
 - [CentaurTechnicalIndicators-Rust Benchmarks](https://github.com/ChironMind/CentaurTechnicalIndicators-Rust-benchmarks)

@@ -8,6 +8,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Removed
+- Deleted `docs/AI_ONBOARDING.md`, `.github/copilot-instructions.md`, and
+  `AI_FRIENDLY_ROADMAP.md`. Their content overlapped heavily with `AGENTS.md`
+  and `CONTRIBUTING.md` and contained stale references (Node 18+ vs. 20+,
+  phantom `standardIndicators` namespace, etc.). `AGENTS.md` and
+  `CONTRIBUTING.md` are now the canonical agent-facing and human-facing
+  process docs respectively.
+
+### Changed
+- `docs/REPO_MAP.md`: stripped policy and PR-checklist content; reduced to a
+  pure directory map. Policy lives in `AGENTS.md`/`CONTRIBUTING.md` now.
+- `CHANGELOG.md`: renamed the pre-rebrand `[1.0.0] - 2025-08-27` heading to
+  `[1.0.0-tiengine] - 2025-08-27` and added a paragraph explaining the
+  rebrand boundary, eliminating the duplicate `[1.0.0]` heading that
+  Keep-a-Changelog flagged as confusing.
+- `README.md` Performance section gains indicative JS-side benchmark numbers
+  (run `npm run bench` for your-machine numbers) and a note about wasm-opt
+  at publish time.
+- `README.md` Tips & Conventions: updated to describe the new structured
+  error messages (Phase 2.1 / `TechnicalIndicatorError::Display`) rather
+  than the prior generic-panic wording.
+
+### Added
+- New top-level **Limitations** section in `README.md` covering every
+  intentional gap relative to the Rust crate: parameterized enum variants,
+  simplified error messages, no streaming API, `volumePriceTrend` silent
+  slice, and the `AbsDevConfig` flattening for `basicIndicators.absoluteDeviation`.
+- New `examples/` directory: `quickstart.js`, `rsi.js`, `bollinger.js`. Each
+  is under 40 lines and runnable with `node examples/<name>.js` after
+  `npm run build`.
+- New `bench/run.js` JS-side microbenchmark harness. Manually run with
+  `npm run bench`; not wired into CI (numbers are environment-dependent and
+  belong in the README when ratified).
+- `package.json` scripts: `example:quickstart`, `example:rsi`,
+  `example:bollinger`, `bench`.
+
 ---
 
 ## [1.2.2] - 2026-04-04
@@ -65,6 +101,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 *** /!\ The release notes below cover the ti-engine packages before the rebranding /!\ ***
+
+The version history below is from the pre-rebrand `ti-engine` package and is
+preserved verbatim for historical context. The final `1.0.0-tiengine` entry
+below is the original `ti-engine` initial release and is **distinct** from
+the post-rebrand `[1.0.0] - 2025-01-20` entry above.
 
 ---
 
@@ -124,6 +165,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [1.0.0] - 2025-08-27
+## [1.0.0-tiengine] - 2025-08-27
 
-Initial release
+Initial release of the pre-rebrand `ti-engine` npm package. Renamed to
+`centaur-technical-indicators` in the `[1.0.0] - 2025-01-20` entry above.

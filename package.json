@@ -21,7 +21,11 @@
     "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators && rm -f dist/bundler/.gitignore",
     "build": "npm run build:web && npm run build:node && npm run build:bundler",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && node --test"
+    "test": "npm run build && node --test",
+    "example:quickstart": "node examples/quickstart.js",
+    "example:rsi": "node examples/rsi.js",
+    "example:bollinger": "node examples/bollinger.js",
+    "bench": "node bench/run.js"
   },
   "keywords": [
     "rust",
