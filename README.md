@@ -7,7 +7,7 @@
 [![TypeScript](https://img.shields.io/badge/Types-Included-3178C6?logo=typescript&logoColor=white)](#)
 [![Docs](https://img.shields.io/badge/docs-TypeDoc-blue?logo=githubpages)](https://chironmind.github.io/CentaurTechnicalIndicators-JS/)
 [![CI](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml/badge.svg)](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE-MIT)
 
 # CentaurTechnicalIndicators-JS
 
@@ -80,7 +80,7 @@ Browser (CDN - jsdelivr/unpkg)
 ```html
 <script type="module">
   // Note: Replace @latest with a specific version (e.g., @1.2.2) for production use
-  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@latest/dist/web/centaur_technical_indicators.js';
+  import init, * as wasm from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@latest/dist/web/centaur-technical-indicators.js';
   
   await init(); // Initialize WASM module
   
@@ -94,7 +94,7 @@ Browser (CDN - jsdelivr/unpkg)
   console.log("RSI:", rsi); // 49.2537313432832
   
   // Or use the index.web.js wrapper for the same namespaced API as bundlers
-  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.2.2/index.web.js';
+  // import init, { momentumIndicators, ConstantModelType } from 'https://cdn.jsdelivr.net/npm/centaur-technical-indicators@1.3.0/index.web.js';
 </script>
 ```
 
@@ -107,7 +107,7 @@ Browser (CDN - jsdelivr/unpkg)
   - single: full-window, scalar output
   - bulk: rolling windows, vector output
 - Clean naming and nested namespaces:
-  - candleIndicators, chartTrends, correlationIndicators, momentumIndicators, movingAverage, otherIndicators, standardIndicators, strengthIndicators, trendIndicators, volatilityIndicators
+  - candleIndicators, chartTrends, correlationIndicators, momentumIndicators, movingAverage, otherIndicators, strengthIndicators, trendIndicators, volatilityIndicators
 
 Fully typed with ambient declarations — enjoy rich editor hints and autocomplete.
 
@@ -186,7 +186,7 @@ const signal = momentumIndicators.single.signalLine(
 
 Parabolic Time Price System (SAR)
 ```js
-import { trendIndicators, Position, ConstantModelType } from "ti-engine";
+import { trendIndicators, Position, ConstantModelType } from "centaur-technical-indicators";
 
 // Long SAR track with rolling outputs
 const sars = trendIndicators.bulk.parabolicTimePriceSystem(
@@ -201,7 +201,7 @@ const sars = trendIndicators.bulk.parabolicTimePriceSystem(
 
 Ulcer Index (volatility)
 ```js
-import { volatilityIndicators } from "ti-engine";
+import { volatilityIndicators } from "centaur-technical-indicators";
 
 const ui = volatilityIndicators.single.ulcerIndex(
   [100.46, 100.53, 100.38, 100.19, 100.21]
@@ -211,7 +211,7 @@ const ui = volatilityIndicators.single.ulcerIndex(
 
 Moving Average helpers
 ```js
-import { movingAverage, MovingAverageType } from "ti-engine";
+import { movingAverage, MovingAverageType } from "centaur-technical-indicators";
 
 const sma = movingAverage.single.movingAverage(
   [100.2, 100.46, 100.53, 100.38, 100.19],
@@ -226,9 +226,9 @@ const sma = movingAverage.single.movingAverage(
 
 This package includes three targets out of the box:
 
-- Node: `dist/node/centaur_technical_indicators.js` (CommonJS require via index.node.js)
-- Bundler: `dist/bundler/centaur_technical_indicators.js` (ESM, for Vite/Webpack/Rollup)
-- Web: `dist/web/centaur_technical_indicators.js` (ESM + separate `.wasm`)
+- Node: `dist/node/centaur-technical-indicators.js` (CommonJS require via index.node.js)
+- Bundler: `dist/bundler/centaur-technical-indicators.js` (ESM, for Vite/Webpack/Rollup)
+- Web: `dist/web/centaur-technical-indicators.js` (ESM + separate `.wasm`)
 
 Import surfaces:
 

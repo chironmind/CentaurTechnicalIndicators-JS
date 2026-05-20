@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+- Renamed `test/otherIndicators.node.js` to `test/otherIndicators.node.test.js` so Node's default test discovery picks it up; nine parity tests (`returnOnInvestment`, `trueRange`, `averageTrueRange`, `internalBarStrength`, `positivityIndicator`) had been silently skipped since they were added.
+- Renamed `test/corelationIndicators.node.test.js` to `test/correlationIndicators.node.test.js` (spelling).
+- README: replaced three stale `"ti-engine"` imports with `"centaur-technical-indicators"`; corrected the license badge target from `LICENSE` to `LICENSE-MIT`; corrected CDN URLs and `dist/{node,bundler,web}/...` paths to the actual hyphenated build outputs (`centaur-technical-indicators.js`, not `centaur_technical_indicators.js`).
+- Removed phantom `standardIndicators` namespace references from `README.md`, `CONTRIBUTING.md`, `.github/copilot-instructions.md`, `docs/docs/index.md`, and `docs/docs/howto/bulk-vs-single.md`. The JS bindings have never exposed a `standardIndicators` namespace; users should call `momentumIndicators` / `candleIndicators` directly.
+- Removed `ConstantModelType.PersonalisedMovingAverage` from `docs/docs/howto/choose-constant-model.md`; the JS enum mirror does not expose this variant (parameterized Rust variants are not supported via `wasm_bindgen`).
+- Completed the `DeviationModel` enum list in `docs/docs/index.md` (added `LogStandardDeviation`, `LaplaceStdEquivalent`, `CauchyIQRScale` to match the actual JS mirror in `src/lib.rs`).
+- Added `./index.js`, `./index.node.js`, and `./index.web.js` to `package.json` `exports` so the subpath imports documented in `README.md` (`centaur-technical-indicators/index.node.js`) resolve under Node's package-exports resolution.
+- `SECURITY.md`: replaced stale `ti-engine` package name and fixed the vulnerability-reporting URL to target this repository.
+
 ---
 
 ## [1.2.2] - 2026-04-04

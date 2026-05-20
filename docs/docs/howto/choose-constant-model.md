@@ -219,7 +219,6 @@ Notes:
   - ConstantModelType.ExponentialMovingAverage
   - ConstantModelType.SimpleMovingMedian
   - ConstantModelType.SimpleMovingMode
-  - ConstantModelType.PersonalisedMovingAverage (advanced; not used here)
 
 ---
 

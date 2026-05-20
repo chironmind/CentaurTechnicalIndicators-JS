@@ -40,7 +40,10 @@
       "browser": "./index.web.js",
       "require": "./index.node.js",
       "import": "./index.js"
-    }
+    },
+    "./index.js": "./index.js",
+    "./index.node.js": "./index.node.js",
+    "./index.web.js": "./index.web.js"
   },
   "types": "./index.d.ts",
   "sideEffects": false,

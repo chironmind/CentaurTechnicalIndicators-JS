@@ -27,7 +27,6 @@ Initialize and use:
 import init, {
   ConstantModelType,
   DeviationModel,
-  standardIndicators,
   momentumIndicators,
   candleIndicators,
 } from "centaur-technical-indicators";
@@ -41,9 +40,11 @@ const highs  = [/* ... */];
 const lows   = [/* ... */];
 const close  = [/* ... */];
 
-// 1) Standard RSI (14) using Smoothed MA
-// single.rsi expects exactly 14 values for the standard definition.
-const rsi14 = standardIndicators.single.rsi(prices.slice(-14));
+// 1) 14-period RSI using Smoothed MA over the most recent 14 closes.
+const rsi14 = momentumIndicators.single.relativeStrengthIndex(
+  prices.slice(-14),
+  ConstantModelType.SmoothedMovingAverage
+);
 
 // 2) Rolling RSI with custom model/period; take the latest value
 const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
@@ -53,9 +54,13 @@ const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
 );
 const latestRsi = rsiSeries.at(-1);
 
-// 3) Standard Bollinger Bands (20 SMA, ±2 StdDev) on the last 20 bars
-const [bbLower, bbMid, bbUpper] = standardIndicators.single.bollingerBands(
-  prices.slice(-20)
+// 3) Bollinger-style bands (20 SMA, ±2 StdDev) on the last 20 bars via
+//    candleIndicators.single.movingConstantBands.
+const [bbLower, bbMid, bbUpper] = candleIndicators.single.movingConstantBands(
+  prices.slice(-20),
+  ConstantModelType.SimpleMovingAverage,
+  DeviationModel.StandardDeviation,
+  2.0
 );
 
 // 4) Keltner Channel (EMA center, SMA ATR) over a 20-bar window; take the latest
@@ -88,7 +93,7 @@ Available modules:
 
 Key types (re-exported for convenience):
 - ConstantModelType: SimpleMovingAverage, SmoothedMovingAverage, ExponentialMovingAverage, SimpleMovingMedian, SimpleMovingMode
-- DeviationModel: StandardDeviation, MeanAbsoluteDeviation, MedianAbsoluteDeviation, ModeAbsoluteDeviation, UlcerIndex
+- DeviationModel: StandardDeviation, MeanAbsoluteDeviation, MedianAbsoluteDeviation, ModeAbsoluteDeviation, UlcerIndex, LogStandardDeviation, LaplaceStdEquivalent, CauchyIQRScale
 - MovingAverageType: Simple | Smoothed | Exponential
 - Position: Long | Short (for SAR systems)
 

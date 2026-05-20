@@ -121,7 +121,6 @@ CentaurTechnicalIndicators-JS/
 │   ├── correlation_indicators.rs # Statistical measures
 │   ├── chart_trends.rs     # Peak/valley analysis
 │   ├── moving_average.rs   # Moving average functions
-│   ├── standard_indicators.rs # Common indicators (SMA, EMA, etc.)
 │   └── other_indicators.rs # Miscellaneous indicators
 ├── index.node.js           # Node.js adapter (CommonJS require)
 ├── index.js                # Bundler adapter (ESM)
