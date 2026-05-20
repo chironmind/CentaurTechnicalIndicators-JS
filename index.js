@@ -35,7 +35,23 @@ export const chartTrends = {
   peakTrend: wasm.chart_trends_peakTrend,
   valleyTrend: wasm.chart_trends_valleyTrend,
   overallTrend: wasm.chart_trends_overallTrend,
-  breakDownTrends: wasm.chart_trends_breakDownTrends
+  breakDownTrends: wasm.chart_trends_breakDownTrends,
+  // 1.3.0: typed-config variant that destructures `config` into the
+  // positional wasm call. The positional `breakDownTrends` above stays
+  // as-is for backwards compatibility.
+  breakDownTrendsWithConfig: (prices, config) =>
+    wasm.chart_trends_breakDownTrends(
+      prices,
+      config.maxOutliers,
+      config.softAdjRSquaredMinimum,
+      config.hardAdjRSquaredMinimum,
+      config.softRmseMultiplier,
+      config.hardRmseMultiplier,
+      config.softDurbinWatsonMin,
+      config.softDurbinWatsonMax,
+      config.hardDurbinWatsonMin,
+      config.hardDurbinWatsonMax,
+    ),
 };
 
 export const correlationIndicators = {

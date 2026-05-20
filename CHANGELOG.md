@@ -8,6 +8,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+- **Error messages are now structured rather than panic strings.** Every fallible
+  Rust binding was rewritten from `.expect("Failed to calculate …")` to
+  `Result<T, JsValue>` with `JsError` carrying the upstream
+  `TechnicalIndicatorError::Display` message. The JS-side behavior is unchanged
+  on success and still throws on failure, but the thrown `Error.message` now
+  preserves the structured upstream text (e.g., `"Mismatched lengths: highs=5,
+  lows=4"`) instead of a generic `"Failed to calculate indicator"` panic string.
+  Zero `.expect()` calls remain in `src/*.rs`. Affects every binding across all
+  9 modules; total 86 call sites converted.
+- `index.d.ts`: `chartTrends.breakDownTrends` is now `@deprecated since 1.3.0`.
+  Use the new `breakDownTrendsWithConfig(prices, config)` instead. The positional
+  form is preserved for backwards compatibility and will be removed in a future
+  major release.
+- `index.d.ts`: `trendIndicators.bulk.volumePriceTrend` JSDoc gains a loud
+  `⚠️ Warning` block describing the silent first-volume drop that happens when
+  `volumes.length === prices.length`. No runtime change — only docs.
+
+### Added
+- `src/jsutil.rs`: internal helper module with `js_err`, `flat_to_array`,
+  `pair_to_array`, `triple_to_array`, `quintuple_to_array`, `pairs_to_array`,
+  `triples_to_array`, `quads_to_array`, `quintuples_to_array`. Compresses the
+  inline `Array::new()` / `push(&JsValue::from_f64(...))` boilerplate that was
+  duplicated across every binding.
+- `chartTrends.breakDownTrendsWithConfig(prices, config)`: new typed-config
+  variant of `breakDownTrends`. Takes a `TrendBreakConfig` object so soft/hard
+  thresholds and Durbin-Watson bounds cannot be accidentally transposed.
+- `index.d.ts`: new `TrendBreakConfig` interface mirroring the upstream Rust
+  struct with camelCase field names.
+
+### Performance
+- `publish.yml` runs `wasm-opt -O3` on the published WASM artefacts via a pinned
+  binaryen `version_119` binary download (no third-party GitHub Action). The
+  published bundle should be ~20-40% smaller. `Cargo.toml` still sets
+  `wasm-opt = false` to keep local builds fast and avoid CI download flakes
+  during everyday testing — only the publish step optimises.
+
 ---
 
 ## [1.2.2] - 2026-04-04

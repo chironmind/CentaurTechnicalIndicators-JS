@@ -501,6 +501,12 @@ export interface ChartTrends {
   /**
    * Segment the series into distinct trend ranges based on goodness-of-fit thresholds.
    * Uses Centaur Technical Indicators 1.0.0 TrendBreakConfig parameters.
+   *
+   * @deprecated since 1.3.0 — the 9-positional-argument form is easy to misorder
+   * (e.g., swapping soft/hard Durbin-Watson bounds). Use {@link ChartTrends.breakDownTrendsWithConfig}
+   * with a typed config object instead. This positional form is preserved for
+   * backwards compatibility and will be removed in a future major release.
+   *
    * @param prices Prices series.
    * @param maxOutliers Maximum number of outliers allowed before trend break.
    * @param softAdjRSquaredMinimum Soft minimum adjusted R-squared threshold.
@@ -525,6 +531,59 @@ export interface ChartTrends {
     hardDurbinWatsonMin: number,
     hardDurbinWatsonMax: number
   ): [number, number, number, number][];
+
+  /**
+   * Segment the series into distinct trend ranges using a typed config object.
+   * Equivalent to {@link ChartTrends.breakDownTrends} but with named fields,
+   * so soft/hard thresholds and Durbin-Watson bounds cannot be transposed.
+   *
+   * @param prices Prices series.
+   * @param config Goodness-of-fit thresholds; see {@link TrendBreakConfig}.
+   * @returns Array of [startIndex, endIndex, slope, intercept].
+   *
+   * @example
+   * chartTrends.breakDownTrendsWithConfig(prices, {
+   *   maxOutliers: 1,
+   *   softAdjRSquaredMinimum: 0.5,
+   *   hardAdjRSquaredMinimum: 0.25,
+   *   softRmseMultiplier: 2.0,
+   *   hardRmseMultiplier: 3.0,
+   *   softDurbinWatsonMin: 0.5,
+   *   softDurbinWatsonMax: 3.5,
+   *   hardDurbinWatsonMin: 0.25,
+   *   hardDurbinWatsonMax: 3.75,
+   * });
+   */
+  breakDownTrendsWithConfig(
+    prices: number[],
+    config: TrendBreakConfig
+  ): [number, number, number, number][];
+}
+
+/**
+ * Goodness-of-fit thresholds for {@link ChartTrends.breakDownTrendsWithConfig}.
+ * Mirrors the upstream Rust `TrendBreakConfig` struct, with camelCase field
+ * names matching the rest of this binding.
+ */
+export interface TrendBreakConfig {
+  /** Maximum number of outliers allowed before a trend break is forced. */
+  maxOutliers: number;
+  /** Soft minimum adjusted R-squared threshold. */
+  softAdjRSquaredMinimum: number;
+  /** Hard minimum adjusted R-squared threshold. */
+  hardAdjRSquaredMinimum: number;
+  /** Soft RMSE multiplier for trend breaks. */
+  softRmseMultiplier: number;
+  /** Hard RMSE multiplier for trend breaks. */
+  hardRmseMultiplier: number;
+  /** Soft minimum Durbin-Watson statistic. */
+  softDurbinWatsonMin: number;
+  /** Soft maximum Durbin-Watson statistic. */
+  softDurbinWatsonMax: number;
+  /** Hard minimum Durbin-Watson statistic. */
+  hardDurbinWatsonMin: number;
+  /** Hard maximum Durbin-Watson statistic. */
+  hardDurbinWatsonMax: number;
 }
 
 /**
@@ -1688,8 +1747,19 @@ export interface TrendIndicatorsBulk {
 
   /**
    * Rolling Volume Price Trend (VPT).
+   *
+   * ⚠️ **Warning — silent first-volume drop on same-length input.** If
+   * `volumes.length === prices.length`, this binding silently passes
+   * `volumes.slice(1)` to the upstream calculation, dropping `volumes[0]`.
+   * That matches the upstream Rust crate's convention (each `price[i]`
+   * is paired with the volume traded between `prices[i-1]` and `prices[i]`),
+   * but is easy to misread from JS: a naïvely-aligned same-length series
+   * will misalign by one sample without warning. The intended call shape
+   * is `volumes.length === prices.length - 1`.
+   *
    * @param prices Price series (length L).
-   * @param volumes Volume series (length L or L-1). If same length as prices, the first volume is skipped.
+   * @param volumes Volume series (length L-1 preferred; same-length L is
+   *   accepted but the first volume is silently dropped — see warning above).
    * @param previousVolumePriceTrend Seed VPT value.
    * @returns VPT values per step (length L-1).
    * @throws If lengths mismatch or empty.

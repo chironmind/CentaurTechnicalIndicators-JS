@@ -94,6 +94,10 @@ impl From<Position> for centaur_technical_indicators::Position {
     }
 }
 
+// Internal helper module — array converters and structured-error adapter.
+// Not exposed via wasm_bindgen; consumed by the binding modules only.
+pub(crate) mod jsutil;
+
 // Mirror Centaur Technical Indicators structure
 pub mod candle_indicators;
 pub mod chart_trends;

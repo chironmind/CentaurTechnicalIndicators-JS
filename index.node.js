@@ -41,6 +41,19 @@ export const chartTrends = {
   valleyTrend: wasm.chart_trends_valleyTrend,
   overallTrend: wasm.chart_trends_overallTrend,
   breakDownTrends: wasm.chart_trends_breakDownTrends,
+  breakDownTrendsWithConfig: (prices, config) =>
+    wasm.chart_trends_breakDownTrends(
+      prices,
+      config.maxOutliers,
+      config.softAdjRSquaredMinimum,
+      config.hardAdjRSquaredMinimum,
+      config.softRmseMultiplier,
+      config.hardRmseMultiplier,
+      config.softDurbinWatsonMin,
+      config.softDurbinWatsonMax,
+      config.hardDurbinWatsonMin,
+      config.hardDurbinWatsonMax,
+    ),
 };
 
 export const correlationIndicators = {

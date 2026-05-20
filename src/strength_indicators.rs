@@ -1,3 +1,4 @@
+use crate::jsutil::{flat_to_array, js_err};
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
@@ -41,7 +42,7 @@ pub fn strength_single_relative_vigor_index(
     low: Vec<f64>,
     close: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
-) -> f64 {
+) -> Result<f64, JsValue> {
     centaur_technical_indicators::strength_indicators::single::relative_vigor_index(
         &open,
         &high,
@@ -49,7 +50,7 @@ pub fn strength_single_relative_vigor_index(
         &close,
         constant_model_type.into(),
     )
-    .expect("Failed to calculate relative vigor index")
+    .map_err(js_err)
 }
 
 // -------- BULK --------
@@ -61,7 +62,7 @@ pub fn strength_bulk_accumulation_distribution(
     close: Vec<f64>,
     volume: Vec<f64>,
     previous_accumulation_distribution: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::strength_indicators::bulk::accumulation_distribution(
         &high,
         &low,
@@ -69,12 +70,8 @@ pub fn strength_bulk_accumulation_distribution(
         &volume,
         previous_accumulation_distribution,
     )
-        .expect("Failed to calculate indicator");
-    let out = Array::new();
-    for v in data {
-        out.push(&JsValue::from_f64(v));
-    }
-    out
+    .map_err(js_err)?;
+    Ok(flat_to_array(data))
 }
 
 #[wasm_bindgen(js_name = strength_bulk_positiveVolumeIndex)]
@@ -82,18 +79,14 @@ pub fn strength_bulk_positive_volume_index(
     close: Vec<f64>,
     volume: Vec<f64>,
     previous_positive_volume_index: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::strength_indicators::bulk::positive_volume_index(
         &close,
         &volume,
         previous_positive_volume_index,
     )
-        .expect("Failed to calculate indicator");
-    let out = Array::new();
-    for v in data {
-        out.push(&JsValue::from_f64(v));
-    }
-    out
+    .map_err(js_err)?;
+    Ok(flat_to_array(data))
 }
 
 #[wasm_bindgen(js_name = strength_bulk_negativeVolumeIndex)]
@@ -101,18 +94,14 @@ pub fn strength_bulk_negative_volume_index(
     close: Vec<f64>,
     volume: Vec<f64>,
     previous_negative_volume_index: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::strength_indicators::bulk::negative_volume_index(
         &close,
         &volume,
         previous_negative_volume_index,
     )
-        .expect("Failed to calculate indicator");
-    let out = Array::new();
-    for v in data {
-        out.push(&JsValue::from_f64(v));
-    }
-    out
+    .map_err(js_err)?;
+    Ok(flat_to_array(data))
 }
 
 #[wasm_bindgen(js_name = strength_bulk_relativeVigorIndex)]
@@ -123,7 +112,7 @@ pub fn strength_bulk_relative_vigor_index(
     close: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::strength_indicators::bulk::relative_vigor_index(
         &open,
         &high,
@@ -132,10 +121,6 @@ pub fn strength_bulk_relative_vigor_index(
         constant_model_type.into(),
         period,
     )
-        .expect("Failed to calculate indicator");
-    let out = Array::new();
-    for v in data {
-        out.push(&JsValue::from_f64(v));
-    }
-    out
+    .map_err(js_err)?;
+    Ok(flat_to_array(data))
 }
