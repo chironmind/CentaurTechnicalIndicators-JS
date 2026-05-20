@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+- `test/enumParity.node.test.js`: drift guard that fails fast if the JS-side
+  enum mirror (`src/lib.rs`) drifts from the canonical unit-variant set for
+  any of the six `#[wasm_bindgen]` enums (`ConstantModelType`,
+  `DeviationModel`, `Position`, `MovingAverageType`, `CentralPoint`,
+  `DeviationAggregate`). The check uses
+  `Object.keys(EnumValue).filter(k => Number.isNaN(Number(k))).sort()` to
+  strip wasm-bindgen's reverse-lookup numeric keys, leaving only variant
+  names. Originally CR-1 in the upstream Rust ROADMAP — explicitly delegated
+  to this repo because the variant set is concrete only on the JS side.
+
 ---
 
 ## [1.2.2] - 2026-04-04
