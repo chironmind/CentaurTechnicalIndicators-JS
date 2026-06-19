@@ -12,6 +12,7 @@
     "index.js",
     "index.web.js",
     "index.node.js",
+    "index.node.cjs",
     "index.d.ts",
     "README.md"
   ],
@@ -38,7 +39,7 @@
     ".": {
       "types": "./index.d.ts",
       "browser": "./index.web.js",
-      "require": "./index.node.js",
+      "require": "./index.node.cjs",
       "import": "./index.js"
     }
   },
