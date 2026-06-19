@@ -179,16 +179,21 @@ async function init() {
   return;
 }
 
-module.exports = {
-  // Default-export parity: `require(pkg).default` and `require(pkg)()` both work.
+// The module export value IS the `init` function, with every namespace/enum
+// attached as a property. This makes all documented patterns work:
+//   - `require(pkg)()`            -> calls init (export value is callable)
+//   - `require(pkg).chartTrends`  -> namespace property
+//   - `import init from pkg`      -> resolves to init (default property)
+//   - Babel/TS `__importDefault`  -> wraps a callable, default stays init
+// (A plain object export would break `require(pkg)()` and make
+// `__importDefault` resolve the whole object instead of the init function.)
+module.exports = Object.assign(init, {
   default: init,
   init,
-  // Enums.
   ConstantModelType,
   DeviationModel,
   Position,
   MovingAverageType,
-  // Namespaces.
   candleIndicators,
   chartTrends,
   correlationIndicators,
@@ -198,4 +203,4 @@ module.exports = {
   trendIndicators,
   volatilityIndicators,
   movingAverage,
-};
+});

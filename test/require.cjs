@@ -13,6 +13,12 @@ const assert = require("node:assert/strict");
 
 const pkg = require("centaur-technical-indicators");
 
+test("the required value is callable and carries namespaces", () => {
+  assert.equal(typeof pkg, "function");
+  assert.equal(typeof pkg.chartTrends, "object");
+  assert.equal(typeof pkg.chartTrends.peaks, "function");
+});
+
 test("enums resolve through the CJS entry", () => {
   assert.equal(typeof pkg.MovingAverageType, "object");
   assert.equal(typeof pkg.ConstantModelType, "object");
