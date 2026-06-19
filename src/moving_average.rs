@@ -32,8 +32,12 @@ pub fn ma_bulk_moving_average(
     ma_type: crate::MovingAverageType,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::moving_average::bulk::moving_average(&prices, ma_type.into(), period)
-        .expect("Failed to calculate moving averages");
+    let data = centaur_technical_indicators::moving_average::bulk::moving_average(
+        &prices,
+        ma_type.into(),
+        period,
+    )
+    .expect("Failed to calculate moving averages");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -47,9 +51,12 @@ pub fn ma_bulk_mcginley_dynamic(
     previous_mcginley_dynamic: f64,
     period: usize,
 ) -> Array {
-    let data =
-        centaur_technical_indicators::moving_average::bulk::mcginley_dynamic(&prices, previous_mcginley_dynamic, period)
-            .expect("Failed to calculate McGinley Dynamic values");
+    let data = centaur_technical_indicators::moving_average::bulk::mcginley_dynamic(
+        &prices,
+        previous_mcginley_dynamic,
+        period,
+    )
+    .expect("Failed to calculate McGinley Dynamic values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

@@ -69,7 +69,7 @@ pub fn strength_bulk_accumulation_distribution(
         &volume,
         previous_accumulation_distribution,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -88,7 +88,7 @@ pub fn strength_bulk_positive_volume_index(
         &volume,
         previous_positive_volume_index,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -107,7 +107,7 @@ pub fn strength_bulk_negative_volume_index(
         &volume,
         previous_negative_volume_index,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -132,7 +132,7 @@ pub fn strength_bulk_relative_vigor_index(
         constant_model_type.into(),
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

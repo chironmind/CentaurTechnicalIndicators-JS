@@ -7,8 +7,9 @@ use wasm_bindgen::JsValue;
 // peaks: Vec<(f64, usize)> -> Array<[value, index]>
 #[wasm_bindgen(js_name = chart_trends_peaks)]
 pub fn chart_trends_peaks(prices: Vec<f64>, period: usize, closest_neighbor: usize) -> Array {
-    let pairs = centaur_technical_indicators::chart_trends::peaks(&prices, period, closest_neighbor)
-        .expect("Failed to calculate indicator");
+    let pairs =
+        centaur_technical_indicators::chart_trends::peaks(&prices, period, closest_neighbor)
+            .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (val, idx) in pairs {
         let inner = Array::new();
@@ -22,8 +23,9 @@ pub fn chart_trends_peaks(prices: Vec<f64>, period: usize, closest_neighbor: usi
 // valleys: Vec<(f64, usize)> -> Array<[value, index]>
 #[wasm_bindgen(js_name = chart_trends_valleys)]
 pub fn chart_trends_valleys(prices: Vec<f64>, period: usize, closest_neighbor: usize) -> Array {
-    let pairs = centaur_technical_indicators::chart_trends::valleys(&prices, period, closest_neighbor)
-        .expect("Failed to calculate indicator");
+    let pairs =
+        centaur_technical_indicators::chart_trends::valleys(&prices, period, closest_neighbor)
+            .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (val, idx) in pairs {
         let inner = Array::new();
@@ -37,8 +39,9 @@ pub fn chart_trends_valleys(prices: Vec<f64>, period: usize, closest_neighbor: u
 // peak_trend: (f64, f64) -> [slope, intercept]
 #[wasm_bindgen(js_name = chart_trends_peakTrend)]
 pub fn chart_trends_peak_trend(prices: Vec<f64>, period: usize) -> Array {
-    let (slope, intercept) = centaur_technical_indicators::chart_trends::peak_trend(&prices, period)
-        .expect("Failed to calculate indicator");
+    let (slope, intercept) =
+        centaur_technical_indicators::chart_trends::peak_trend(&prices, period)
+            .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(slope));
     arr.push(&JsValue::from_f64(intercept));
@@ -48,8 +51,9 @@ pub fn chart_trends_peak_trend(prices: Vec<f64>, period: usize) -> Array {
 // valley_trend: (f64, f64) -> [slope, intercept]
 #[wasm_bindgen(js_name = chart_trends_valleyTrend)]
 pub fn chart_trends_valley_trend(prices: Vec<f64>, period: usize) -> Array {
-    let (slope, intercept) = centaur_technical_indicators::chart_trends::valley_trend(&prices, period)
-        .expect("Failed to calculate indicator");
+    let (slope, intercept) =
+        centaur_technical_indicators::chart_trends::valley_trend(&prices, period)
+            .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(slope));
     arr.push(&JsValue::from_f64(intercept));

@@ -27,8 +27,11 @@ pub fn momentum_single_slow_stochastic(
     stochastics: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::slow_stochastic(&stochastics, constant_model_type.into())
-        .expect("Failed to calculate slow stochastic")
+    centaur_technical_indicators::momentum_indicators::single::slow_stochastic(
+        &stochastics,
+        constant_model_type.into(),
+    )
+    .expect("Failed to calculate slow stochastic")
 }
 
 #[allow(deprecated)]
@@ -46,8 +49,10 @@ pub fn momentum_single_slowest_stochastic(
 
 #[wasm_bindgen(js_name = momentum_single_williamsPercentR)]
 pub fn momentum_single_williams_percent_r(high: Vec<f64>, low: Vec<f64>, close: f64) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::williams_percent_r(&high, &low, close)
-        .expect("Failed to calculate Williams %R")
+    centaur_technical_indicators::momentum_indicators::single::williams_percent_r(
+        &high, &low, close,
+    )
+    .expect("Failed to calculate Williams %R")
 }
 
 #[wasm_bindgen(js_name = momentum_single_moneyFlowIndex)]
@@ -58,8 +63,11 @@ pub fn momentum_single_money_flow_index(prices: Vec<f64>, volume: Vec<f64>) -> f
 
 #[wasm_bindgen(js_name = momentum_single_rateOfChange)]
 pub fn momentum_single_rate_of_change(current_price: f64, previous_price: f64) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::rate_of_change(current_price, previous_price)
-        .expect("Failed to calculate rate of change")
+    centaur_technical_indicators::momentum_indicators::single::rate_of_change(
+        current_price,
+        previous_price,
+    )
+    .expect("Failed to calculate rate of change")
 }
 
 #[wasm_bindgen(js_name = momentum_single_onBalanceVolume)]
@@ -136,8 +144,11 @@ pub fn momentum_single_signal_line(
     macds: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
 ) -> f64 {
-    centaur_technical_indicators::momentum_indicators::single::signal_line(&macds, constant_model_type.into())
-        .expect("Failed to calculate signal line")
+    centaur_technical_indicators::momentum_indicators::single::signal_line(
+        &macds,
+        constant_model_type.into(),
+    )
+    .expect("Failed to calculate signal line")
 }
 
 #[wasm_bindgen(js_name = momentum_single_mcginleyDynamicMacdLine)]
@@ -147,13 +158,14 @@ pub fn momentum_single_mcginley_dynamic_macd_line(
     previous_short_mcginley: f64,
     previous_long_mcginley: f64,
 ) -> Array {
-    let (macd, short_m, long_m) = centaur_technical_indicators::momentum_indicators::single::mcginley_dynamic_macd_line(
-        &prices,
-        short_period,
-        previous_short_mcginley,
-        previous_long_mcginley,
-    )
-    .expect("Failed to calculate McGinley Dynamic MACD line");
+    let (macd, short_m, long_m) =
+        centaur_technical_indicators::momentum_indicators::single::mcginley_dynamic_macd_line(
+            &prices,
+            short_period,
+            previous_short_mcginley,
+            previous_long_mcginley,
+        )
+        .expect("Failed to calculate McGinley Dynamic MACD line");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(macd));
     arr.push(&JsValue::from_f64(short_m));
@@ -231,8 +243,10 @@ pub fn momentum_bulk_relative_strength_index(
 
 #[wasm_bindgen(js_name = momentum_bulk_stochasticOscillator)]
 pub fn momentum_bulk_stochastic_oscillator(prices: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::stochastic_oscillator(&prices, period)
-        .expect("Failed to calculate stochastic oscillator values");
+    let data = centaur_technical_indicators::momentum_indicators::bulk::stochastic_oscillator(
+        &prices, period,
+    )
+    .expect("Failed to calculate stochastic oscillator values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -287,8 +301,10 @@ pub fn momentum_bulk_williams_percent_r(
     close: Vec<f64>,
     period: usize,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::williams_percent_r(&high, &low, &close, period)
-        .expect("Failed to calculate Williams %R values");
+    let data = centaur_technical_indicators::momentum_indicators::bulk::williams_percent_r(
+        &high, &low, &close, period,
+    )
+    .expect("Failed to calculate Williams %R values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -298,8 +314,10 @@ pub fn momentum_bulk_williams_percent_r(
 
 #[wasm_bindgen(js_name = momentum_bulk_moneyFlowIndex)]
 pub fn momentum_bulk_money_flow_index(prices: Vec<f64>, volume: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::money_flow_index(&prices, &volume, period)
-        .expect("Failed to calculate Money Flow Index values");
+    let data = centaur_technical_indicators::momentum_indicators::bulk::money_flow_index(
+        &prices, &volume, period,
+    )
+    .expect("Failed to calculate Money Flow Index values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -416,9 +434,12 @@ pub fn momentum_bulk_signal_line(
     constant_model_type: crate::ConstantModelType,
     period: usize,
 ) -> Array {
-    let data =
-        centaur_technical_indicators::momentum_indicators::bulk::signal_line(&macds, constant_model_type.into(), period)
-            .expect("Failed to calculate signal line values");
+    let data = centaur_technical_indicators::momentum_indicators::bulk::signal_line(
+        &macds,
+        constant_model_type.into(),
+        period,
+    )
+    .expect("Failed to calculate signal line values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -494,13 +515,14 @@ pub fn momentum_bulk_percentage_price_oscillator(
     long_period: usize,
     constant_model_type: crate::ConstantModelType,
 ) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::percentage_price_oscillator(
-        &prices,
-        short_period,
-        long_period,
-        constant_model_type.into(),
-    )
-    .expect("Failed to calculate Percentage Price Oscillator values");
+    let data =
+        centaur_technical_indicators::momentum_indicators::bulk::percentage_price_oscillator(
+            &prices,
+            short_period,
+            long_period,
+            constant_model_type.into(),
+        )
+        .expect("Failed to calculate Percentage Price Oscillator values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -510,8 +532,10 @@ pub fn momentum_bulk_percentage_price_oscillator(
 
 #[wasm_bindgen(js_name = momentum_bulk_chandeMomentumOscillator)]
 pub fn momentum_bulk_chande_momentum_oscillator(prices: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::momentum_indicators::bulk::chande_momentum_oscillator(&prices, period)
-        .expect("Failed to calculate Chande Momentum Oscillator values");
+    let data = centaur_technical_indicators::momentum_indicators::bulk::chande_momentum_oscillator(
+        &prices, period,
+    )
+    .expect("Failed to calculate Chande Momentum Oscillator values");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
