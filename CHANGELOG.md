@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `ERR_REQUIRE_ESM` on Node 20 and yielded an undefined-valued namespace on
   Node 24). It re-exports the same namespaces/enums as the ESM entry. Added a
   CommonJS smoke test (`test/require.cjs`).
+- Regression tests locking in the 1.3.0 upstream bug fixes: `chartTrends.peaks` /
+  `valleys` index-0 and retained-extremum output, all-NaN `peaks` / `valleys`
+  returning an empty array, and all-NaN single `trendIndicators.aroonUp` /
+  `aroonDown` / `momentumIndicators.stochasticOscillator` returning `NaN` instead
+  of panicking.
 
 ### Changed
 - Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
@@ -28,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
     `stochasticOscillator` functions to return `NaN` instead of panicking on
     all-NaN input.
+
+### Removed
+- Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.
 
 ---
 
