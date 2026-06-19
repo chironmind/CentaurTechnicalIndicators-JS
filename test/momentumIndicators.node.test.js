@@ -29,6 +29,13 @@ describe("momentumIndicators.single (parity, one model each)", () => {
     );
   });
 
+  // 1.3.0 regression lock: all-NaN input returns NaN (1.2.2 panicked).
+  test("stochasticOscillator all-NaN -> NaN", () => {
+    assert.ok(
+      Number.isNaN(momentumIndicators.single.stochasticOscillator([NaN, NaN, NaN]))
+    );
+  });
+
   test("slowStochastic (SMA)", () => {
     const stochastics = [0.0, 5.882352941175241, 38.23529411764534, 47.36842105263394];
     const out = momentumIndicators.single.slowStochastic(

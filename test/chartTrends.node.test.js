@@ -94,6 +94,48 @@ describe("chartTrends (parity with Rust tests)", () => {
     ]);
   });
 
+  // --- 1.3.0 regression locks (behavior fixed upstream; differ from 1.2.2) ---
+
+  test("peaks_index0_lock (1.3.0 fix; 1.2.2 gave [[110,0],[109,1]])", () => {
+    const out = chartTrends.peaks([110, 109, 108, 107], 2, 1);
+    assert.deepEqual(out, [[110, 0]]);
+  });
+
+  test("valleys_index0_lock (1.3.0 fix; 1.2.2 gave [[107,0],[108,1]])", () => {
+    const out = chartTrends.valleys([107, 108, 109, 110], 2, 1);
+    assert.deepEqual(out, [[107, 0]]);
+  });
+
+  // --- retained-extremum correctness checks (identical in 1.2.2; 1.3.0 confirmation only) ---
+
+  test("peaks_retained_extremum", () => {
+    const out = chartTrends.peaks([110, 109, 108, 120], 2, 2);
+    assert.deepEqual(out, [
+      [110, 0],
+      [120, 3],
+    ]);
+  });
+
+  test("valleys_retained_extremum", () => {
+    const out = chartTrends.valleys([90, 91, 92, 80], 2, 2);
+    assert.deepEqual(out, [
+      [90, 0],
+      [80, 3],
+    ]);
+  });
+
+  // --- all-NaN peaks/valleys -> empty array (not a throw) ---
+
+  test("peaks_all_nan_returns_empty", () => {
+    const out = chartTrends.peaks([NaN, NaN, NaN, NaN], 2, 1);
+    assert.deepEqual(out, []);
+  });
+
+  test("valleys_all_nan_returns_empty", () => {
+    const out = chartTrends.valleys([NaN, NaN, NaN, NaN], 2, 1);
+    assert.deepEqual(out, []);
+  });
+
   // Optional: panic parity checks (commented out by default as they throw)
   // test("peaks_panic (period > len)", () => {
   //   const highs = [101.26, 102.57, 102.57, 100.69, 100.83, 101.73, 102.01];
