@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+- Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
+  - **Behavior change (upstream bug fix), documented per AGENTS.md:** 1.3.0
+    fixes `chart_trends::peaks` / `valleys` output on the index-0 and
+    retained-extremum cases (`last_*_idx` sentinel-0 → `Option<usize>`).
+    `chartTrends.peaks` / `chartTrends.valleys` now return the corrected
+    series on those inputs — e.g. `chartTrends.peaks([110,109,108,107], 2, 1)`
+    is `[[110,0]]` (was `[[110,0],[109,1]]` under 1.2.x). The existing parity
+    suite is unaffected (none of its inputs hit those cases).
+  - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
+    `stochasticOscillator` functions to return `NaN` instead of panicking on
+    all-NaN input.
+
 ---
 
 ## [1.2.2] - 2026-04-04
