@@ -94,13 +94,26 @@ describe("chartTrends (parity with Rust tests)", () => {
     ]);
   });
 
-  // Optional: panic parity checks (commented out by default as they throw)
-  // test("peaks_panic (period > len)", () => {
-  //   const highs = [101.26, 102.57, 102.57, 100.69, 100.83, 101.73, 102.01];
-  //   assert.throws(() => chartTrends.peaks(highs, 40, 1));
-  // });
-  // test("valleys_panic (period > len)", () => {
-  //   const lows = [98.75, 98.75, 100.14, 98.98, 99.07, 100.1, 99.96];
-  //   assert.throws(() => chartTrends.valleys(lows, 40, 1));
-  // });
+  // Error-handling parity: invalid input now throws a structured Error
+  // (Result<Array, JsValue>) instead of panicking the wasm instance.
+  test("peaks throws on period > len", () => {
+    assert.throws(() => chartTrends.peaks([101.26, 102.57, 102.32, 100.69], 40, 1));
+  });
+  test("valleys throws on period > len", () => {
+    assert.throws(() => chartTrends.valleys([100.08, 98.75, 100.14, 98.98], 40, 1));
+  });
+  test("peakTrend throws on period > len", () => {
+    assert.throws(() => chartTrends.peakTrend([101.26, 102.57, 102.32, 100.69], 40));
+  });
+  test("valleyTrend throws on period > len", () => {
+    assert.throws(() => chartTrends.valleyTrend([100.08, 98.75, 100.14, 98.98], 40));
+  });
+  test("overallTrend throws on empty input", () => {
+    assert.throws(() => chartTrends.overallTrend([]));
+  });
+  test("breakDownTrends throws on empty input", () => {
+    assert.throws(() =>
+      chartTrends.breakDownTrends([], 1, 0.75, 0.5, 2.0, 3.0, 1.0, 3.0, 0.7, 3.3)
+    );
+  });
 });

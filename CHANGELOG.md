@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
     `stochasticOscillator` functions to return `NaN` instead of panicking on
     all-NaN input.
+- `chartTrends` wrappers now throw structured `Error`s instead of panicking on
+  invalid input: each `.expect("Failed to calculate indicator")` in
+  `src/chart_trends.rs` becomes `.map_err(js_err)?`, returning
+  `Result<Array, JsValue>` that carries the upstream `TechnicalIndicatorError`
+  message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
+  unchanged.
 
 ---
 
