@@ -27,7 +27,6 @@ Initialize and use:
 import init, {
   ConstantModelType,
   DeviationModel,
-  standardIndicators,
   momentumIndicators,
   candleIndicators,
 } from "centaur-technical-indicators";
@@ -41,11 +40,7 @@ const highs  = [/* ... */];
 const lows   = [/* ... */];
 const close  = [/* ... */];
 
-// 1) Standard RSI (14) using Smoothed MA
-// single.rsi expects exactly 14 values for the standard definition.
-const rsi14 = standardIndicators.single.rsi(prices.slice(-14));
-
-// 2) Rolling RSI with custom model/period; take the latest value
+// 1) Rolling RSI with custom model/period; take the latest value
 const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
   prices,
   ConstantModelType.SmoothedMovingAverage,
@@ -53,12 +48,7 @@ const rsiSeries = momentumIndicators.bulk.relativeStrengthIndex(
 );
 const latestRsi = rsiSeries.at(-1);
 
-// 3) Standard Bollinger Bands (20 SMA, ±2 StdDev) on the last 20 bars
-const [bbLower, bbMid, bbUpper] = standardIndicators.single.bollingerBands(
-  prices.slice(-20)
-);
-
-// 4) Keltner Channel (EMA center, SMA ATR) over a 20-bar window; take the latest
+// 2) Keltner Channel (EMA center, SMA ATR) over a 20-bar window; take the latest
 const keltner = candleIndicators.bulk.keltnerChannel(
   highs, lows, close,
   ConstantModelType.ExponentialMovingAverage, // typical price center

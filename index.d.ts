@@ -500,7 +500,7 @@ export interface ChartTrends {
 
   /**
    * Segment the series into distinct trend ranges based on goodness-of-fit thresholds.
-   * Uses Centaur Technical Indicators 1.0.0 TrendBreakConfig parameters.
+   * Uses Centaur Technical Indicators 1.3.0 TrendBreakConfig parameters.
    * @param prices Prices series.
    * @param maxOutliers Maximum number of outliers allowed before trend break.
    * @param softAdjRSquaredMinimum Soft minimum adjusted R-squared threshold.
