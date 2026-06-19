@@ -20,6 +20,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
     `stochasticOscillator` functions to return `NaN` instead of panicking on
     all-NaN input.
+- CI/tooling: restructured `package.json` scripts (`build`, `test:node`,
+  `test:pack`, `check:rust`, `check`; `prepublishOnly` now runs `check`) and
+  introduced a strict clippy gate (`cargo clippy --target wasm32-unknown-unknown
+  --all-targets -- -D warnings`). Updated `.github/workflows/ci.yml` to run
+  `npm run check` and replaced the archived `actions-rs/toolchain` action (in
+  both `ci.yml` and `publish.yml`) with native `rustup` commands — no
+  third-party toolchain action, per workspace CI policy. Added
+  `#[allow(clippy::too_many_arguments)]` to the `chaikinOscillator` single/bulk
+  bindings to satisfy the gate.
 
 ---
 

@@ -174,6 +174,7 @@ pub fn momentum_single_mcginley_dynamic_macd_line(
 }
 
 #[wasm_bindgen(js_name = momentum_single_chaikinOscillator)]
+#[allow(clippy::too_many_arguments)]
 pub fn momentum_single_chaikin_oscillator(
     highs: Vec<f64>,
     lows: Vec<f64>,
@@ -475,6 +476,7 @@ pub fn momentum_bulk_mcginley_dynamic_macd_line(
 }
 
 #[wasm_bindgen(js_name = momentum_bulk_chaikinOscillator)]
+#[allow(clippy::too_many_arguments)]
 pub fn momentum_bulk_chaikin_oscillator(
     highs: Vec<f64>,
     lows: Vec<f64>,

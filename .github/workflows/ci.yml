@@ -14,11 +14,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-unknown-unknown
-          override: true
+        run: |
+          rustup toolchain install stable --profile minimal --component clippy --component rustfmt
+          rustup default stable
+          rustup target add wasm32-unknown-unknown
 
       - name: Install wasm-pack
         run: cargo install wasm-pack
@@ -28,14 +27,5 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Build (Node)
-        run: wasm-pack build --release --target nodejs    --out-dir dist/node     --out-name centaur-technical-indicators
-
-      - name: Build (Bundler)
-        run: wasm-pack build --release --target bundler   --out-dir dist/bundler  --out-name centaur-technical-indicators
-
-      - name: Build (Web)
-        run: wasm-pack build --release --target web       --out-dir dist/web      --out-name centaur-technical-indicators
-
-      - name: Run tests (Node)
-        run: npm test
+      - name: Check (fmt, clippy, build, test, pack)
+        run: npm run check
