@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+- Regression tests locking in the 1.3.0 upstream bug fixes: `chartTrends.peaks` /
+  `valleys` index-0 and retained-extremum output, all-NaN `peaks` / `valleys`
+  returning an empty array, and all-NaN single `trendIndicators.aroonUp` /
+  `aroonDown` / `momentumIndicators.stochasticOscillator` returning `NaN` instead
+  of panicking.
+
 ### Changed
 - Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
   - **Behavior change (upstream bug fix), documented per AGENTS.md:** 1.3.0
@@ -29,6 +36,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `test/otherIndicators.node.test.js` so it runs under the `*.node.test.js`
   glob; fixed the `breakDownTrends` JSDoc version reference (1.0.0 → 1.3.0) in
   `index.d.ts`.
+
+### Removed
+- Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.
 
 ---
 

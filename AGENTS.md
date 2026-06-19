@@ -37,11 +37,8 @@ Run these before opening a PR:
 4. `node --test` (all JS tests pass)
 
 ## Docs to review before coding
-- `docs/AI_ONBOARDING.md`
-- `.github/copilot-instructions.md`
-- `AI_FRIENDLY_ROADMAP.md`
-- `docs/REPO_MAP.md`
 - `CONTRIBUTING.md`
+- `CLAUDE.md`
 
 ## PR expectations for agents
 - Keep PRs focused and minimal.
