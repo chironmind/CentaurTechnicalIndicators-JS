@@ -463,6 +463,7 @@ export interface ChartTrends {
    * @returns Array of [value, index] pairs.
    * @example
    * const peaks = chartTrends.peaks([103, 102, 107, 104, 100], 3, 1); // [[107, 2]]
+   * @remarks Since the upstream 1.3.0 fix, an extremum at index 0 is retained and de-duplicated like any other (e.g. peaks([110,109,108,107],2,1) -> [[110,0]]); an all-NaN window returns [].
    */
   peaks(prices: number[], period: number, closestNeighbor: number): [number, number][];
 
@@ -472,6 +473,7 @@ export interface ChartTrends {
    * @param period Window length for detecting a local valley.
    * @param closestNeighbor Minimum index distance between accepted valleys.
    * @returns Array of [value, index] pairs.
+   * @remarks Since the upstream 1.3.0 fix, an extremum at index 0 is retained and de-duplicated like any other (e.g. peaks([110,109,108,107],2,1) -> [[110,0]]); an all-NaN window returns [].
    */
   valleys(prices: number[], period: number, closestNeighbor: number): [number, number][];
 
@@ -625,6 +627,7 @@ export interface MomentumIndicatorsSingle {
    * @param prices Slice of prices (length >= 1).
    * @returns Percent value in [0, 100].
    * @throws If prices is empty.
+   * @remarks Returns NaN (not a throw) when the input is all-NaN, since upstream 1.3.0.
    * @see {@link https://tech.centaurresearchtechnologies.com/indicators/momentum-indicators/stochastic-oscillator/} Explanation and interactive playground
    */
   stochasticOscillator(prices: number[]): number;
@@ -1492,6 +1495,7 @@ export interface TrendIndicatorsSingle {
    * @param highs High prices (length >= 2).
    * @returns Aroon Up in [0, 100].
    * @throws If highs is empty.
+   * @remarks Returns NaN (not a throw) when the input is all-NaN, since upstream 1.3.0.
    * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonUp(highs: number[]): number;
@@ -1502,6 +1506,7 @@ export interface TrendIndicatorsSingle {
    * @param lows Low prices (length >= 2).
    * @returns Aroon Down in [0, 100].
    * @throws If lows is empty.
+   * @remarks Returns NaN (not a throw) when the input is all-NaN, since upstream 1.3.0.
    * @see {@link https://tech.centaurresearchtechnologies.com/indicators/trend-indicators/aroon-indicator/} Explanation and interactive playground
    */
   aroonDown(lows: number[]): number;
