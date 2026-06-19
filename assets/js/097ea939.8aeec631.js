@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcentaur_technical_indicators_docs=self.webpackChunkcentaur_technical_indicators_docs||[]).push([[460],{4321(a){a.exports=JSON.parse('{"metadata":{"permalink":"/CentaurTechnicalIndicators-JS/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":0,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
