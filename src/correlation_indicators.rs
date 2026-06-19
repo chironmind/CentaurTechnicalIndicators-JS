@@ -35,7 +35,7 @@ pub fn correlation_bulk_correlate_asset_prices(
         deviation_model.into(),
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

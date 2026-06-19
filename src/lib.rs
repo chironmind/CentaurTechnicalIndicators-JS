@@ -23,8 +23,12 @@ impl From<ConstantModelType> for centaur_technical_indicators::ConstantModelType
             ConstantModelType::ExponentialMovingAverage => {
                 centaur_technical_indicators::ConstantModelType::ExponentialMovingAverage
             }
-            ConstantModelType::SimpleMovingMedian => centaur_technical_indicators::ConstantModelType::SimpleMovingMedian,
-            ConstantModelType::SimpleMovingMode => centaur_technical_indicators::ConstantModelType::SimpleMovingMode,
+            ConstantModelType::SimpleMovingMedian => {
+                centaur_technical_indicators::ConstantModelType::SimpleMovingMedian
+            }
+            ConstantModelType::SimpleMovingMode => {
+                centaur_technical_indicators::ConstantModelType::SimpleMovingMode
+            }
         }
     }
 }
@@ -45,16 +49,28 @@ pub enum DeviationModel {
 impl From<DeviationModel> for centaur_technical_indicators::DeviationModel {
     fn from(v: DeviationModel) -> Self {
         match v {
-            DeviationModel::StandardDeviation => centaur_technical_indicators::DeviationModel::StandardDeviation,
-            DeviationModel::MeanAbsoluteDeviation => centaur_technical_indicators::DeviationModel::MeanAbsoluteDeviation,
+            DeviationModel::StandardDeviation => {
+                centaur_technical_indicators::DeviationModel::StandardDeviation
+            }
+            DeviationModel::MeanAbsoluteDeviation => {
+                centaur_technical_indicators::DeviationModel::MeanAbsoluteDeviation
+            }
             DeviationModel::MedianAbsoluteDeviation => {
                 centaur_technical_indicators::DeviationModel::MedianAbsoluteDeviation
             }
-            DeviationModel::ModeAbsoluteDeviation => centaur_technical_indicators::DeviationModel::ModeAbsoluteDeviation,
+            DeviationModel::ModeAbsoluteDeviation => {
+                centaur_technical_indicators::DeviationModel::ModeAbsoluteDeviation
+            }
             DeviationModel::UlcerIndex => centaur_technical_indicators::DeviationModel::UlcerIndex,
-            DeviationModel::LogStandardDeviation => centaur_technical_indicators::DeviationModel::LogStandardDeviation,
-            DeviationModel::LaplaceStdEquivalent => centaur_technical_indicators::DeviationModel::LaplaceStdEquivalent,
-            DeviationModel::CauchyIQRScale => centaur_technical_indicators::DeviationModel::CauchyIQRScale,
+            DeviationModel::LogStandardDeviation => {
+                centaur_technical_indicators::DeviationModel::LogStandardDeviation
+            }
+            DeviationModel::LaplaceStdEquivalent => {
+                centaur_technical_indicators::DeviationModel::LaplaceStdEquivalent
+            }
+            DeviationModel::CauchyIQRScale => {
+                centaur_technical_indicators::DeviationModel::CauchyIQRScale
+            }
         }
     }
 }
@@ -72,8 +88,12 @@ impl From<MovingAverageType> for centaur_technical_indicators::MovingAverageType
     fn from(value: MovingAverageType) -> Self {
         match value {
             MovingAverageType::Simple => centaur_technical_indicators::MovingAverageType::Simple,
-            MovingAverageType::Smoothed => centaur_technical_indicators::MovingAverageType::Smoothed,
-            MovingAverageType::Exponential => centaur_technical_indicators::MovingAverageType::Exponential,
+            MovingAverageType::Smoothed => {
+                centaur_technical_indicators::MovingAverageType::Smoothed
+            }
+            MovingAverageType::Exponential => {
+                centaur_technical_indicators::MovingAverageType::Exponential
+            }
         }
     }
 }

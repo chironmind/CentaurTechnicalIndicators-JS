@@ -12,7 +12,11 @@ pub fn other_single_return_on_investment(
     investment: f64,
 ) -> Array {
     let (final_value, percent_return) =
-        centaur_technical_indicators::other_indicators::single::return_on_investment(start_price, end_price, investment);
+        centaur_technical_indicators::other_indicators::single::return_on_investment(
+            start_price,
+            end_price,
+            investment,
+        );
     let arr = Array::new();
     arr.push(&JsValue::from_f64(final_value));
     arr.push(&JsValue::from_f64(percent_return));
@@ -53,8 +57,10 @@ pub fn other_single_internal_bar_strength(high: f64, low: f64, close: f64) -> f6
 /// return_on_investment -> Array<[final_value, percent_return]>
 #[wasm_bindgen(js_name = other_bulk_returnOnInvestment)]
 pub fn other_bulk_return_on_investment(prices: Vec<f64>, investment: f64) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::return_on_investment(&prices, investment)
-        .expect("Failed to calculate indicator");
+    let data = centaur_technical_indicators::other_indicators::bulk::return_on_investment(
+        &prices, investment,
+    )
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for (final_value, percent_return) in data {
         let inner = Array::new();
@@ -68,8 +74,9 @@ pub fn other_bulk_return_on_investment(prices: Vec<f64>, investment: f64) -> Arr
 /// true_range -> Array<number>
 #[wasm_bindgen(js_name = other_bulk_trueRange)]
 pub fn other_bulk_true_range(close: Vec<f64>, high: Vec<f64>, low: Vec<f64>) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::true_range(&close, &high, &low)
-        .expect("Failed to calculate indicator");
+    let data =
+        centaur_technical_indicators::other_indicators::bulk::true_range(&close, &high, &low)
+            .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -93,7 +100,7 @@ pub fn other_bulk_average_true_range(
         constant_model_type.into(),
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -104,8 +111,10 @@ pub fn other_bulk_average_true_range(
 /// internal_bar_strength -> Array<number>
 #[wasm_bindgen(js_name = other_bulk_internalBarStrength)]
 pub fn other_bulk_internal_bar_strength(high: Vec<f64>, low: Vec<f64>, close: Vec<f64>) -> Array {
-    let data = centaur_technical_indicators::other_indicators::bulk::internal_bar_strength(&high, &low, &close)
-        .expect("Failed to calculate indicator");
+    let data = centaur_technical_indicators::other_indicators::bulk::internal_bar_strength(
+        &high, &low, &close,
+    )
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -127,7 +136,7 @@ pub fn other_bulk_positivity_indicator(
         signal_period,
         constant_model_type.into(),
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for (pi, sig) in data {
         let inner = Array::new();

@@ -14,8 +14,9 @@ pub fn volatility_single_ulcer_index(prices: Vec<f64>) -> f64 {
 
 #[wasm_bindgen(js_name = volatility_bulk_ulcerIndex)]
 pub fn volatility_bulk_ulcer_index(prices: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::volatility_indicators::bulk::ulcer_index(&prices, period)
-        .expect("Failed to calculate indicator");
+    let data =
+        centaur_technical_indicators::volatility_indicators::bulk::ulcer_index(&prices, period)
+            .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
@@ -41,7 +42,7 @@ pub fn volatility_bulk_volatility_system(
         constant_multiplier,
         constant_model_type.into(),
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));

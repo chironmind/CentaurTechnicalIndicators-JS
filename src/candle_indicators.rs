@@ -9,12 +9,13 @@ pub fn candle_single_moving_constant_envelopes(
     constant_model_type: crate::ConstantModelType,
     difference: f64,
 ) -> Array {
-    let (l, m, u) = centaur_technical_indicators::candle_indicators::single::moving_constant_envelopes(
-        &prices,
-        constant_model_type.into(),
-        difference,
-    )
-    .expect("Failed to calculate moving constant envelopes");
+    let (l, m, u) =
+        centaur_technical_indicators::candle_indicators::single::moving_constant_envelopes(
+            &prices,
+            constant_model_type.into(),
+            difference,
+        )
+        .expect("Failed to calculate moving constant envelopes");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
@@ -28,11 +29,12 @@ pub fn candle_single_mcginley_dynamic_envelopes(
     difference: f64,
     previous_mcginley_dynamic: f64,
 ) -> Array {
-    let (l, m, u) = centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_envelopes(
-        &prices,
-        difference,
-        previous_mcginley_dynamic,
-    )
+    let (l, m, u) =
+        centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_envelopes(
+            &prices,
+            difference,
+            previous_mcginley_dynamic,
+        )
         .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
@@ -54,7 +56,7 @@ pub fn candle_single_moving_constant_bands(
         deviation_model.into(),
         deviation_multiplier,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
@@ -69,12 +71,13 @@ pub fn candle_single_mcginley_dynamic_bands(
     deviation_multiplier: f64,
     previous_mcginley_dynamic: f64,
 ) -> Array {
-    let (l, m, u) = centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_bands(
-        &prices,
-        deviation_model.into(),
-        deviation_multiplier,
-        previous_mcginley_dynamic,
-    )
+    let (l, m, u) =
+        centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_bands(
+            &prices,
+            deviation_model.into(),
+            deviation_multiplier,
+            previous_mcginley_dynamic,
+        )
         .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
@@ -92,14 +95,15 @@ pub fn candle_single_ichimoku_cloud(
     base_period: usize,
     span_b_period: usize,
 ) -> Array {
-    let (a, b, base, conv, displaced_close) = centaur_technical_indicators::candle_indicators::single::ichimoku_cloud(
-        &highs,
-        &lows,
-        &close,
-        conversion_period,
-        base_period,
-        span_b_period,
-    )
+    let (a, b, base, conv, displaced_close) =
+        centaur_technical_indicators::candle_indicators::single::ichimoku_cloud(
+            &highs,
+            &lows,
+            &close,
+            conversion_period,
+            base_period,
+            span_b_period,
+        )
         .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(a));
@@ -112,8 +116,9 @@ pub fn candle_single_ichimoku_cloud(
 
 #[wasm_bindgen(js_name = candle_single_donchianChannels)]
 pub fn candle_single_donchian_channels(highs: Vec<f64>, lows: Vec<f64>) -> Array {
-    let (l, m, u) = centaur_technical_indicators::candle_indicators::single::donchian_channels(&highs, &lows)
-        .expect("Failed to calculate indicator");
+    let (l, m, u) =
+        centaur_technical_indicators::candle_indicators::single::donchian_channels(&highs, &lows)
+            .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
@@ -138,7 +143,7 @@ pub fn candle_single_keltner_channel(
         atr_constant_model_type.into(),
         multiplier,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
@@ -178,7 +183,7 @@ pub fn candle_bulk_moving_constant_envelopes(
         difference,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -203,7 +208,7 @@ pub fn candle_bulk_mcginley_dynamic_envelopes(
         previous_mcginley_dynamic,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -230,7 +235,7 @@ pub fn candle_bulk_moving_constant_bands(
         deviation_multiplier,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -257,7 +262,7 @@ pub fn candle_bulk_mcginley_dynamic_bands(
         previous_mcginley_dynamic,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -286,7 +291,7 @@ pub fn candle_bulk_ichimoku_cloud(
         base_period,
         span_b_period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (a, b, base, conv, displaced_close) in data {
         let inner = Array::new();
@@ -302,8 +307,10 @@ pub fn candle_bulk_ichimoku_cloud(
 
 #[wasm_bindgen(js_name = candle_bulk_donchianChannels)]
 pub fn candle_bulk_donchian_channels(highs: Vec<f64>, lows: Vec<f64>, period: usize) -> Array {
-    let data = centaur_technical_indicators::candle_indicators::bulk::donchian_channels(&highs, &lows, period)
-        .expect("Failed to calculate indicator");
+    let data = centaur_technical_indicators::candle_indicators::bulk::donchian_channels(
+        &highs, &lows, period,
+    )
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -334,7 +341,7 @@ pub fn candle_bulk_keltner_channel(
         multiplier,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -363,7 +370,7 @@ pub fn candle_bulk_supertrend(
         multiplier,
         period,
     )
-        .expect("Failed to calculate indicator");
+    .expect("Failed to calculate indicator");
     let outer = Array::new();
     for v in data {
         outer.push(&JsValue::from_f64(v));
