@@ -22,6 +22,15 @@ describe("trendIndicators.single (parity)", () => {
     assert.strictEqual(trendIndicators.single.aroonDown(lows), 33.33333333333333);
   });
 
+  // 1.3.0 regression lock: all-NaN input returns NaN (1.2.2 panicked).
+  test("aroonUp all-NaN -> NaN", () => {
+    assert.ok(Number.isNaN(trendIndicators.single.aroonUp([NaN, NaN, NaN])));
+  });
+
+  test("aroonDown all-NaN -> NaN", () => {
+    assert.ok(Number.isNaN(trendIndicators.single.aroonDown([NaN, NaN, NaN])));
+  });
+
   test("aroonOscillator", () => {
     assert.strictEqual(
       trendIndicators.single.aroonOscillator(33.33333333333333, 33.33333333333333),
