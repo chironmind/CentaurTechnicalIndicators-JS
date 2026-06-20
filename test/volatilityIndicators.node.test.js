@@ -59,3 +59,46 @@ describe("volatilityIndicators.bulk (parity, one model where applicable)", () =>
     assert.deepEqual(out, [101.37333333333332, 101.29333333333332, 99.9]);
   });
 });
+
+describe("volatilityIndicators (error handling)", () => {
+  test("single.ulcerIndex throws on empty input", () => {
+    assert.throws(
+      () => volatilityIndicators.single.ulcerIndex([]),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error");
+        assert.ok(err.message.length > 0, "message should be non-empty");
+        return true;
+      }
+    );
+  });
+
+  test("bulk.ulcerIndex throws when period exceeds length", () => {
+    assert.throws(
+      () => volatilityIndicators.bulk.ulcerIndex([100.46, 100.53], 5),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error");
+        assert.ok(err.message.length > 0, "message should be non-empty");
+        return true;
+      }
+    );
+  });
+
+  test("bulk.volatilitySystem throws when period exceeds length", () => {
+    assert.throws(
+      () =>
+        volatilityIndicators.bulk.volatilitySystem(
+          [100.76, 100.88],
+          [100.83, 100.91],
+          [100.59, 100.72],
+          5,
+          2.0,
+          ConstantModelType.SimpleMovingAverage
+        ),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error");
+        assert.ok(err.message.length > 0, "message should be non-empty");
+        return true;
+      }
+    );
+  });
+});
