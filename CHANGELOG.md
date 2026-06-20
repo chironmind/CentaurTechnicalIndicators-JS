@@ -62,6 +62,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `Result<Array, JsValue>` that carries the upstream `TechnicalIndicatorError`
   message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
   unchanged.
+- `strengthIndicators` wrappers throw a JS `Error` instead of panicking on
+  invalid input (via the shared `js_err` helper); success values unchanged.
 - `correlationIndicators` wrappers (`single`/`bulk` `correlateAssetPrices`) now
   throw a JS `Error` instead of panicking on invalid input; success values
   unchanged.
