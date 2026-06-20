@@ -60,6 +60,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `correlationIndicators` wrappers (`single`/`bulk` `correlateAssetPrices`) now
   throw a JS `Error` instead of panicking on invalid input; success values
   unchanged.
+- `volatilityIndicators` wrappers throw a JS `Error` instead of panicking on
+  invalid input; success values unchanged.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.
