@@ -1,3 +1,4 @@
+use crate::jsutil::js_err;
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
@@ -8,19 +9,19 @@ pub fn candle_single_moving_constant_envelopes(
     prices: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
     difference: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (l, m, u) =
         centaur_technical_indicators::candle_indicators::single::moving_constant_envelopes(
             &prices,
             constant_model_type.into(),
             difference,
         )
-        .expect("Failed to calculate moving constant envelopes");
+        .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_mcginleyDynamicEnvelopes)]
@@ -28,19 +29,19 @@ pub fn candle_single_mcginley_dynamic_envelopes(
     prices: Vec<f64>,
     difference: f64,
     previous_mcginley_dynamic: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (l, m, u) =
         centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_envelopes(
             &prices,
             difference,
             previous_mcginley_dynamic,
         )
-        .expect("Failed to calculate indicator");
+        .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_movingConstantBands)]
@@ -49,19 +50,19 @@ pub fn candle_single_moving_constant_bands(
     constant_model_type: crate::ConstantModelType,
     deviation_model: crate::DeviationModel,
     deviation_multiplier: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (l, m, u) = centaur_technical_indicators::candle_indicators::single::moving_constant_bands(
         &prices,
         constant_model_type.into(),
         deviation_model.into(),
         deviation_multiplier,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_mcginleyDynamicBands)]
@@ -70,7 +71,7 @@ pub fn candle_single_mcginley_dynamic_bands(
     deviation_model: crate::DeviationModel,
     deviation_multiplier: f64,
     previous_mcginley_dynamic: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (l, m, u) =
         centaur_technical_indicators::candle_indicators::single::mcginley_dynamic_bands(
             &prices,
@@ -78,12 +79,12 @@ pub fn candle_single_mcginley_dynamic_bands(
             deviation_multiplier,
             previous_mcginley_dynamic,
         )
-        .expect("Failed to calculate indicator");
+        .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_ichimokuCloud)]
@@ -94,7 +95,7 @@ pub fn candle_single_ichimoku_cloud(
     conversion_period: usize,
     base_period: usize,
     span_b_period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (a, b, base, conv, displaced_close) =
         centaur_technical_indicators::candle_indicators::single::ichimoku_cloud(
             &highs,
@@ -104,26 +105,26 @@ pub fn candle_single_ichimoku_cloud(
             base_period,
             span_b_period,
         )
-        .expect("Failed to calculate indicator");
+        .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(a));
     arr.push(&JsValue::from_f64(b));
     arr.push(&JsValue::from_f64(base));
     arr.push(&JsValue::from_f64(conv));
     arr.push(&JsValue::from_f64(displaced_close));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_donchianChannels)]
-pub fn candle_single_donchian_channels(highs: Vec<f64>, lows: Vec<f64>) -> Array {
+pub fn candle_single_donchian_channels(highs: Vec<f64>, lows: Vec<f64>) -> Result<Array, JsValue> {
     let (l, m, u) =
         centaur_technical_indicators::candle_indicators::single::donchian_channels(&highs, &lows)
-            .expect("Failed to calculate indicator");
+            .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_keltnerChannel)]
@@ -134,7 +135,7 @@ pub fn candle_single_keltner_channel(
     constant_model_type: crate::ConstantModelType,
     atr_constant_model_type: crate::ConstantModelType,
     multiplier: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let (l, m, u) = centaur_technical_indicators::candle_indicators::single::keltner_channel(
         &highs,
         &lows,
@@ -143,12 +144,12 @@ pub fn candle_single_keltner_channel(
         atr_constant_model_type.into(),
         multiplier,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(l));
     arr.push(&JsValue::from_f64(m));
     arr.push(&JsValue::from_f64(u));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = candle_single_supertrend)]
@@ -158,7 +159,7 @@ pub fn candle_single_supertrend(
     close: Vec<f64>,
     constant_model_type: crate::ConstantModelType,
     multiplier: f64,
-) -> f64 {
+) -> Result<f64, JsValue> {
     centaur_technical_indicators::candle_indicators::single::supertrend(
         &highs,
         &lows,
@@ -166,7 +167,7 @@ pub fn candle_single_supertrend(
         constant_model_type.into(),
         multiplier,
     )
-    .expect("Failed to calculate supertrend")
+    .map_err(js_err)
 }
 
 // ------------- BULK -------------
@@ -176,14 +177,14 @@ pub fn candle_bulk_moving_constant_envelopes(
     constant_model_type: crate::ConstantModelType,
     difference: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::moving_constant_envelopes(
         &prices,
         constant_model_type.into(),
         difference,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -192,7 +193,7 @@ pub fn candle_bulk_moving_constant_envelopes(
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_mcginleyDynamicEnvelopes)]
@@ -201,14 +202,14 @@ pub fn candle_bulk_mcginley_dynamic_envelopes(
     difference: f64,
     previous_mcginley_dynamic: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::mcginley_dynamic_envelopes(
         &prices,
         difference,
         previous_mcginley_dynamic,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -217,7 +218,7 @@ pub fn candle_bulk_mcginley_dynamic_envelopes(
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_movingConstantBands)]
@@ -227,7 +228,7 @@ pub fn candle_bulk_moving_constant_bands(
     deviation_model: crate::DeviationModel,
     deviation_multiplier: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::moving_constant_bands(
         &prices,
         constant_model_type.into(),
@@ -235,7 +236,7 @@ pub fn candle_bulk_moving_constant_bands(
         deviation_multiplier,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -244,7 +245,7 @@ pub fn candle_bulk_moving_constant_bands(
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_mcginleyDynamicBands)]
@@ -254,7 +255,7 @@ pub fn candle_bulk_mcginley_dynamic_bands(
     deviation_multiplier: f64,
     previous_mcginley_dynamic: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::mcginley_dynamic_bands(
         &prices,
         deviation_model.into(),
@@ -262,7 +263,7 @@ pub fn candle_bulk_mcginley_dynamic_bands(
         previous_mcginley_dynamic,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -271,7 +272,7 @@ pub fn candle_bulk_mcginley_dynamic_bands(
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_ichimokuCloud)]
@@ -282,7 +283,7 @@ pub fn candle_bulk_ichimoku_cloud(
     conversion_period: usize,
     base_period: usize,
     span_b_period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::ichimoku_cloud(
         &highs,
         &lows,
@@ -291,7 +292,7 @@ pub fn candle_bulk_ichimoku_cloud(
         base_period,
         span_b_period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (a, b, base, conv, displaced_close) in data {
         let inner = Array::new();
@@ -302,15 +303,19 @@ pub fn candle_bulk_ichimoku_cloud(
         inner.push(&JsValue::from_f64(displaced_close));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_donchianChannels)]
-pub fn candle_bulk_donchian_channels(highs: Vec<f64>, lows: Vec<f64>, period: usize) -> Array {
+pub fn candle_bulk_donchian_channels(
+    highs: Vec<f64>,
+    lows: Vec<f64>,
+    period: usize,
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::donchian_channels(
         &highs, &lows, period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -319,7 +324,7 @@ pub fn candle_bulk_donchian_channels(highs: Vec<f64>, lows: Vec<f64>, period: us
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_keltnerChannel)]
@@ -331,7 +336,7 @@ pub fn candle_bulk_keltner_channel(
     atr_constant_model_type: crate::ConstantModelType,
     multiplier: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::keltner_channel(
         &highs,
         &lows,
@@ -341,7 +346,7 @@ pub fn candle_bulk_keltner_channel(
         multiplier,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for (l, m, u) in data {
         let inner = Array::new();
@@ -350,7 +355,7 @@ pub fn candle_bulk_keltner_channel(
         inner.push(&JsValue::from_f64(u));
         outer.push(&inner);
     }
-    outer
+    Ok(outer)
 }
 
 #[wasm_bindgen(js_name = candle_bulk_supertrend)]
@@ -361,7 +366,7 @@ pub fn candle_bulk_supertrend(
     constant_model_type: crate::ConstantModelType,
     multiplier: f64,
     period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::candle_indicators::bulk::supertrend(
         &highs,
         &lows,
@@ -370,10 +375,10 @@ pub fn candle_bulk_supertrend(
         multiplier,
         period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let outer = Array::new();
     for v in data {
         outer.push(&JsValue::from_f64(v));
     }
-    outer
+    Ok(outer)
 }
