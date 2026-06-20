@@ -21,7 +21,11 @@
     "build:node": "wasm-pack build --release --target nodejs --out-dir dist/node --out-name centaur-technical-indicators && rm -f dist/node/.gitignore",
     "build:bundler": "wasm-pack build --release --target bundler --out-dir dist/bundler --out-name centaur-technical-indicators && rm -f dist/bundler/.gitignore",
     "build": "npm run build:web && npm run build:node && npm run build:bundler",
-    "prepublishOnly": "npm run build",
+    "test:node": "node --test",
+    "test:pack": "npm pack --dry-run",
+    "check:rust": "cargo fmt --check && cargo clippy --target wasm32-unknown-unknown --all-targets -- -D warnings",
+    "check": "npm run check:rust && npm run build && npm run test:node && npm run test:pack",
+    "prepublishOnly": "npm run check",
     "test": "npm run build && node --test"
   },
   "keywords": [
