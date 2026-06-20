@@ -13,15 +13,18 @@
 
 ## Validation
 - [ ] `cargo fmt --check`
-- [ ] `cargo clippy`
+- [ ] `cargo clippy --all-targets --all-features -- -D warnings`
 - [ ] `npm run build`
 - [ ] `node --test`
 
-Command output summary:
+Paste verbatim gate output:
 
 ## Changelog
-- [ ] `CHANGELOG.md` updated for user-facing changes
+- [ ] `CHANGELOG.md` updated under `## [Unreleased]` for user-facing changes (or exempt — non-user-facing)
 - Entry summary:
+
+## Flagged items
+- Anything unresolved, intentionally skipped, or deviating from AGENTS.md conventions (including any blocked gate). Write "None" if none.
 
 ## Manual Verification
 - What was manually verified?
