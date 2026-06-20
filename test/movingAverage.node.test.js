@@ -33,3 +33,27 @@ describe("movingAverage.bulk (one model)", () => {
     assert.deepEqual(out, [100.53, 100.47970046511769, 100.38201189376744]);
   });
 });
+
+describe("movingAverage error handling (throws JS Error)", () => {
+  test("single.movingAverage throws on empty array", () => {
+    assert.throws(
+      () => movingAverage.single.movingAverage([], MovingAverageType.Simple),
+      (err) => {
+        assert.ok(err instanceof Error, "expected an Error instance");
+        assert.ok(err.message.length > 0, "expected a non-empty message");
+        return true;
+      },
+    );
+  });
+
+  test("bulk.movingAverage throws when period > length", () => {
+    assert.throws(
+      () => movingAverage.bulk.movingAverage([100.2, 100.46], MovingAverageType.Simple, 5),
+      (err) => {
+        assert.ok(err instanceof Error, "expected an Error instance");
+        assert.ok(err.message.length > 0, "expected a non-empty message");
+        return true;
+      },
+    );
+  });
+});

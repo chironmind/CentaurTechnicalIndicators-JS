@@ -22,6 +22,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   of panicking.
 
 ### Changed
+- `otherIndicators` wrappers throw a JS `Error` on invalid input instead of
+  panicking; success values unchanged.
+- `movingAverage` wrappers (`single.movingAverage`, `single.mcginleyDynamic`,
+  `bulk.movingAverage`, `bulk.mcginleyDynamic`) throw a JS `Error` instead of
+  panicking on invalid input; success values unchanged.
 - Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
   - **Behavior change (upstream bug fix), documented per AGENTS.md:** 1.3.0
     fixes `chart_trends::peaks` / `valleys` output on the index-0 and
@@ -59,6 +64,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   unchanged.
 - `strengthIndicators` wrappers throw a JS `Error` instead of panicking on
   invalid input (via the shared `js_err` helper); success values unchanged.
+- `correlationIndicators` wrappers (`single`/`bulk` `correlateAssetPrices`) now
+  throw a JS `Error` instead of panicking on invalid input; success values
+  unchanged.
+- `volatilityIndicators` wrappers throw a JS `Error` instead of panicking on
+  invalid input; success values unchanged.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.

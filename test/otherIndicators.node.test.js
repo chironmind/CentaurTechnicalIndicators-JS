@@ -122,3 +122,80 @@ describe("otherIndicators.bulk (parity, one model where applicable)", () => {
     ]);
   });
 });
+
+describe("otherIndicators throws a JS Error on invalid input", () => {
+  const isError = (err) => {
+    assert.ok(err instanceof Error, "thrown value should be instanceof Error");
+    assert.ok(
+      typeof err.message === "string" && err.message.length > 0,
+      "error message should be non-empty"
+    );
+    return true;
+  };
+
+  test("single.averageTrueRange throws on mismatched-length inputs", () => {
+    assert.throws(
+      () =>
+        otherIndicators.single.averageTrueRange(
+          [100.46, 100.53],
+          [101.12],
+          [100.29],
+          ConstantModelType.SimpleMovingAverage
+        ),
+      isError
+    );
+  });
+
+  test("bulk.returnOnInvestment throws on empty prices", () => {
+    assert.throws(
+      () => otherIndicators.bulk.returnOnInvestment([], 1000.0),
+      isError
+    );
+  });
+
+  test("bulk.trueRange throws on mismatched-length inputs", () => {
+    assert.throws(
+      () => otherIndicators.bulk.trueRange([100.46, 100.53], [101.12], [100.29]),
+      isError
+    );
+  });
+
+  test("bulk.averageTrueRange throws on mismatched-length inputs", () => {
+    assert.throws(
+      () =>
+        otherIndicators.bulk.averageTrueRange(
+          [100.46, 100.53],
+          [101.12],
+          [100.29],
+          ConstantModelType.SimpleMovingAverage,
+          3
+        ),
+      isError
+    );
+  });
+
+  test("bulk.internalBarStrength throws on mismatched-length inputs", () => {
+    assert.throws(
+      () =>
+        otherIndicators.bulk.internalBarStrength(
+          [102.32, 100.69],
+          [100.14],
+          [100.55]
+        ),
+      isError
+    );
+  });
+
+  test("positivityIndicator throws on mismatched-length inputs", () => {
+    assert.throws(
+      () =>
+        otherIndicators.bulk.positivityIndicator(
+          [5278.24, 5314.48],
+          [5283.4],
+          5,
+          ConstantModelType.SimpleMovingAverage
+        ),
+      isError
+    );
+  });
+});
