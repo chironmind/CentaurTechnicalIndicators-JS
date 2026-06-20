@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
+- CommonJS entry point `index.node.cjs` mapped to `exports["."].require`, so
+  `require("centaur-technical-indicators")` from CommonJS works on the Node 20
+  floor (the previous `require` → ESM `index.node.js` mapping threw
+  `ERR_REQUIRE_ESM` on Node 20 and yielded an undefined-valued namespace on
+  Node 24). It re-exports the same namespaces/enums as the ESM entry. Added a
+  CommonJS smoke test (`test/require.cjs`).
 - Regression tests locking in the 1.3.0 upstream bug fixes: `chartTrends.peaks` /
   `valleys` index-0 and retained-extremum output, all-NaN `peaks` / `valleys`
   returning an empty array, and all-NaN single `trendIndicators.aroonUp` /
