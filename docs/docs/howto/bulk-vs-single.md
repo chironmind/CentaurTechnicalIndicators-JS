@@ -104,9 +104,6 @@ Notes:
   - ConstantModelType.ExponentialMovingAverage
   - ConstantModelType.SimpleMovingMedian
   - ConstantModelType.SimpleMovingMode
-- Tip (standard 14-period RSI):
-  - standardIndicators.single.rsi(pricesOfLength14) // exactly 14 values
-  - standardIndicators.bulk.rsi(allPrices)          // rolling 14 over the series
 
 ---
 

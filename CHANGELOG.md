@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
+- CommonJS entry point `index.node.cjs` mapped to `exports["."].require`, so
+  `require("centaur-technical-indicators")` from CommonJS works on the Node 20
+  floor (the previous `require` → ESM `index.node.js` mapping threw
+  `ERR_REQUIRE_ESM` on Node 20 and yielded an undefined-valued namespace on
+  Node 24). It re-exports the same namespaces/enums as the ESM entry. Added a
+  CommonJS smoke test (`test/require.cjs`).
 - Regression tests locking in the 1.3.0 upstream bug fixes: `chartTrends.peaks` /
   `valleys` index-0 and retained-extremum output, all-NaN `peaks` / `valleys`
   returning an empty array, and all-NaN single `trendIndicators.aroonUp` /
@@ -27,6 +33,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
     `stochasticOscillator` functions to return `NaN` instead of panicking on
     all-NaN input.
+- CI/tooling: restructured `package.json` scripts (`build`, `test:node`,
+  `test:pack`, `check:rust`, `check`; `prepublishOnly` now runs `check`) and
+  introduced a strict clippy gate (`cargo clippy --target wasm32-unknown-unknown
+  --all-targets -- -D warnings`). Updated `.github/workflows/ci.yml` to run
+  `npm run check` and replaced the archived `actions-rs/toolchain` action (in
+  both `ci.yml` and `publish.yml`) with native `rustup` commands — no
+  third-party toolchain action, per workspace CI policy. Added
+  `#[allow(clippy::too_many_arguments)]` to the `chaikinOscillator` single/bulk
+  bindings to satisfy the gate.
+- Documentation hygiene: removed references to the removed `standardIndicators`
+  namespace (`README.md`, `CONTRIBUTING.md`, `docs/docs/index.md`,
+  `docs/docs/howto/bulk-vs-single.md`); replaced stale `ti-engine` references
+  and fixed the advisory URL in `README.md` and `SECURITY.md`; corrected the
+  underscore dist filenames in `README.md` to the hyphen form
+  `centaur-technical-indicators.js`; renamed `test/otherIndicators.node.js` to
+  `test/otherIndicators.node.test.js` so it runs under the `*.node.test.js`
+  glob; fixed the `breakDownTrends` JSDoc version reference (1.0.0 → 1.3.0) in
+  `index.d.ts`.
+- `chartTrends` wrappers now throw structured `Error`s instead of panicking on
+  invalid input: each `.expect("Failed to calculate indicator")` in
+  `src/chart_trends.rs` becomes `.map_err(js_err)?`, returning
+  `Result<Array, JsValue>` that carries the upstream `TechnicalIndicatorError`
+  message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
+  unchanged.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.

@@ -201,7 +201,7 @@ npm test
 ### Namespaces and API shape
 
 - Each domain groups indicators under a namespaced object:
-  - `movingAverage`, `momentumIndicators`, `strengthIndicators`, `trendIndicators`, `volatilityIndicators`, `candleIndicators`, `correlationIndicators`, `chartTrends`, `otherIndicators`, `standardIndicators`
+  - `movingAverage`, `momentumIndicators`, `strengthIndicators`, `trendIndicators`, `volatilityIndicators`, `candleIndicators`, `correlationIndicators`, `chartTrends`, `otherIndicators`
 - Two styles per indicator set:
   - `single.*` — full-window calculations returning a scalar (or tuple)
   - `bulk.*`   — rolling-window calculations returning arrays

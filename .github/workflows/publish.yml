@@ -20,10 +20,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Set up Rust (for WASM build)
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-unknown-unknown
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add wasm32-unknown-unknown
 
       - name: Install wasm-pack
         run: cargo install wasm-pack
