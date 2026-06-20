@@ -1,3 +1,4 @@
+use crate::jsutil::js_err;
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
@@ -5,15 +6,13 @@ use wasm_bindgen::JsValue;
 // -------- SINGLE --------
 
 #[wasm_bindgen(js_name = trend_single_aroonUp)]
-pub fn trend_single_aroon_up(highs: Vec<f64>) -> f64 {
-    centaur_technical_indicators::trend_indicators::single::aroon_up(&highs)
-        .expect("Failed to calculate Aroon Up")
+pub fn trend_single_aroon_up(highs: Vec<f64>) -> Result<f64, JsValue> {
+    centaur_technical_indicators::trend_indicators::single::aroon_up(&highs).map_err(js_err)
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonDown)]
-pub fn trend_single_aroon_down(lows: Vec<f64>) -> f64 {
-    centaur_technical_indicators::trend_indicators::single::aroon_down(&lows)
-        .expect("Failed to calculate Aroon Down")
+pub fn trend_single_aroon_down(lows: Vec<f64>) -> Result<f64, JsValue> {
+    centaur_technical_indicators::trend_indicators::single::aroon_down(&lows).map_err(js_err)
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonOscillator)]
@@ -22,15 +21,15 @@ pub fn trend_single_aroon_oscillator(aroon_up: f64, aroon_down: f64) -> f64 {
 }
 
 #[wasm_bindgen(js_name = trend_single_aroonIndicator)]
-pub fn trend_single_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>) -> Array {
+pub fn trend_single_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>) -> Result<Array, JsValue> {
     let (up, down, osc) =
         centaur_technical_indicators::trend_indicators::single::aroon_indicator(&highs, &lows)
-            .expect("Failed to calculate indicator");
+            .map_err(js_err)?;
     let arr = Array::new();
     arr.push(&JsValue::from_f64(up));
     arr.push(&JsValue::from_f64(down));
     arr.push(&JsValue::from_f64(osc));
-    arr
+    Ok(arr)
 }
 
 #[wasm_bindgen(js_name = trend_single_longParabolicTimePriceSystem)]
@@ -84,60 +83,67 @@ pub fn trend_single_true_strength_index(
     first_constant_model: crate::ConstantModelType,
     first_period: usize,
     second_constant_model: crate::ConstantModelType,
-) -> f64 {
+) -> Result<f64, JsValue> {
     centaur_technical_indicators::trend_indicators::single::true_strength_index(
         &prices,
         first_constant_model.into(),
         first_period,
         second_constant_model.into(),
     )
-    .expect("Failed to calculate True Strength Index")
+    .map_err(js_err)
 }
 
 // -------- BULK --------
 
 #[wasm_bindgen(js_name = trend_bulk_aroonUp)]
-pub fn trend_bulk_aroon_up(highs: Vec<f64>, period: usize) -> Array {
+pub fn trend_bulk_aroon_up(highs: Vec<f64>, period: usize) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::aroon_up(&highs, period)
-        .expect("Failed to calculate indicator");
+        .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_aroonDown)]
-pub fn trend_bulk_aroon_down(lows: Vec<f64>, period: usize) -> Array {
+pub fn trend_bulk_aroon_down(lows: Vec<f64>, period: usize) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::aroon_down(&lows, period)
-        .expect("Failed to calculate indicator");
+        .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_aroonOscillator)]
-pub fn trend_bulk_aroon_oscillator(aroon_up: Vec<f64>, aroon_down: Vec<f64>) -> Array {
+pub fn trend_bulk_aroon_oscillator(
+    aroon_up: Vec<f64>,
+    aroon_down: Vec<f64>,
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::aroon_oscillator(
         &aroon_up,
         &aroon_down,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_aroonIndicator)]
-pub fn trend_bulk_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>, period: usize) -> Array {
+pub fn trend_bulk_aroon_indicator(
+    highs: Vec<f64>,
+    lows: Vec<f64>,
+    period: usize,
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::aroon_indicator(
         &highs, &lows, period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for (up, down, osc) in data {
         let t = Array::new();
@@ -146,7 +152,7 @@ pub fn trend_bulk_aroon_indicator(highs: Vec<f64>, lows: Vec<f64>, period: usize
         t.push(&JsValue::from_f64(osc));
         out.push(&t);
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_parabolicTimePriceSystem)]
@@ -158,7 +164,7 @@ pub fn trend_bulk_parabolic_time_price_system(
     acceleration_factor_step: f64,
     start_position: crate::Position,
     previous_sar: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::parabolic_time_price_system(
         &highs,
         &lows,
@@ -168,12 +174,12 @@ pub fn trend_bulk_parabolic_time_price_system(
         start_position.into(),
         previous_sar,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_directionalMovementSystem)]
@@ -183,7 +189,7 @@ pub fn trend_bulk_directional_movement_system(
     close: Vec<f64>,
     period: usize,
     constant_model_type: crate::ConstantModelType,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::directional_movement_system(
         &highs,
         &lows,
@@ -191,7 +197,7 @@ pub fn trend_bulk_directional_movement_system(
         period,
         constant_model_type.into(),
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for (pdi, ndi, adx, adxr) in data {
         let t = Array::new();
@@ -201,7 +207,7 @@ pub fn trend_bulk_directional_movement_system(
         t.push(&JsValue::from_f64(adxr));
         out.push(&t);
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_volumePriceTrend)]
@@ -209,7 +215,7 @@ pub fn trend_bulk_volume_price_trend(
     prices: Vec<f64>,
     volumes: Vec<f64>,
     previous_volume_price_trend: f64,
-) -> Array {
+) -> Result<Array, JsValue> {
     // Handle both same-length arrays (skip first volume) and L-1 length arrays (backward compat)
     let volumes_slice = if volumes.len() == prices.len() {
         &volumes[1..]
@@ -222,12 +228,12 @@ pub fn trend_bulk_volume_price_trend(
         volumes_slice,
         previous_volume_price_trend,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
 
 #[wasm_bindgen(js_name = trend_bulk_trueStrengthIndex)]
@@ -237,7 +243,7 @@ pub fn trend_bulk_true_strength_index(
     first_period: usize,
     second_constant_model: crate::ConstantModelType,
     second_period: usize,
-) -> Array {
+) -> Result<Array, JsValue> {
     let data = centaur_technical_indicators::trend_indicators::bulk::true_strength_index(
         &prices,
         first_constant_model.into(),
@@ -245,10 +251,10 @@ pub fn trend_bulk_true_strength_index(
         second_constant_model.into(),
         second_period,
     )
-    .expect("Failed to calculate indicator");
+    .map_err(js_err)?;
     let out = Array::new();
     for v in data {
         out.push(&JsValue::from_f64(v));
     }
-    out
+    Ok(out)
 }
