@@ -36,6 +36,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `test/otherIndicators.node.test.js` so it runs under the `*.node.test.js`
   glob; fixed the `breakDownTrends` JSDoc version reference (1.0.0 → 1.3.0) in
   `index.d.ts`.
+- `chartTrends` wrappers now throw structured `Error`s instead of panicking on
+  invalid input: each `.expect("Failed to calculate indicator")` in
+  `src/chart_trends.rs` becomes `.map_err(js_err)?`, returning
+  `Result<Array, JsValue>` that carries the upstream `TechnicalIndicatorError`
+  message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
+  unchanged.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.

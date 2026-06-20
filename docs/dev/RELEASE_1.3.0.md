@@ -389,9 +389,12 @@ lands first, locate the functions by name before adding them.
   (`cargo fmt --check && cargo clippy --target wasm32-unknown-unknown
   --all-targets -- -D warnings`) / `check` (rust → build → test → pack);
   `prepublishOnly` → `check`.
-- `ci.yml`: run `npm run check`; remove the redundant separate target builds
-  (currently CI builds, then `npm test` rebuilds). Migrate off the archived
-  `actions-rs/toolchain` to `dtolnay/rust-toolchain`.
+- `ci.yml` **and `publish.yml`**: run `npm run check`; remove the redundant
+  separate target builds (currently CI builds, then `npm test` rebuilds).
+  Replace the archived `actions-rs/toolchain` action with **native `rustup`
+  commands** (`rustup toolchain install … && rustup default stable && rustup
+  target add wasm32-unknown-unknown`) — **no third-party toolchain action**, per
+  the workspace CI policy (native `rustup`/`cargo` only).
 
 **Out of scope:** no binding/semantics changes.
 

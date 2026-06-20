@@ -118,6 +118,7 @@ impl From<Position> for centaur_technical_indicators::Position {
 pub mod candle_indicators;
 pub mod chart_trends;
 pub mod correlation_indicators;
+pub mod jsutil; // shared js_err adapter (PR 2)
 pub mod momentum_indicators;
 pub mod moving_average;
 pub mod other_indicators;
