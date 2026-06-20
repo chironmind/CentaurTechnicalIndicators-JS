@@ -27,6 +27,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - 1.3.0 also hardens the single `aroonUp` / `aroonDown` /
     `stochasticOscillator` functions to return `NaN` instead of panicking on
     all-NaN input.
+- Documentation hygiene: removed references to the removed `standardIndicators`
+  namespace (`README.md`, `CONTRIBUTING.md`, `docs/docs/index.md`,
+  `docs/docs/howto/bulk-vs-single.md`); replaced stale `ti-engine` references
+  and fixed the advisory URL in `README.md` and `SECURITY.md`; corrected the
+  underscore dist filenames in `README.md` to the hyphen form
+  `centaur-technical-indicators.js`; renamed `test/otherIndicators.node.js` to
+  `test/otherIndicators.node.test.js` so it runs under the `*.node.test.js`
+  glob; fixed the `breakDownTrends` JSDoc version reference (1.0.0 → 1.3.0) in
+  `index.d.ts`.
 - `chartTrends` wrappers now throw structured `Error`s instead of panicking on
   invalid input: each `.expect("Failed to calculate indicator")` in
   `src/chart_trends.rs` becomes `.map_err(js_err)?`, returning
