@@ -217,7 +217,7 @@ pub fn trend_bulk_volume_price_trend(
     previous_volume_price_trend: f64,
 ) -> Result<Array, JsValue> {
     // Handle both same-length arrays (skip first volume) and L-1 length arrays (backward compat)
-    let volumes_slice = if volumes.len() == prices.len() {
+    let volumes_slice = if volumes.len() == prices.len() && !volumes.is_empty() {
         &volumes[1..]
     } else {
         &volumes

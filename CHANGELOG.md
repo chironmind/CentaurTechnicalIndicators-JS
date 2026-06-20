@@ -58,7 +58,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
   unchanged.
 - `trendIndicators` wrappers throw a JS `Error` on invalid input instead of
-  panicking; success values unchanged.
+  panicking; success values unchanged. Also guards the same-length volume slice
+  in `bulk.volumePriceTrend` so empty input now throws a clean JS `Error` rather
+  than trapping the wasm instance.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.

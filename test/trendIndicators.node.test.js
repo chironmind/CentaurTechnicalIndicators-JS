@@ -162,6 +162,13 @@ describe("trendIndicators.bulk (parity, one model where applicable)", () => {
     ]);
   });
 
+  test("volumePriceTrend (empty input throws)", () => {
+    assert.throws(
+      () => trendIndicators.bulk.volumePriceTrend([], [], 0.0),
+      (err) => err instanceof Error && err.message.length > 0
+    );
+  });
+
   test("trueStrengthIndex (EMA/EMA, 5/3)", () => {
     const prices = [100.14,98.98,99.07,100.1,99.96,99.56,100.72,101.16,100.76,100.3];
     const out = trendIndicators.bulk.trueStrengthIndex(
