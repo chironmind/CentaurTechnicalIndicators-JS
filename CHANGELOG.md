@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
+- JS/WASM bindings for chart-trend favorable-move functions
+  (`peakFavorableMove`, `valleyFavorableMove`).
 - CommonJS entry point `index.node.cjs` mapped to `exports["."].require`, so
   `require("centaur-technical-indicators")` from CommonJS works on the Node 20
   floor (the previous `require` → ESM `index.node.js` mapping threw
