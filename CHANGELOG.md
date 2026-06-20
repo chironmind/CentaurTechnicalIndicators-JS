@@ -22,6 +22,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   of panicking.
 
 ### Changed
+- `momentumIndicators` wrappers now throw a JS `Error` on invalid input instead
+  of panicking; success values unchanged.
 - Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
   - **Behavior change (upstream bug fix), documented per AGENTS.md:** 1.3.0
     fixes `chart_trends::peaks` / `valleys` output on the index-0 and
