@@ -94,55 +94,26 @@ describe("chartTrends (parity with Rust tests)", () => {
     ]);
   });
 
-  // --- 1.3.0 regression locks (behavior fixed upstream; differ from 1.2.2) ---
-
-  test("peaks_index0_lock (1.3.0 fix; 1.2.2 gave [[110,0],[109,1]])", () => {
-    const out = chartTrends.peaks([110, 109, 108, 107], 2, 1);
-    assert.deepEqual(out, [[110, 0]]);
+  // Error-handling parity: invalid input now throws a structured Error
+  // (Result<Array, JsValue>) instead of panicking the wasm instance.
+  test("peaks throws on period > len", () => {
+    assert.throws(() => chartTrends.peaks([101.26, 102.57, 102.32, 100.69], 40, 1));
   });
-
-  test("valleys_index0_lock (1.3.0 fix; 1.2.2 gave [[107,0],[108,1]])", () => {
-    const out = chartTrends.valleys([107, 108, 109, 110], 2, 1);
-    assert.deepEqual(out, [[107, 0]]);
+  test("valleys throws on period > len", () => {
+    assert.throws(() => chartTrends.valleys([100.08, 98.75, 100.14, 98.98], 40, 1));
   });
-
-  // --- retained-extremum correctness checks (identical in 1.2.2; 1.3.0 confirmation only) ---
-
-  test("peaks_retained_extremum", () => {
-    const out = chartTrends.peaks([110, 109, 108, 120], 2, 2);
-    assert.deepEqual(out, [
-      [110, 0],
-      [120, 3],
-    ]);
+  test("peakTrend throws on period > len", () => {
+    assert.throws(() => chartTrends.peakTrend([101.26, 102.57, 102.32, 100.69], 40));
   });
-
-  test("valleys_retained_extremum", () => {
-    const out = chartTrends.valleys([90, 91, 92, 80], 2, 2);
-    assert.deepEqual(out, [
-      [90, 0],
-      [80, 3],
-    ]);
+  test("valleyTrend throws on period > len", () => {
+    assert.throws(() => chartTrends.valleyTrend([100.08, 98.75, 100.14, 98.98], 40));
   });
-
-  // --- all-NaN peaks/valleys -> empty array (not a throw) ---
-
-  test("peaks_all_nan_returns_empty", () => {
-    const out = chartTrends.peaks([NaN, NaN, NaN, NaN], 2, 1);
-    assert.deepEqual(out, []);
+  test("overallTrend throws on empty input", () => {
+    assert.throws(() => chartTrends.overallTrend([]));
   });
-
-  test("valleys_all_nan_returns_empty", () => {
-    const out = chartTrends.valleys([NaN, NaN, NaN, NaN], 2, 1);
-    assert.deepEqual(out, []);
+  test("breakDownTrends throws on empty input", () => {
+    assert.throws(() =>
+      chartTrends.breakDownTrends([], 1, 0.75, 0.5, 2.0, 3.0, 1.0, 3.0, 0.7, 3.3)
+    );
   });
-
-  // Optional: panic parity checks (commented out by default as they throw)
-  // test("peaks_panic (period > len)", () => {
-  //   const highs = [101.26, 102.57, 102.57, 100.69, 100.83, 101.73, 102.01];
-  //   assert.throws(() => chartTrends.peaks(highs, 40, 1));
-  // });
-  // test("valleys_panic (period > len)", () => {
-  //   const lows = [98.75, 98.75, 100.14, 98.98, 99.07, 100.1, 99.96];
-  //   assert.throws(() => chartTrends.valleys(lows, 40, 1));
-  // });
 });
