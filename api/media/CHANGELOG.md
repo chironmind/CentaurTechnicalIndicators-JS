@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
+- Binding registry (`docs/binding_registry.json`) plus a cross-entry-point drift
+  test (`test/bindingRegistry.node.test.js`) asserting the public namespace
+  surface matches across all entry points (`index.js`, `index.node.js`,
+  `index.web.js`, `index.node.cjs`) and the type definitions (`index.d.ts`).
 - JS/WASM bindings for chart-trend favorable-move functions
   (`peakFavorableMove`, `valleyFavorableMove`), exposed on the `chartTrends`
   namespace from both the ESM and CommonJS (`require`) entry points.
