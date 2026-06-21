@@ -527,6 +527,38 @@ export interface ChartTrends {
     hardDurbinWatsonMin: number,
     hardDurbinWatsonMax: number
   ): [number, number, number, number][];
+
+  /**
+   * Largest favorable downward excursion from the reference point over the
+   * inclusive forward window `[index + 1, index + period]`:
+   * `prices[index] - min(window)`.
+   *
+   * Not floored: returns a negative value when the window never drops below
+   * `prices[index]`.
+   * @param prices Series to analyze.
+   * @param index Reference index (the move is measured relative to `prices[index]`).
+   * @param period Forward window length; the window spans `[index + 1, index + period]`.
+   * @returns The peak favorable (downward) move.
+   * @throws If `prices` is empty, `period === 0`, or `index + period >= prices.length`.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/chart-trends/peak-favorable-move/} Explanation and interactive playground
+   */
+  peakFavorableMove(prices: number[], index: number, period: number): number;
+
+  /**
+   * Largest favorable upward excursion from the reference point over the
+   * inclusive forward window `[index + 1, index + period]`:
+   * `max(window) - prices[index]`.
+   *
+   * Not floored: returns a negative value when the window never rises above
+   * `prices[index]`.
+   * @param prices Series to analyze.
+   * @param index Reference index (the move is measured relative to `prices[index]`).
+   * @param period Forward window length; the window spans `[index + 1, index + period]`.
+   * @returns The valley favorable (upward) move.
+   * @throws If `prices` is empty, `period === 0`, or `index + period >= prices.length`.
+   * @see {@link https://tech.centaurresearchtechnologies.com/indicators/chart-trends/valley-favorable-move/} Explanation and interactive playground
+   */
+  valleyFavorableMove(prices: number[], index: number, period: number): number;
 }
 
 /**

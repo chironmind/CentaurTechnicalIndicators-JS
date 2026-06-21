@@ -124,12 +124,47 @@ describe("correlationIndicators.bulk (parity with Rust tests)", () => {
     ]);
   });
 
-  // Optional error parity (commented out; will throw)
-  // test("mismatched lengths panic", () => {
-  //   assert.throws(() =>
-  //     correlationIndicators.bulk.correlateAssetPrices(
-  //       [1,2,3], [1,2], ConstantModelType.SimpleMovingAverage, DeviationModel.StandardDeviation, 2
-  //     )
-  //   );
-  // });
+  test("mismatched asset-series lengths throw an Error (bulk)", () => {
+    assert.throws(
+      () =>
+        correlationIndicators.bulk.correlateAssetPrices(
+          [1, 2, 3],
+          [1, 2],
+          ConstantModelType.SimpleMovingAverage,
+          DeviationModel.StandardDeviation,
+          2
+        ),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error instance");
+        assert.ok(
+          typeof err.message === "string" && err.message.length > 0,
+          "should have a non-empty message"
+        );
+        return true;
+      }
+    );
+  });
+});
+
+describe("correlationIndicators error handling", () => {
+  // A1 (decisive): invalid input throws a catchable Error, not a panic.
+  test("mismatched asset-series lengths throw an Error (single)", () => {
+    assert.throws(
+      () =>
+        correlationIndicators.single.correlateAssetPrices(
+          [1, 2, 3],
+          [1, 2],
+          ConstantModelType.SimpleMovingAverage,
+          DeviationModel.StandardDeviation
+        ),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error instance");
+        assert.ok(
+          typeof err.message === "string" && err.message.length > 0,
+          "should have a non-empty message"
+        );
+        return true;
+      }
+    );
+  });
 });

@@ -19,6 +19,13 @@ test("the required value is callable and carries namespaces", () => {
   assert.equal(typeof pkg.chartTrends.peaks, "function");
 });
 
+test("chartTrends favorable-move functions resolve and compute", () => {
+  assert.equal(typeof pkg.chartTrends.peakFavorableMove, "function");
+  assert.equal(typeof pkg.chartTrends.valleyFavorableMove, "function");
+
+  assert.strictEqual(pkg.chartTrends.peakFavorableMove([107, 104, 100, 102], 0, 3), 7.0);
+});
+
 test("enums resolve through the CJS entry", () => {
   assert.equal(typeof pkg.MovingAverageType, "object");
   assert.equal(typeof pkg.ConstantModelType, "object");

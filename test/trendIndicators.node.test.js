@@ -162,6 +162,13 @@ describe("trendIndicators.bulk (parity, one model where applicable)", () => {
     ]);
   });
 
+  test("volumePriceTrend (empty input throws)", () => {
+    assert.throws(
+      () => trendIndicators.bulk.volumePriceTrend([], [], 0.0),
+      (err) => err instanceof Error && err.message.length > 0
+    );
+  });
+
   test("trueStrengthIndex (EMA/EMA, 5/3)", () => {
     const prices = [100.14,98.98,99.07,100.1,99.96,99.56,100.72,101.16,100.76,100.3];
     const out = trendIndicators.bulk.trueStrengthIndex(
@@ -174,5 +181,67 @@ describe("trendIndicators.bulk (parity, one model where applicable)", () => {
       0.43792017300550673,
       0.06758060421426838,
     ]);
+  });
+});
+
+describe("trendIndicators (throws on invalid input)", () => {
+  // A1 (decisive): a fallible wrapper throws a catchable JS Error with a
+  // non-empty message instead of panicking.
+  test("single.aroonUp throws on empty input", () => {
+    assert.throws(
+      () => trendIndicators.single.aroonUp([]),
+      (err) => {
+        assert.ok(err instanceof Error, "should be an Error");
+        assert.ok(
+          typeof err.message === "string" && err.message.length > 0,
+          "should have a non-empty message",
+        );
+        return true;
+      },
+    );
+  });
+
+  test("single.aroonDown throws on empty input", () => {
+    assert.throws(
+      () => trendIndicators.single.aroonDown([]),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      },
+    );
+  });
+
+  test("single.aroonIndicator throws on empty input", () => {
+    assert.throws(
+      () => trendIndicators.single.aroonIndicator([], []),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      },
+    );
+  });
+
+  test("bulk.aroonUp throws on period larger than input", () => {
+    assert.throws(
+      () => trendIndicators.bulk.aroonUp([101.26, 102.57], 5),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      },
+    );
+  });
+
+  test("bulk.aroonOscillator throws on mismatched lengths", () => {
+    assert.throws(
+      () => trendIndicators.bulk.aroonOscillator([1.0, 2.0, 3.0], [1.0]),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      },
+    );
   });
 });
