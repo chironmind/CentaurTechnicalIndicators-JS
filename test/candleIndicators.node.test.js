@@ -251,3 +251,66 @@ describe("candleIndicators.bulk (parity with Rust tests)", () => {
     assert.deepEqual(out, [104.91999999999999, 105.1, 104.382]);
   });
 });
+
+describe("candleIndicators error handling (throws Error, not panic)", () => {
+  const isNonEmptyError = (err) =>
+    err instanceof Error && typeof err.message === "string" && err.message.length > 0;
+
+  test("single.movingConstantEnvelopes throws on empty input", () => {
+    assert.throws(
+      () =>
+        candleIndicators.single.movingConstantEnvelopes(
+          [],
+          ConstantModelType.ExponentialMovingAverage,
+          3.0
+        ),
+      isNonEmptyError
+    );
+  });
+
+  test("single.donchianChannels throws on mismatched high/low lengths", () => {
+    assert.throws(
+      () => candleIndicators.single.donchianChannels([101.26, 102.57], [100.08]),
+      isNonEmptyError
+    );
+  });
+
+  test("single.supertrend throws on empty input", () => {
+    assert.throws(
+      () =>
+        candleIndicators.single.supertrend(
+          [],
+          [],
+          [],
+          ConstantModelType.SimpleMovingAverage,
+          2.0
+        ),
+      isNonEmptyError
+    );
+  });
+
+  test("bulk.movingConstantEnvelopes throws when period exceeds series length", () => {
+    assert.throws(
+      () =>
+        candleIndicators.bulk.movingConstantEnvelopes(
+          [100.46, 100.53, 100.38],
+          ConstantModelType.ExponentialMovingAverage,
+          3.0,
+          5
+        ),
+      isNonEmptyError
+    );
+  });
+
+  test("bulk.donchianChannels throws on mismatched high/low lengths", () => {
+    assert.throws(
+      () =>
+        candleIndicators.bulk.donchianChannels(
+          [101.26, 102.57, 102.32],
+          [100.08, 98.75],
+          2
+        ),
+      isNonEmptyError
+    );
+  });
+});
