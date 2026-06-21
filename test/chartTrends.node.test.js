@@ -116,4 +116,41 @@ describe("chartTrends (parity with Rust tests)", () => {
       chartTrends.breakDownTrends([], 1, 0.75, 0.5, 2.0, 3.0, 1.0, 3.0, 0.7, 3.3)
     );
   });
+
+  test("peakFavorableMove basic (A1)", () => {
+    assert.strictEqual(chartTrends.peakFavorableMove([107, 104, 100, 102], 0, 3), 7.0);
+  });
+  test("valleyFavorableMove basic (A1)", () => {
+    assert.strictEqual(
+      chartTrends.valleyFavorableMove([100, 102, 107, 104, 100], 0, 3),
+      7.0
+    );
+  });
+  test("peakFavorableMove not floored (A2)", () => {
+    assert.strictEqual(chartTrends.peakFavorableMove([100, 101, 102, 103], 0, 3), -1.0);
+  });
+  test("valleyFavorableMove not floored (A2)", () => {
+    assert.strictEqual(chartTrends.valleyFavorableMove([105, 104, 103, 102], 0, 3), -1.0);
+  });
+  test("valleyFavorableMove window boundary (A3)", () => {
+    assert.strictEqual(chartTrends.valleyFavorableMove([10, 1, 1, 20, 99], 0, 3), 10.0);
+  });
+  test("peakFavorableMove window boundary (A3)", () => {
+    assert.strictEqual(chartTrends.peakFavorableMove([50, 99, 99, 30, 1], 0, 3), 20.0);
+  });
+  test("peakFavorableMove throws when window past end (A4)", () => {
+    assert.throws(() => chartTrends.peakFavorableMove([100, 101, 102], 1, 3));
+  });
+  test("peakFavorableMove throws on period 0 (A4)", () => {
+    assert.throws(() => chartTrends.peakFavorableMove([100, 101, 102, 103], 0, 0));
+  });
+  test("valleyFavorableMove throws on period 0 (A4)", () => {
+    assert.throws(() => chartTrends.valleyFavorableMove([100, 101, 102, 103], 0, 0));
+  });
+  test("peakFavorableMove throws on empty input (A4)", () => {
+    assert.throws(() => chartTrends.peakFavorableMove([], 0, 3));
+  });
+  test("valleyFavorableMove throws on empty input (A4)", () => {
+    assert.throws(() => chartTrends.valleyFavorableMove([], 0, 3));
+  });
 });

@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Added
+- JS/WASM bindings for chart-trend favorable-move functions
+  (`peakFavorableMove`, `valleyFavorableMove`), exposed on the `chartTrends`
+  namespace from both the ESM and CommonJS (`require`) entry points.
 - CommonJS entry point `index.node.cjs` mapped to `exports["."].require`, so
   `require("centaur-technical-indicators")` from CommonJS works on the Node 20
   floor (the previous `require` → ESM `index.node.js` mapping threw
@@ -22,6 +25,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   of panicking.
 
 ### Changed
+- `momentumIndicators` wrappers now throw a JS `Error` on invalid input instead
+  of panicking; success values unchanged.
+- `otherIndicators` wrappers throw a JS `Error` on invalid input instead of
+  panicking; success values unchanged.
+- `movingAverage` wrappers (`single.movingAverage`, `single.mcginleyDynamic`,
+  `bulk.movingAverage`, `bulk.mcginleyDynamic`) throw a JS `Error` instead of
+  panicking on invalid input; success values unchanged.
 - Updated `centaur_technical_indicators` from 1.2.2 to 1.3.0.
   - **Behavior change (upstream bug fix), documented per AGENTS.md:** 1.3.0
     fixes `chart_trends::peaks` / `valleys` output on the index-0 and
@@ -62,6 +72,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `.map_err(js_err)`, returning `Result<f64, JsValue>` / `Result<Array, JsValue>`
   that carries the upstream error message. Success values, ordering, and warmup
   are unchanged.
+- `trendIndicators` wrappers throw a JS `Error` on invalid input instead of
+  panicking; success values unchanged. Also guards the same-length volume slice
+  in `bulk.volumePriceTrend` so empty input now throws a clean JS `Error` rather
+  than trapping the wasm instance.
+- `strengthIndicators` wrappers throw a JS `Error` instead of panicking on
+  invalid input (via the shared `js_err` helper); success values unchanged.
+- `correlationIndicators` wrappers (`single`/`bulk` `correlateAssetPrices`) now
+  throw a JS `Error` instead of panicking on invalid input; success values
+  unchanged.
+- `volatilityIndicators` wrappers throw a JS `Error` instead of panicking on
+  invalid input; success values unchanged.
 
 ### Removed
 - Consolidated agent/process docs to AGENTS.md + CONTRIBUTING.md (+ new CLAUDE.md pointer); deleted docs/REPO_MAP.md, docs/AI_ONBOARDING.md, AI_FRIENDLY_ROADMAP.md, .github/copilot-instructions.md, ai-policy.yaml.
