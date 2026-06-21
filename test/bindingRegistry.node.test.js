@@ -46,20 +46,6 @@ const registry = JSON.parse(
 const namespaces = registry.namespaces;
 const nsNames = Object.keys(namespaces);
 
-// Map a registry namespace name -> the index.d.ts interface base name
-// (interfaces are <Base>Single / <Base>Bulk, or flat <Base>).
-const dtsInterfaceBase = {
-  candleIndicators: "CandleIndicators",
-  chartTrends: "ChartTrends",
-  correlationIndicators: "CorrelationIndicators",
-  momentumIndicators: "MomentumIndicators",
-  otherIndicators: "OtherIndicators",
-  strengthIndicators: "StrengthIndicators",
-  trendIndicators: "TrendIndicators",
-  volatilityIndicators: "VolatilityIndicators",
-  movingAverage: "MovingAverage",
-};
-
 // ---- helpers -------------------------------------------------------------
 
 function symmetricDiff(actualSet, expectedSet) {
@@ -82,12 +68,27 @@ function assertSetEqual(surface, nsName, slot, actualNames, expectedNames) {
   );
 }
 
-// Compare a runtime namespace object against the registry entry.
+// A registered key is worthless if it points at a missing/misspelled wasm
+// export (undefined): set-equality on keys alone would still pass while web/CJS
+// consumers get a non-callable API. Assert each runtime leaf is callable.
+function assertCallable(surface, where, obj, keys) {
+  for (const k of keys) {
+    assert.equal(
+      typeof obj[k],
+      "function",
+      `[${surface}] ${where}.${k} is not callable (typeof ${typeof obj[k]}) -- ` +
+        `the registry key points at a missing or misspelled binding`
+    );
+  }
+}
+
+// Compare a runtime namespace object against the registry entry (keys + callability).
 function checkRuntimeNamespace(surface, nsName, nsObj) {
   const entry = namespaces[nsName];
   assert.ok(nsObj, `[${surface}] namespace ${nsName} is missing entirely`);
   if (entry.shape === "flat") {
     assertSetEqual(surface, nsName, null, Object.keys(nsObj), entry.functions);
+    assertCallable(surface, nsName, nsObj, Object.keys(nsObj));
   } else {
     assert.ok(
       nsObj.single && nsObj.bulk,
@@ -95,6 +96,8 @@ function checkRuntimeNamespace(surface, nsName, nsObj) {
     );
     assertSetEqual(surface, nsName, "single", Object.keys(nsObj.single), entry.single);
     assertSetEqual(surface, nsName, "bulk", Object.keys(nsObj.bulk), entry.bulk);
+    assertCallable(surface, `${nsName}.single`, nsObj.single, Object.keys(nsObj.single));
+    assertCallable(surface, `${nsName}.bulk`, nsObj.bulk, Object.keys(nsObj.bulk));
   }
 }
 
@@ -218,19 +221,51 @@ function declaredConstNamespaceNames(src) {
   return names;
 }
 
-// index.d.ts: derive namespace names from interface names (strip Single/Bulk,
-// map base -> namespace). An interface that maps to no known namespace surfaces
-// as `UNKNOWN:<iface>`, so a new surface-only namespace is flagged.
-const dtsBaseToNs = Object.fromEntries(
-  Object.entries(dtsInterfaceBase).map(([ns, base]) => [base, ns])
-);
-function dtsNamespaceNames(ifaces) {
-  const names = new Set();
-  for (const ifaceName of Object.keys(ifaces)) {
-    const base = ifaceName.replace(/(Single|Bulk)$/, "");
-    names.add(dtsBaseToNs[base] || `UNKNOWN:${ifaceName}`);
+// index.d.ts: the PUBLIC exported namespace surface is the `export const <ns>:`
+// declarations -- NOT the interfaces. Interfaces are types that can be reused
+// (e.g. `export const standardIndicators: ChartTrends`) or left orphaned, so
+// inferring namespaces from interface names misses exactly that drift. Parse the
+// `export const` declarations to get the exported namespace set AND each
+// namespace's interface binding(s), so leaf checks read the right interface.
+//
+//   export const chartTrends: ChartTrends;                       -> flat
+//   export const momentumIndicators: {                           -> single-bulk
+//     single: MomentumIndicatorsSingle;
+//     bulk: MomentumIndicatorsBulk;
+//   };
+function parseDtsExports(src) {
+  const lines = src.split("\n");
+  const nsMap = {}; // ns -> { shape:'flat', iface } | { shape:'single-bulk', single, bulk }
+  const ifaceToNs = {}; // interface name -> ns
+  const declRe = /^export const (\w+)\s*:\s*(.*)$/;
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(declRe);
+    if (!m) continue;
+    const ns = m[1];
+    const rest = m[2].trim();
+    const flat = rest.match(/^([A-Za-z_]\w*)\s*;/);
+    if (flat) {
+      nsMap[ns] = { shape: "flat", iface: flat[1] };
+      ifaceToNs[flat[1]] = ns;
+    } else if (rest.startsWith("{")) {
+      let single = null;
+      let bulk = null;
+      for (let j = i + 1; j < lines.length && !/^\}/.test(lines[j]); j++) {
+        const sm = lines[j].match(/^\s*single\s*:\s*([A-Za-z_]\w*)/);
+        const bm = lines[j].match(/^\s*bulk\s*:\s*([A-Za-z_]\w*)/);
+        if (sm) {
+          single = sm[1];
+          ifaceToNs[single] = ns;
+        }
+        if (bm) {
+          bulk = bm[1];
+          ifaceToNs[bulk] = ns;
+        }
+      }
+      nsMap[ns] = { shape: "single-bulk", single, bulk };
+    }
   }
-  return names;
+  return { nsMap, ifaceToNs };
 }
 
 function assertNsSetEqual(surface, actualSet, expectedSet) {
@@ -250,9 +285,8 @@ function assertNsSetEqual(surface, actualSet, expectedSet) {
 // is the source of truth. Associate each `@deprecated` tag with the method it
 // annotates (the next 2-space-indent `name(` after its JSDoc block) and union
 // across the Single/Bulk interfaces of each namespace.
-function parseDtsDeprecated(src) {
+function parseDtsDeprecated(src, ifaceToNs) {
   const byNs = {};
-  for (const ns of Object.keys(dtsInterfaceBase)) byNs[ns] = new Set();
   const lines = src.split("\n");
   const ifaceRe = /^export interface (\w+)\s*\{/;
   const methodRe = /^  ([A-Za-z_]\w*)\s*\(/;
@@ -261,8 +295,7 @@ function parseDtsDeprecated(src) {
   for (const line of lines) {
     const im = line.match(ifaceRe);
     if (im) {
-      const base = im[1].replace(/(Single|Bulk)$/, "");
-      curNs = dtsBaseToNs[base] || null;
+      curNs = ifaceToNs[im[1]] || null;
       pending = false;
       continue;
     }
@@ -282,7 +315,7 @@ function parseDtsDeprecated(src) {
     }
     const mm = line.match(methodRe);
     if (mm) {
-      if (pending) byNs[curNs].add(mm[1]);
+      if (pending) (byNs[curNs] ??= new Set()).add(mm[1]);
       pending = false;
     }
   }
@@ -331,22 +364,28 @@ test("index.js (bundler target, text-parsed) matches registry", () => {
   }
 });
 
-test("index.d.ts (TypeScript interfaces, text-parsed) matches registry", () => {
+test("index.d.ts (exported namespaces, text-parsed) matches registry", () => {
   const src = readFileSync(resolve(repoRoot, "index.d.ts"), "utf8");
   const ifaces = parseDtsInterfaces(src);
+  const { nsMap } = parseDtsExports(src);
   for (const nsName of nsNames) {
     const entry = namespaces[nsName];
-    const base = dtsInterfaceBase[nsName];
-    assert.ok(base, `no d.ts interface mapping for ${nsName}`);
+    // Follow the actual `export const <ns>:` declaration to its interface(s),
+    // so a namespace dropped from the export surface fails here even if its
+    // interface still exists.
+    const decl = nsMap[nsName];
+    assert.ok(decl, `[index.d.ts] no \`export const ${nsName}\` declaration found`);
     if (entry.shape === "flat") {
-      const methods = ifaces[base];
-      assert.ok(methods, `[index.d.ts] interface ${base} not found`);
+      assert.equal(decl.shape, "flat", `[index.d.ts] ${nsName} should be a flat export`);
+      const methods = ifaces[decl.iface];
+      assert.ok(methods, `[index.d.ts] interface ${decl.iface} (type of ${nsName}) not found`);
       assertSetEqual("index.d.ts", nsName, null, methods, entry.functions);
     } else {
-      const single = ifaces[`${base}Single`];
-      const bulk = ifaces[`${base}Bulk`];
-      assert.ok(single, `[index.d.ts] interface ${base}Single not found`);
-      assert.ok(bulk, `[index.d.ts] interface ${base}Bulk not found`);
+      assert.equal(decl.shape, "single-bulk", `[index.d.ts] ${nsName} should be a single/bulk export`);
+      const single = ifaces[decl.single];
+      const bulk = ifaces[decl.bulk];
+      assert.ok(single, `[index.d.ts] interface ${decl.single} (single of ${nsName}) not found`);
+      assert.ok(bulk, `[index.d.ts] interface ${decl.bulk} (bulk of ${nsName}) not found`);
       assertSetEqual("index.d.ts", nsName, "single", single, entry.single);
       assertSetEqual("index.d.ts", nsName, "bulk", bulk, entry.bulk);
     }
@@ -378,7 +417,7 @@ test("namespace set agrees across all five surfaces (no surface-only namespace)"
   const jsSrc = readFileSync(resolve(repoRoot, "index.js"), "utf8");
   assertNsSetEqual("index.js", declaredConstNamespaceNames(jsSrc), expected);
   const dtsSrc = readFileSync(resolve(repoRoot, "index.d.ts"), "utf8");
-  assertNsSetEqual("index.d.ts", dtsNamespaceNames(parseDtsInterfaces(dtsSrc)), expected);
+  assertNsSetEqual("index.d.ts", new Set(Object.keys(parseDtsExports(dtsSrc).nsMap)), expected);
 });
 
 // The registry's per-namespace `deprecated` list must match the @deprecated
@@ -386,7 +425,8 @@ test("namespace set agrees across all five surfaces (no surface-only namespace)"
 // cannot silently drift.
 test("registry deprecated flags match index.d.ts @deprecated tags", () => {
   const dtsSrc = readFileSync(resolve(repoRoot, "index.d.ts"), "utf8");
-  const dep = parseDtsDeprecated(dtsSrc);
+  const { ifaceToNs } = parseDtsExports(dtsSrc);
+  const dep = parseDtsDeprecated(dtsSrc, ifaceToNs);
   for (const nsName of nsNames) {
     const expected = new Set(namespaces[nsName].deprecated || []);
     const actual = dep[nsName] || new Set();
