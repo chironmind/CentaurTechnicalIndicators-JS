@@ -1,0 +1,178 @@
+{
+  "version": "1.3.0",
+  "namespaces": {
+    "candleIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "movingConstantEnvelopes",
+        "mcginleyDynamicEnvelopes",
+        "movingConstantBands",
+        "mcginleyDynamicBands",
+        "ichimokuCloud",
+        "donchianChannels",
+        "keltnerChannel",
+        "supertrend"
+      ],
+      "bulk": [
+        "movingConstantEnvelopes",
+        "mcginleyDynamicEnvelopes",
+        "movingConstantBands",
+        "mcginleyDynamicBands",
+        "ichimokuCloud",
+        "donchianChannels",
+        "keltnerChannel",
+        "supertrend"
+      ],
+      "deprecated": []
+    },
+    "chartTrends": {
+      "shape": "flat",
+      "functions": [
+        "peaks",
+        "valleys",
+        "peakTrend",
+        "valleyTrend",
+        "overallTrend",
+        "breakDownTrends",
+        "peakFavorableMove",
+        "valleyFavorableMove"
+      ],
+      "deprecated": []
+    },
+    "correlationIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "correlateAssetPrices"
+      ],
+      "bulk": [
+        "correlateAssetPrices"
+      ],
+      "deprecated": []
+    },
+    "momentumIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "relativeStrengthIndex",
+        "stochasticOscillator",
+        "slowStochastic",
+        "slowestStochastic",
+        "williamsPercentR",
+        "moneyFlowIndex",
+        "rateOfChange",
+        "onBalanceVolume",
+        "commodityChannelIndex",
+        "mcginleyDynamicCommodityChannelIndex",
+        "macdLine",
+        "signalLine",
+        "mcginleyDynamicMacdLine",
+        "chaikinOscillator",
+        "percentagePriceOscillator",
+        "chandeMomentumOscillator"
+      ],
+      "bulk": [
+        "relativeStrengthIndex",
+        "stochasticOscillator",
+        "slowStochastic",
+        "slowestStochastic",
+        "williamsPercentR",
+        "moneyFlowIndex",
+        "rateOfChange",
+        "onBalanceVolume",
+        "commodityChannelIndex",
+        "mcginleyDynamicCommodityChannelIndex",
+        "macdLine",
+        "signalLine",
+        "mcginleyDynamicMacdLine",
+        "chaikinOscillator",
+        "percentagePriceOscillator",
+        "chandeMomentumOscillator"
+      ],
+      "deprecated": [
+        "slowStochastic",
+        "slowestStochastic",
+        "signalLine"
+      ]
+    },
+    "otherIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "returnOnInvestment",
+        "trueRange",
+        "averageTrueRange",
+        "internalBarStrength"
+      ],
+      "bulk": [
+        "returnOnInvestment",
+        "trueRange",
+        "averageTrueRange",
+        "internalBarStrength",
+        "positivityIndicator"
+      ],
+      "deprecated": []
+    },
+    "strengthIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "accumulationDistribution",
+        "volumeIndex",
+        "relativeVigorIndex"
+      ],
+      "bulk": [
+        "accumulationDistribution",
+        "positiveVolumeIndex",
+        "negativeVolumeIndex",
+        "relativeVigorIndex"
+      ],
+      "deprecated": []
+    },
+    "trendIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "aroonUp",
+        "aroonDown",
+        "aroonOscillator",
+        "aroonIndicator",
+        "longParabolicTimePriceSystem",
+        "shortParabolicTimePriceSystem",
+        "volumePriceTrend",
+        "trueStrengthIndex"
+      ],
+      "bulk": [
+        "aroonUp",
+        "aroonDown",
+        "aroonOscillator",
+        "aroonIndicator",
+        "parabolicTimePriceSystem",
+        "directionalMovementSystem",
+        "volumePriceTrend",
+        "trueStrengthIndex"
+      ],
+      "deprecated": []
+    },
+    "volatilityIndicators": {
+      "shape": "single-bulk",
+      "single": [
+        "ulcerIndex"
+      ],
+      "bulk": [
+        "ulcerIndex",
+        "volatilitySystem"
+      ],
+      "deprecated": [
+        "volatilitySystem"
+      ]
+    },
+    "movingAverage": {
+      "shape": "single-bulk",
+      "single": [
+        "movingAverage",
+        "mcginleyDynamic"
+      ],
+      "bulk": [
+        "movingAverage",
+        "mcginleyDynamic"
+      ],
+      "deprecated": []
+    }
+  }
+}
