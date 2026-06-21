@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-06-21
+
+### Changed
+- **Maintenance/release-only — no library or API changes from 1.3.0.** 1.3.0 was
+  never published to npm (a publishing-auth failure on the tag), so 1.3.1 is the
+  first npm release of the 1.3.0 change set: npm upgrades **1.2.1 → 1.3.1** and
+  gains everything listed under [1.3.0] below. npm publishing now uses Trusted
+  Publishing (OIDC) instead of a stored token.
+
 ## [1.3.0] - 2026-06-21
 
 ### Added
