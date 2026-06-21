@@ -3,12 +3,14 @@ name: Publish to npm
 on:
   push:
     tags:
-      - "v*.*.*"       # Only publish on version tags, e.g. v1.2.3
+      - "v*.*.*"       # Publish on version tags, e.g. v1.2.3
+  workflow_dispatch:    # Manual re-publish of the current package.json version (no re-tag needed)
 
-# Minimal token scope: checkout reads the repo; npm publish authenticates with
-# NPM_TOKEN, not GITHUB_TOKEN — so the default token needs only read.
+# Trusted Publishing (OIDC): id-token lets npm mint a short-lived credential at
+# publish time — no stored NPM_TOKEN to expire or leak. contents:read is for checkout.
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -21,8 +23,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           registry-url: https://registry.npmjs.org/
+
+      - name: Update npm (Trusted Publishing requires npm >= 11.5.1)
+        run: npm install -g npm@latest
 
       - name: Set up Rust (for WASM build)
         run: |
@@ -39,7 +44,8 @@ jobs:
       - name: Build WASM targets
         run: npm run build
 
-      - name: Publish to npm
+      # Authenticates via OIDC against the npm Trusted Publisher configured for this
+      # package (GitHub Actions → chironmind/CentaurTechnicalIndicators-JS, publish.yml).
+      # No NODE_AUTH_TOKEN; npm generates build provenance automatically.
+      - name: Publish to npm (Trusted Publishing / OIDC)
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
