@@ -1,4 +1,4 @@
-[![npm version](https://img.shields.io/npm/v/centaur-technical-indicators?color=cb3837&logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
+[![npm version](https://img.shields.io/npm/v/centaur-technical-indicators?logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
 [![npm downloads](https://img.shields.io/npm/dm/centaur-technical-indicators?logo=npm)](https://www.npmjs.com/package/centaur-technical-indicators)
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/centaur-technical-indicators?label=min+zip&logo=webpack)](https://bundlephobia.com/package/centaur-technical-indicators)
 [![Node](https://img.shields.io/badge/Node-%3E%3D20-339933?logo=node.js&logoColor=white)](#)
@@ -7,7 +7,7 @@
 [![TypeScript](https://img.shields.io/badge/Types-Included-3178C6?logo=typescript&logoColor=white)](#)
 [![Docs](https://img.shields.io/badge/docs-TypeDoc-blue?logo=githubpages)](https://chironmind.github.io/CentaurTechnicalIndicators-JS/)
 [![CI](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml/badge.svg)](https://github.com/chironmind/CentaurTechnicalIndicators-JS/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE-MIT)
 
 # CentaurTechnicalIndicators-JS
 
