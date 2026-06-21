@@ -46,6 +46,8 @@ const chartTrends = {
   valleyTrend: wasm.chart_trends_valleyTrend,
   overallTrend: wasm.chart_trends_overallTrend,
   breakDownTrends: wasm.chart_trends_breakDownTrends,
+  peakFavorableMove: wasm.chart_trends_peakFavorableMove,
+  valleyFavorableMove: wasm.chart_trends_valleyFavorableMove,
 };
 
 const correlationIndicators = {

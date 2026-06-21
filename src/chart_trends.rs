@@ -121,3 +121,25 @@ pub fn chart_trends_break_down_trends(
     }
     Ok(outer)
 }
+
+// peak_favorable_move: prices[index] - min(window) over [index+1, index+period]
+#[wasm_bindgen(js_name = chart_trends_peakFavorableMove)]
+pub fn chart_trends_peak_favorable_move(
+    prices: Vec<f64>,
+    index: usize,
+    period: usize,
+) -> Result<f64, JsValue> {
+    centaur_technical_indicators::chart_trends::peak_favorable_move(&prices, index, period)
+        .map_err(js_err)
+}
+
+// valley_favorable_move: max(window) - prices[index] over [index+1, index+period]
+#[wasm_bindgen(js_name = chart_trends_valleyFavorableMove)]
+pub fn chart_trends_valley_favorable_move(
+    prices: Vec<f64>,
+    index: usize,
+    period: usize,
+) -> Result<f64, JsValue> {
+    centaur_technical_indicators::chart_trends::valley_favorable_move(&prices, index, period)
+        .map_err(js_err)
+}
