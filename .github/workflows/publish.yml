@@ -5,6 +5,11 @@ on:
     tags:
       - "v*.*.*"       # Only publish on version tags, e.g. v1.2.3
 
+# Minimal token scope: checkout reads the repo; npm publish authenticates with
+# NPM_TOKEN, not GITHUB_TOKEN — so the default token needs only read.
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
