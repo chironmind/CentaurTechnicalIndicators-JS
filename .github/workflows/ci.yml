@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+# Minimal token scope: these jobs only read the repo (checkout) — no writes.
+permissions:
+  contents: read
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
