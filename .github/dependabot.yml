@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Keep GitHub Actions pinned in ci.yml / publish.yml current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+
+  # Keep npm devDependencies current.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 5
