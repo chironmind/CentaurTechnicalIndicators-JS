@@ -371,3 +371,61 @@ describe("momentumIndicators.bulk (parity, one model each)", () => {
     ]);
   });
 });
+
+// 1.3.0: wrappers now throw a JS `Error` on invalid input instead of panicking.
+describe("momentumIndicators error handling (throws JS Error)", () => {
+  // A1 (decisive): representative scalar wrapper throws a real Error.
+  test("single.relativeStrengthIndex empty array throws Error", () => {
+    assert.throws(
+      () =>
+        momentumIndicators.single.relativeStrengthIndex(
+          [],
+          ConstantModelType.SimpleMovingAverage
+        ),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      }
+    );
+  });
+
+  test("single.moneyFlowIndex mismatched series lengths throws Error", () => {
+    assert.throws(
+      () => momentumIndicators.single.moneyFlowIndex([100.2, 100.46], [268]),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      }
+    );
+  });
+
+  // Representative Array wrapper: period > length.
+  test("bulk.relativeStrengthIndex period > length throws Error", () => {
+    assert.throws(
+      () =>
+        momentumIndicators.bulk.relativeStrengthIndex(
+          [100.2, 100.46, 100.53],
+          ConstantModelType.SimpleMovingAverage,
+          10
+        ),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      }
+    );
+  });
+
+  test("bulk.stochasticOscillator empty array throws Error", () => {
+    assert.throws(
+      () => momentumIndicators.bulk.stochasticOscillator([], 5),
+      (err) => {
+        assert.ok(err instanceof Error);
+        assert.ok(typeof err.message === "string" && err.message.length > 0);
+        return true;
+      }
+    );
+  });
+});
