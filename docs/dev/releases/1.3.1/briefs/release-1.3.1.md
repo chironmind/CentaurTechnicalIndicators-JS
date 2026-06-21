@@ -7,6 +7,7 @@ effort: medium
 depends_on: []
 touches:
   - .github/workflows/publish.yml
+  - .github/dependabot.yml
   - package.json
   - Cargo.toml
   - CHANGELOG.md
@@ -70,8 +71,12 @@ with no stored secret.
   `centaur-technical-indicators` → **Settings → Trusted Publishing** → add a
   **GitHub Actions** publisher: organization `chironmind`, repository
   `CentaurTechnicalIndicators-JS`, workflow filename `publish.yml` (leave
-  *environment* blank unless one is added to the job). **If this is not done first,
-  the OIDC publish fails — stop and report; do not fall back to a token.**
+  *environment* blank unless one is added to the job). **Allowed actions: select
+  `npm publish`** — configs created after 2026-05-20 require at least one action,
+  and a stage-only config would *reject* the CI `npm publish` (it would instead
+  need a maintainer to approve each release via 2FA). **If this is not done first,
+  or `npm publish` is not allowed, the OIDC publish fails — stop and report; do
+  not fall back to a token.**
 - main is at the `v1.3.0` tag: `git rev-list --count v1.3.0..main` → `0`.
 
 ## Verify first (re-confirm at session start)
@@ -99,10 +104,11 @@ with no stored secret.
    shields.io default color; License badge link → `LICENSE-MIT`. Merge.
 3. **NEXT_RELEASE doc — `docs/dev/NEXT_RELEASE.md`** (PR **#48**, already open):
    internal planning doc; merge (no published-package effect).
-4. **(OPTIONAL — maintainer decides) Dependabot — `.github/dependabot.yml`**
-   (ROADMAP 1.6): additive, fits this release's supply-chain theme (Trusted
-   Publishing + the PR 46 token-permissions hardening). Include only if approved;
-   otherwise defer to 1.4.0.
+4. **Dependabot — `.github/dependabot.yml`** (ROADMAP 1.6; **included** per
+   maintainer decision 2026-06-21, PR **#52**): additive monthly checks for
+   GitHub Actions + npm, fitting this release's supply-chain theme (Trusted
+   Publishing + the PR 46 token-permissions hardening). The cargo ecosystem is
+   intentionally omitted (the core crate is exact-pinned `=1.3.0`).
 5. **Version cut — `package.json` + `Cargo.toml` `1.3.0 → 1.3.1`; `CHANGELOG.md`**
    `## [Unreleased]` → `## [1.3.1] - 2026-06-21`, reopen an empty `## [Unreleased]`
    above (branch `chore/version-cut-1.3.1`). Do **not** touch the
@@ -141,7 +147,7 @@ with no stored secret.
 ## Definition of done
 
 - [ ] Trusted-Publishing `publish.yml` merged; npm Trusted Publisher configured.
-- [ ] README (#49) + NEXT_RELEASE (#48) merged; dependabot merged iff approved.
+- [ ] README (#49) + NEXT_RELEASE (#48) merged; Dependabot (#52) merged.
 - [ ] Version cut to 1.3.1 merged; CHANGELOG finalized to `[1.3.1]`.
 - [ ] `v1.3.1` tagged + published via OIDC; `npm view … version` → `1.3.1`.
 - [ ] No `src/**` / `index.*` change anywhere in the release.
