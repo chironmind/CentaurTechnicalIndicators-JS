@@ -67,6 +67,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   `Result<Array, JsValue>` that carries the upstream `TechnicalIndicatorError`
   message. Adds the shared `src/jsutil.rs` `js_err` adapter. Success behavior
   unchanged.
+- `candleIndicators` wrappers now throw a JS `Error` on invalid input instead of
+  panicking: every fallible `.expect(...)` in `src/candle_indicators.rs` becomes
+  `.map_err(js_err)`, returning `Result<f64, JsValue>` / `Result<Array, JsValue>`
+  that carries the upstream error message. Success values, ordering, and warmup
+  are unchanged.
 - `trendIndicators` wrappers throw a JS `Error` on invalid input instead of
   panicking; success values unchanged. Also guards the same-length volume slice
   in `bulk.volumePriceTrend` so empty input now throws a clean JS `Error` rather
